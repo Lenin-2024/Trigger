@@ -1,15 +1,27 @@
 CC = gcc
 TINYEMU_DIR = ./tinyemu-2019-12-21
 
-all: main
+CFLAGS := -Wall -g -I"./raylib"
+LDFLAGS := -L"./raylib" -lraylib -lm -lpthread -ldl -lrt -lX11
 
-main: main.o
+TARGET := game
+SRCS := src/main.c
+
+OBJS := $(SRCS:.c=.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
 	make -C $(TINYEMU_DIR)
-	$(CC) main.o -o main
-
-main.o: main.c
-	$(CC) -c $< -o $@
+	make -C ./raylib
+	cp ./src/libraylib.a ./raylib
+	$(CC) $(CFLAGS) -o $@ -g $^ $(LDFLAGS)
+	
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
+	make clean -C ./raylib
+	rm -f ./raylib/libraylib.a
 	rm -f main.o main
 	make -C $(TINYEMU_DIR) clean
