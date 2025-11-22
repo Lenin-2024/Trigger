@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h> 
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -19,27 +19,15 @@ int output_len = 0;
 
 char* clear_str(char *output_start) {
     char *result = output_start;
+    char *src = output_start;
+    char *dst = output_start;
+    int in_escape = 0;
     
     char *tilde_pos = strchr(output_start, '~');
     if (tilde_pos != NULL) {
         *tilde_pos = '\0';
-    } else {
-        result = output_start;
-    }
-    
-    while (*result == '\r' || *result == '\n' || *result == ' ') {
-        result++;
-    }
+    }    
 
-    int len = strlen(result);
-    while (len > 0 && ((result[len-1] == '\r') || (result[len-1] == '\n') || (result[len-1] == ' '))) {
-        result[--len] = '\0';
-    }
-
-    
-    char *src = result;
-    char *dst = result;
-    int in_escape = 0;
     
     while (*src) {
         if (in_escape) {
@@ -55,7 +43,11 @@ char* clear_str(char *output_start) {
             src += 2;
             continue;
         }
-        
+
+        if (*src >= 0 && *src < 32 && *src != '\n') {
+            src++;
+        }
+
         *dst++ = *src++;
     }
     *dst = '\0';
@@ -67,9 +59,8 @@ void drawGame() {
     BeginDrawing();
         ClearBackground(BLACK);
         
-        char *res = output_buf; 
         if (strstr(output_buf, last_command)) {
-            res+=strlen(last_command);
+            char* res = strstr(output_buf, last_command) + strlen(last_command);
             strcpy(output_buf, res);
         }
 
@@ -149,8 +140,10 @@ int main() {
 
                 if (strlen(output_buf) + strlen(cleaned) < sizeof(output_buf) - 1) {
                     strcat(output_buf, cleaned);
+                } else {
+                    memcpy(output_buf, buffer, bytes);
                 }
-                
+
                 printf("buffer: '%s'\n", buffer);
                 printf("cleaned: '%s'\n", cleaned);
 

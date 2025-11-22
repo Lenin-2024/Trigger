@@ -4,7 +4,7 @@ TINYEMU_DIR = ./tinyemu-2019-12-21
 CFLAGS := -Wall -g -I"./raylib"
 LDFLAGS := -L"./raylib" -lraylib -lm -lpthread -ldl -lrt -lX11
 
-TARGET := game
+TARGET := main
 SRCS := src/main.c
 
 OBJS := $(SRCS:.c=.o)
