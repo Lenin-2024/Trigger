@@ -23,5 +23,5 @@ $(TARGET): $(OBJS)
 clean:
 	make clean -C ./raylib
 	rm -f ./raylib/libraylib.a
-	rm -f main.o main
+	rm -f $(OBJS) $(TARGET)
 	make -C $(TINYEMU_DIR) clean
