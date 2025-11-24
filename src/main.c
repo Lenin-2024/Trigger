@@ -9,6 +9,20 @@
 
 #include "raylib.h"
 
+
+struct console {
+    char command[256];
+    int cmd_pos;
+
+    char last_command[256];
+
+    char output_buf[BUFSIZ];
+    int output_len;
+};
+
+typedef struct console console_t;
+
+/*
 char command[256] = "";
 int cmd_pos = 0;
 
@@ -16,13 +30,15 @@ char last_command[256] = "";
 
 char output_buf[BUFSIZ] = "";
 int output_len = 0;
+*/
 
-void updateInput(int pipe_to);
+void updateInput(int pipe_to, console_t* consol);
 char* clear_str(char *output_start);
-void drawGame();
+void drawGame(console_t* consol);
 
 int main() {
     InitWindow(800, 600, "IPC");
+    console_t consol = {0};
 
     int stdin_pipe[2], stdout_pipe[2];    
     if (pipe(stdin_pipe) == -1 || pipe(stdout_pipe) == -1) {
@@ -57,7 +73,7 @@ int main() {
 
         while (!WindowShouldClose()) {
             /*----------обработка ввода от пользователя----------*/
-            updateInput(stdin_pipe[1]);
+            updateInput(stdin_pipe[1], &consol);
             /*----------конец обработки ввода----------*/
 
             /*----------начало чтения----------*/
@@ -68,12 +84,12 @@ int main() {
                 char *cleaned = clear_str(buffer);
 
                 size_t clean_len = strlen(cleaned);
-                if (output_len + clean_len < sizeof(output_buf) - 1) {
-                    strcat(output_buf, cleaned);
-                    output_len += clean_len;
+                if (consol.output_len + clean_len < sizeof(consol.output_buf) - 1) {
+                    strcat(consol.output_buf, cleaned);
+                    consol.output_len += clean_len;
                 } else {
-                    memset(output_buf, 0, BUFSIZ);
-                    output_len = 0;
+                    memset(consol.output_buf, 0, BUFSIZ);
+                    consol.output_len = 0;
                 }
 
                 // printf("cleaned: '%s'\n", cleaned);
@@ -87,7 +103,7 @@ int main() {
             }
             /*----------завершение чтения----------*/
 
-            drawGame();
+            drawGame(&consol);
         }
 
         close(stdin_pipe[1]);
@@ -104,32 +120,32 @@ int main() {
     return 0;
 }
 
-void updateInput(int pipe_to) {
+void updateInput(int pipe_to, console_t* consol) {
     int key = GetCharPressed();
-    if ((key > 0) && (cmd_pos < sizeof(command) - 1)) {
-        command[cmd_pos++] = key;
+    if ((key > 0) && (consol->cmd_pos < sizeof(consol->command) - 1)) {
+        consol->command[consol->cmd_pos++] = key;
     }
 
     if (IsKeyPressed(KEY_ENTER)) {
-        command[cmd_pos] = '\0';
+        consol->command[consol->cmd_pos] = '\0';
                     
-        if (strcmp(command, "exit") == 0) {
+        if (strcmp(consol->command, "exit") == 0) {
             //break;
         }
                     
-        strcpy(last_command, command);
+        strcpy(consol->last_command, consol->command);
 
-        output_buf[0] = '\0';
-        write(pipe_to, command, cmd_pos);
+        consol->output_buf[0] = '\0';
+        write(pipe_to, consol->command, consol->cmd_pos);
         write(pipe_to, "\n", 1);
 
-        memset(command, 0, 256);
+        memset(consol->command, 0, 256);
 
-        cmd_pos = 0;
+        consol->cmd_pos = 0;
     }
 
-    if (IsKeyPressed(KEY_BACKSPACE) && cmd_pos > 0) {
-        command[--cmd_pos] = '\0';
+    if (IsKeyPressed(KEY_BACKSPACE) && consol->cmd_pos > 0) {
+        consol->command[--consol->cmd_pos] = '\0';
     }
 }
 
@@ -175,16 +191,16 @@ char* clear_str(char *output_start) {
     return result;
 }
 
-void drawGame() {
+void drawGame(console_t* consol) {
     BeginDrawing();
         ClearBackground(BLACK);
         
-        if (strstr(output_buf, last_command)) {
-            char* res = strstr(output_buf, last_command) + strlen(last_command);
-            strcpy(output_buf, res);
+        if (strstr(consol->output_buf, consol->last_command)) {
+            char* res = strstr(consol->output_buf, consol->last_command) + strlen(consol->last_command);
+            strcpy(consol->output_buf, res);
         }
 
-        DrawText(output_buf, 10, 40, 24, GREEN);
-        DrawText(command, 10, 10, 24, GREEN);
+        DrawText(consol->output_buf, 10, 40, 24, GREEN);
+        DrawText(consol->command, 10, 10, 24, GREEN);
     EndDrawing();
 }
