@@ -1,0 +1,31 @@
+@startuml
+!define RECTANGLE class
+skinparam componentStyle rectangle
+
+package "Trigger" {
+  [Raylib] as raylib
+  [Application] as main
+  [Иницилизатор TinyEMU] as initTinyEMU
+  
+  [Менеджер каналов] as pipeManager
+  
+  main - initTinyEMU
+  main -- pipeManager
+  main -left- raylib
+}
+
+package "Эмулятор" {
+  [TinyEMU] as emulator
+}
+
+frame "Образ Системы" as image {
+  [bbl64.bin] as bbl
+  [kernel-riscv64.bin] as kernal
+  [root-riscv64.bin] as root
+  [root-riscv64.cfg] as conf
+  
+}
+emulator --> image : Загрузка
+pipeManager --(0-- emulator : UNIX Pipes
+initTinyEMU --> emulator : Запуск
+@enduml
