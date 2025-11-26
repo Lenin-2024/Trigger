@@ -1,0 +1,7 @@
+*.o
+*.d
+main
+libraylib.a
+temu
+splitimg
+build_filelist
