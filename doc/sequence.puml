@@ -1,0 +1,16 @@
+@startuml
+title Межпроцессное взаимодействие через Pipes
+
+actor User as "Пользователь"
+participant Parent as "Главный процесс (Движок игры)"
+participant Child as "Дочерний процесс (TinyEMU)"
+participant GUI as "Графическая библиотека (RayLib)"
+
+User -> Parent: Ввод команды
+Parent -> Child: Отправление команды
+Child --> Child: Выполнение команды
+Child -> Parent: Чтение данных от TinyEMU
+Parent --> Parent: Очистка и обработка вывода
+Parent -> GUI: Обновление буффера для вывода
+GUI --> User: Отображение результата
+@enduml
