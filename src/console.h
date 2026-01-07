@@ -12,7 +12,7 @@ struct console {
 };
 typedef struct console console_t;
 
-void update_input(int pipe_to, console_t* consol);
+void update_input(int pipe_to, console_t* consol, int *temu_run);
 char* clear_str(char *output_start);
 void draw_console(console_t* consol);
 

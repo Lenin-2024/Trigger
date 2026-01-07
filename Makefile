@@ -5,7 +5,7 @@ CFLAGS := -Wall -g -I"./raylib"
 LDFLAGS := -L"./raylib" -lraylib -lm -lpthread -ldl -lrt -lX11
 
 TARGET := main
-SRCS := src/main.c src/console.c src/player.c
+SRCS := src/main.c src/console.c src/player.c src/game.c
 
 OBJS := $(SRCS:.c=.o)
 

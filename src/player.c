@@ -5,11 +5,16 @@
 
 void init_player(player_t *player, Vector2 pos) {
     player->pos = pos;
-    player->tile_size = 16;
+    player->tile_size = 32;
 }
 
 void update_player(player_t *player) {
-
+    if (IsKeyDown(KEY_D)) {
+        player->pos.x += 1;
+    }
+    if (IsKeyDown(KEY_A)) {
+        player->pos.x -= 1;
+    }
 }
 
 void draw_player(player_t player) {

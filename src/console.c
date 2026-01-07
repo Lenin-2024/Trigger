@@ -7,7 +7,7 @@
 #include "console.h"
 #include "raylib.h"
 
-void update_input(int pipe_to, console_t* consol) {
+void update_input(int pipe_to, console_t* consol, int *temu_run) {
     int key = GetCharPressed();
     if ((key > 0) && (consol->cmd_pos < sizeof(consol->command) - 1)) {
         consol->command[consol->cmd_pos++] = key;
@@ -17,7 +17,7 @@ void update_input(int pipe_to, console_t* consol) {
         consol->command[consol->cmd_pos] = '\0';
                     
         if (strcmp(consol->command, "exit") == 0) {
-            //break;
+            *temu_run = 0;
         }
                     
         strcpy(consol->last_command, consol->command);
