@@ -44,6 +44,7 @@ void init(game_state_t *game) {
     SetTargetFPS(60);
 
     memset(game, 0, sizeof(game_state_t));
+    game->temu_run = 0;
 
     if (pipe(game->stdin_pipe) == -1 || pipe(game->stdout_pipe) == -1) {
         perror("pipe");
@@ -53,6 +54,7 @@ void init(game_state_t *game) {
     fcntl(game->stdout_pipe[0], F_SETFL, O_NONBLOCK);
     fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
 
+    /* иницилизация tinyEMU (запуск нового потка) */
     game->temu_pid = fork();
     if (game->temu_pid == 0) {
         close(game->stdin_pipe[1]);
@@ -77,33 +79,45 @@ void init(game_state_t *game) {
         fprintf(stderr, "Не удалось запустить эмулятор.\n");
         exit(1);
     }
+
+    game->game_run = 1;
 }
 
 void update(game_state_t *game) {
     while (!WindowShouldClose()) {
-        update_input(game->stdin_pipe[1], &game->console);
-        char buffer[1024];
-        ssize_t bytes = read(game->stdout_pipe[0], buffer, sizeof(buffer)-1);
-        if (bytes > 0) {
-            buffer[bytes] = '\0';
-            char *cleaned = clear_str(buffer);
+        if (game->temu_run) {
+            /* обработка чтения */
+            update_input(game->stdin_pipe[1], &game->console);
+            char buffer[1024];
+            ssize_t bytes = read(game->stdout_pipe[0], buffer, sizeof(buffer)-1);
+            if (bytes > 0) {
+                buffer[bytes] = '\0';
+                char *cleaned = clear_str(buffer);
 
-            size_t clean_len = strlen(cleaned);
-            if (game->console.output_len + clean_len < sizeof(game->console.output_buf) - 1) {
-                strcat(game->console.output_buf, cleaned);
-                game->console.output_len += clean_len;
-            } else {
-                memset(game->console.output_buf, 0, BUFSIZ);
-                game->console.output_len = 0;
+                size_t clean_len = strlen(cleaned);
+                if (game->console.output_len + clean_len < sizeof(game->console.output_buf) - 1) {
+                    strcat(game->console.output_buf, cleaned);
+                    game->console.output_len += clean_len;
+                } else {
+                    memset(game->console.output_buf, 0, BUFSIZ);
+                    game->console.output_len = 0;
+                }
+            } else if (bytes < 0 && errno != EAGAIN) {
+                perror("read stdout");
+                break;
+            } else if (bytes == 0) {
+                printf("Temu завершил работу\n");
+                break;
             }
-        } else if (bytes < 0 && errno != EAGAIN) {
-            perror("read stdout");
-            break;
-        } else if (bytes == 0) {
-            printf("Temu завершил работу\n");
-            break;
+        } else {
+            
         }
-        /*----------завершение чтения----------*/
+        
+        if (IsKeyPressed(KEY_P)) {
+            game->temu_run = 1;
+        }
+
+        /* отрисовка игры */
         draw(game);
     }
 }
@@ -111,7 +125,11 @@ void update(game_state_t *game) {
 void draw(game_state_t *game) {
     BeginDrawing();
         ClearBackground(BLACK);
-        draw_console(&game->console);
+        if (game->temu_run) {
+            draw_console(&game->console);
+        } else {
+            
+        }
     EndDrawing();
 }
 
