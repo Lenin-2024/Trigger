@@ -61,7 +61,7 @@ void init(game_state_t *game) {
 
 void update(game_state_t *game) {
     while (!WindowShouldClose()) {
-        if (game->game_run) { 
+        if (game->game_run == 1) { 
             if (game->temu_run) {
                 /* обработка чтения */
                 update_input(game->stdin_pipe[1], &game->console, &game->temu_run);
@@ -92,9 +92,10 @@ void update(game_state_t *game) {
                 }
                 update_player(&game->player);
             }
+        } else if (game->game_run == -1) {
+            break;
         }
-
-        /* отрисовка игры */
+        
         draw(game);
     }
 }
@@ -109,7 +110,7 @@ void draw(game_state_t *game) {
                 draw_player(game->player);   
             }
         } else {
-            draw_start_menu();
+            draw_start_menu(&game->game_run);
         }
     EndDrawing();
 }
