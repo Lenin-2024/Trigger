@@ -8,6 +8,7 @@
 #include <errno.h>
 
 #include "game.h"
+#include "menu.h"
 
 const int width = 800;
 const int height = 600;
@@ -54,44 +55,44 @@ void init(game_state_t *game) {
         exit(1);
     }
 
-    game->game_run = 1;
+    menu_init(width, height);
+    game->game_run = 0;
 }
 
 void update(game_state_t *game) {
     while (!WindowShouldClose()) {
-        if (game->temu_run) {
-            /* обработка чтения */
-            update_input(game->stdin_pipe[1], &game->console, &game->temu_run);
-            char buffer[1024];
-            ssize_t bytes = read(game->stdout_pipe[0], buffer, sizeof(buffer)-1);
-            if (bytes > 0) {
-                buffer[bytes] = '\0';
-                char *cleaned = clear_str(buffer);
+        if (game->game_run) { 
+            if (game->temu_run) {
+                /* обработка чтения */
+                update_input(game->stdin_pipe[1], &game->console, &game->temu_run);
+                char buffer[1024];
+                ssize_t bytes = read(game->stdout_pipe[0], buffer, sizeof(buffer)-1);
+                if (bytes > 0) {
+                    buffer[bytes] = '\0';
+                    char *cleaned = clear_str(buffer);
 
-                size_t clean_len = strlen(cleaned);
-                if (game->console.output_len + clean_len < sizeof(game->console.output_buf) - 1) {
-                    strcat(game->console.output_buf, cleaned);
-                    game->console.output_len += clean_len;
-                } else {
-                    memset(game->console.output_buf, 0, BUFSIZ);
-                    game->console.output_len = 0;
+                    size_t clean_len = strlen(cleaned);
+                    if (game->console.output_len + clean_len < sizeof(game->console.output_buf) - 1) {
+                        strcat(game->console.output_buf, cleaned);
+                        game->console.output_len += clean_len;
+                    } else {
+                        memset(game->console.output_buf, 0, BUFSIZ);
+                        game->console.output_len = 0;
+                    }
+                } else if (bytes < 0 && errno != EAGAIN) {
+                    perror("read stdout");
+                    break;
+                } else if (bytes == 0) {
+                    printf("Temu завершил работу\n");
+                    break;
                 }
-            } else if (bytes < 0 && errno != EAGAIN) {
-                perror("read stdout");
-                break;
-            } else if (bytes == 0) {
-                printf("Temu завершил работу\n");
-                break;
+            } else {
+                if (IsKeyPressed(KEY_P)) {
+                    game->temu_run = 1;
+                }
+                update_player(&game->player);
             }
-        } else {
-            if (IsKeyPressed(KEY_P)) {
-                game->temu_run = 1;
-            }
-
-            update_player(&game->player);
         }
-
-        
 
         /* отрисовка игры */
         draw(game);
@@ -101,22 +102,23 @@ void update(game_state_t *game) {
 void draw(game_state_t *game) {
     BeginDrawing();
         ClearBackground(BLACK);
-    
-        if (game->temu_run) {
-            draw_console(&game->console);
+        if (game->game_run) {
+            if (game->temu_run) {
+                draw_console(&game->console);
+            } else {
+                draw_player(game->player);   
+            }
         } else {
-            draw_player(game->player);   
+            draw_start_menu();
         }
     EndDrawing();
-}
-
-void draw_menu() {
-    
 }
 
 void cleanup(game_state_t *game) {
     close(game->stdin_pipe[1]);
     close(game->stdout_pipe[0]);
+
+    unload_menu();
 
     int status;
     if (waitpid(game->temu_pid, &status, 0)) {
