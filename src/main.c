@@ -5,6 +5,6 @@ int main(int argc, char **argv) {
     init(&game);
     update(&game);
     cleanup(&game);
-
+    
     return 0;
 }

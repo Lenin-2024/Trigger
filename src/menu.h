@@ -3,7 +3,7 @@
 
 void menu_init(int width, int height);
 void draw_start_menu(int *start_game);
-void draw_pause_menu();
+void draw_pause_menu(int *resume_game);
 void draw_settings_menu();
 void unload_menu();
 

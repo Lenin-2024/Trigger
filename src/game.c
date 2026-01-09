@@ -91,11 +91,16 @@ void update(game_state_t *game) {
                     game->temu_run = 1;
                 }
                 update_player(&game->player);
+
+                /* Сеню паузы */
+                if (IsKeyPressed(KEY_Q)) {
+                    game->game_run = 2;
+                }
             }
         } else if (game->game_run == -1) {
             break;
         }
-        
+
         draw(game);
     }
 }
@@ -103,15 +108,24 @@ void update(game_state_t *game) {
 void draw(game_state_t *game) {
     BeginDrawing();
         ClearBackground(BLACK);
-        if (game->game_run) {
-            if (game->temu_run) {
-                draw_console(&game->console);
-            } else {
-                draw_player(game->player);   
-            }
-        } else {
-            draw_start_menu(&game->game_run);
-        }
+
+        switch (game->game_run) {
+            case 0:
+                draw_start_menu(&game->game_run);
+                break;
+            case 1:
+                if (game->temu_run) {
+                    draw_console(&game->console);
+                } else {
+                    draw_player(game->player);   
+                }
+                break;
+            case 2:
+                draw_pause_menu(&game->game_run);
+                break;
+            default:
+                break;
+        }        
     EndDrawing();
 }
 

@@ -24,6 +24,12 @@ int menu_exit_game_button_height = 0;
 int menu_exit_game_button_start_x = 0;
 int menu_exit_game_button_start_y = 0;
 
+Texture2D menu_resume_button_texture;
+int menu_resume_button_width = 0;
+int menu_resume_button_height = 0;
+int menu_resume_button_start_x = 0;
+int menu_resume_button_start_y = 0;
+
 void menu_init(int width, int height) {
     menu_box_texture = LoadTexture("resources/menu/BoxesBanners/Box_Orange_Rounded.png");
     if (menu_box_texture.width == 0 || menu_box_texture.height == 0) {
@@ -54,6 +60,16 @@ void menu_init(int width, int height) {
     menu_exit_game_button_height = menu_exit_game_button_texture.height * 0.3;
     menu_exit_game_button_start_x = (width / 2) - ((menu_exit_game_button_width / 2));
     menu_exit_game_button_start_y = menu_start_button_start_y + menu_start_button_height + 20;
+
+    menu_resume_button_texture = LoadTexture("resources/menu/ButtonsText/PremadeButtons_Resume.png");
+    if (menu_resume_button_texture.width == 0 || menu_resume_button_texture.height == 0) {
+        fprintf(stderr, "Не удалось загрузить текстуру %s!\n", "resources/menu/ButtonsText/PremadeButtons_Resume.png");
+        exit(1);
+    }
+    menu_resume_button_width = menu_resume_button_texture.width * 0.3;
+    menu_resume_button_height = menu_resume_button_texture.height * 0.3;
+    menu_resume_button_start_x = (width / 2) - ((menu_resume_button_width / 2));
+    menu_resume_button_start_y = (height / 2) - ((menu_resume_button_height / 2));
 }
 
 int check_button_click(int button_x, int button_y, int button_width, int button_height) {
@@ -85,11 +101,27 @@ void draw_start_menu(int *start_game) {
     DrawRectangleLines(menu_start_button_start_x, menu_start_button_start_y, menu_start_button_width, menu_start_button_height, RED);
     DrawRectangleLines(menu_exit_game_button_start_x, menu_exit_game_button_start_y, menu_exit_game_button_width, menu_exit_game_button_height, RED);
 #endif
-
 }
 
-void draw_pause_menu() {
-    
+void draw_pause_menu(int *resume_game) {
+    DrawTextureEx(menu_box_texture, (Vector2){ menu_box_start_x, menu_box_start_y}, 0, 0.35, WHITE);
+    DrawTextureEx(menu_resume_button_texture, (Vector2){ menu_resume_button_start_x, menu_resume_button_start_y}, 0, 0.3, WHITE);
+    DrawTextureEx(menu_exit_game_button_texture, (Vector2){ menu_exit_game_button_start_x, menu_exit_game_button_start_y}, 0, 0.3, WHITE);
+
+    /* Проверка нажатия кнопки "Продолжить игру" */
+    if (check_button_click(menu_resume_button_start_x, menu_resume_button_start_y, menu_resume_button_width, menu_resume_button_height)) {  
+        *resume_game = 1;
+    }
+
+    /* Проверка нажатия кнопки "Выйти в меню" */
+    if (check_button_click(menu_exit_game_button_start_x, menu_exit_game_button_start_y, menu_exit_game_button_width, menu_exit_game_button_height)) {
+        *resume_game = 0;
+    }
+
+#if DEBUG_MENU_MODE
+    DrawRectangleLines(menu_resume_button_start_x, menu_resume_button_start_y, menu_resume_button_width, menu_resume_button_height, RED);
+    DrawRectangleLines(menu_exit_game_button_start_x, menu_exit_game_button_start_y, menu_exit_game_button_width, menu_exit_game_button_height, RED);
+#endif 
 }
 
 void draw_settings_menu() {
