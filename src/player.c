@@ -1,22 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "raylib.h"
+#include "raymath.h"
 #include "player.h"
 
+#define DEBUG_PLAYER_MODE 0
+
+Texture2D player_texture;
+int frame = 0;
+int max_frames = 10;
+int scale = 2;
+
 void init_player(player_t *player, Vector2 pos) {
+    player_texture = LoadTexture("resources/male_hero_template.png");
+    if ((player_texture.height == 0) || (player_texture.width == 0)) {
+        fprintf(stderr, "Не удалось загрузить текстуру %s!\n", "resources/male_hero_template.png");
+        exit(1);
+    }
+
+    player->current_frame = 0;
     player->pos = pos;
-    player->tile_size = 32;
+    player->velocity = (Vector2){0, 0};
+    player->flip = 1;
+    player->tile_size = player_texture.width / 10;
+    player->state = IDLE;
 }
 
 void update_player(player_t *player) {
+    player->velocity = Vector2Zero();
     if (IsKeyDown(KEY_D)) {
-        player->pos.x += 1;
+        player->velocity.x += 1;
+        player->flip = 1;
     }
     if (IsKeyDown(KEY_A)) {
-        player->pos.x -= 1;
+        player->velocity.x -= 1;
+        player->flip = -1;
     }
+
+    if (player->velocity.x != 0) {
+        player->state = GO;
+    } else {
+        player->state = IDLE;
+    }
+
+    frame++;
+    if (frame % 6 == 0) {
+        player->current_frame = (player->current_frame + 1) % 10;
+        frame = 0;
+    }
+
+    player->pos = Vector2Add(player->pos, player->velocity);
 }
 
 void draw_player(player_t player) {
-    DrawRectangle(player.pos.x, player.pos.y, player.tile_size, player.tile_size, RED);
+#if DEBUG_PLAYER_MODE == 1
+    DrawRectangle(player.pos.x + 128 - 16, player.pos.y + 128 - 32, 32, 64, RED);
+#endif
+    // Кадр в персонажа
+    Rectangle source_rec = {
+        128 * player.current_frame, player.state * 128, player.flip * 128, 128
+    };
+
+    // Размер и позиция
+    Rectangle dest_rec = {
+        player.pos.x, player.pos.y, player.tile_size * scale, player.tile_size * scale
+    };
+
+    DrawTexturePro(player_texture, source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);
 }

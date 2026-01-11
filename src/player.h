@@ -3,9 +3,21 @@
 
 #include "raylib.h"
 
+enum state {
+    IDLE = 1,
+    GO = 2,
+    RUN = 3,
+};
+
+extern Texture2D player_texture;
+
 struct player {
+    Vector2 velocity;
     Vector2 pos;
+    int current_frame;
     int tile_size;
+    int flip;
+    enum state state;
 };
 typedef struct player player_t;
 
