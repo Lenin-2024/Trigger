@@ -5,12 +5,13 @@
 #include "raymath.h"
 #include "player.h"
 
-#define DEBUG_PLAYER_MODE 0
+#define DEBUG_PLAYER_MODE 1
 
 Texture2D player_texture;
 int frame = 0;
 int max_frames = 10;
 int scale = 2;
+const int speed = 1;
 
 void init_player(player_t *player, Vector2 pos) {
     player_texture = LoadTexture("resources/male_hero_template.png");
@@ -30,18 +31,28 @@ void init_player(player_t *player, Vector2 pos) {
 void update_player(player_t *player) {
     player->velocity = Vector2Zero();
     if (IsKeyDown(KEY_D)) {
-        player->velocity.x += 1;
+        if (IsKeyDown(KEY_LEFT_SHIFT)) {
+            player->velocity.x += speed * 3;
+            player->state = RUN;
+        } else {
+            player->velocity.x += speed;
+            player->state = GO;
+        }
         player->flip = 1;
     }
     if (IsKeyDown(KEY_A)) {
-        player->velocity.x -= 1;
+        if (IsKeyDown(KEY_LEFT_SHIFT)) {
+            player->velocity.x -= speed * 3;
+            player->state = RUN;
+        } else {
+            player->velocity.x -= speed;
+            player->state = GO;
+        }
         player->flip = -1;
     }
 
-    if (player->velocity.x != 0) {
-        player->state = GO;
-    } else {
-        player->state = IDLE;
+    if (player->velocity.x == 0) {
+        player->state = IDLE;   
     }
 
     frame++;
@@ -55,7 +66,10 @@ void update_player(player_t *player) {
 
 void draw_player(player_t player) {
 #if DEBUG_PLAYER_MODE == 1
-    DrawRectangle(player.pos.x + 128 - 16, player.pos.y + 128 - 32, 32, 64, RED);
+    char debug_txt[255];
+    sprintf(debug_txt, "Player(x = %.2f  | y = %.2f) speed = %.2f", player.pos.x, player.pos.y, player.velocity.x);
+    DrawText(debug_txt, 0, 20, 20, GREEN);
+    DrawRectangle(player.pos.x, player.pos.y, 32, 64, RED);
 #endif
     // Кадр в персонажа
     Rectangle source_rec = {
@@ -64,7 +78,7 @@ void draw_player(player_t player) {
 
     // Размер и позиция
     Rectangle dest_rec = {
-        player.pos.x, player.pos.y, player.tile_size * scale, player.tile_size * scale
+        player.pos.x - 128 + 16, player.pos.y - 128 + 32, player.tile_size * scale, player.tile_size * scale
     };
 
     DrawTexturePro(player_texture, source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);

@@ -108,7 +108,8 @@ void update(game_state_t *game) {
 void draw(game_state_t *game) {
     BeginDrawing();
         ClearBackground(BLACK);
-
+        DrawFPS(0, 0);
+        
         switch (game->game_run) {
             case 0:
                 draw_start_menu(&game->game_run);
