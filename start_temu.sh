@@ -9,5 +9,4 @@ sudo ip link set tap0 up
 echo "===Проверка tap0==="
 ip addr show tap0
 
-
 ./tinyemu-2019-12-21/temu -ctrlc ./conf/root-riscv64.cfg
