@@ -1,23 +1,23 @@
 #!/bin/bash
 
-cd net-prog/
+# cd net-prog/
 
-echo "=== Компиляция door ==="
-make clean
-make
+# echo "=== Компиляция door ==="
+# make clean
+# make
 
-cd ..
+# cd ..
 
 mkdir -p /tmp/rootfs
 
-sudo mount -o loop conf/rootfs.ext2 /tmp/rootfs
+sudo mount -o loop ../conf/rootfs.ext2 /tmp/rootfs
 
-sudo cp net-prog/door/door  /tmp/rootfs/usr/bin/
+sudo cp client  /tmp/rootfs/usr/bin/
 
 echo ==Проверка копирования файлов==
-ls -la /tmp/rootfs/usr/bin/ | grep "door"
+ls -la /tmp/rootfs/usr/bin/ | grep "client"
 
-sudo chmod +x /tmp/rootfs/usr/bin/door
+sudo chmod +x /tmp/rootfs/usr/bin/client
 
 sudo umount /tmp/rootfs
 
