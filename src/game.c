@@ -11,8 +11,20 @@
 #include "menu.h"
 #include "MQTTClient.h"
 
+#define ADDRESS     "tcp://192.168.3.1:1883"
+#define CLIENTID    "SimplePoll"
+#define TOPIC       "door"
+#define QOS         0
+
 const int width = 800;
 const int height = 600;
+
+MQTTClient client;
+MQTTClient_connectOptions conn_opts;
+MQTTClient_message *message = NULL;
+char *topic = NULL;
+int topicLen;
+int rc;
 
 void init(game_state_t *game) {
     InitWindow(width, height, "IPC");
@@ -56,12 +68,39 @@ void init(game_state_t *game) {
         exit(1);
     }
 
+    /* Инициализация mqtt */
+    MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
+
+    MQTTClient_create(&client, ADDRESS, CLIENTID,
+                      MQTTCLIENT_PERSISTENCE_NONE, NULL);
+
+    conn_opts.keepAliveInterval = 20;
+    conn_opts.cleansession = 1;
+    
+    if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS) {
+        printf("Ошибка подключения: %d\n", rc);
+        return -1;
+    }
+
+    MQTTClient_subscribe(client, TOPIC, QOS); // подписка на топик
+
     menu_init(width, height);
     game->game_run = 0;
 }
 
 void update(game_state_t *game) {
     while (!WindowShouldClose()) {
+        rc = MQTTClient_receive(client, &topic, &topicLen, &message, 1); // ожидаем сообщение
+        if (rc == MQTTCLIENT_SUCCESS && message != NULL) {
+            if (message->payloadlen == 1) {
+                char value = ((char*)message->payload)[0];
+                printf("Получено: %c\n", value);
+            }
+            
+            MQTTClient_freeMessage(&message);
+            MQTTClient_free(topic);
+        }
+
         if (game->game_run == 1) { 
             if (game->temu_run) {
                 /* обработка чтения */
@@ -134,6 +173,9 @@ void draw(game_state_t *game) {
 void cleanup(game_state_t *game) {
     close(game->stdin_pipe[1]);
     close(game->stdout_pipe[0]);
+
+    MQTTClient_disconnect(client, 1000);
+    MQTTClient_destroy(&client);
 
     unload_menu();
 

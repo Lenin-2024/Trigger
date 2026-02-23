@@ -2,7 +2,7 @@
 
 cd paho.mqtt.c/
 
-./make-build.sh
+./make-build.sh riscv
 
 cd ..
 

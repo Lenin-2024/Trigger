@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 #------------------Настройка tap интерфейса----------------------#
 sudo ip link delete tap0 2>/dev/null
 sudo ip tuntap add mode tap user $USER name tap0
@@ -9,8 +8,11 @@ sudo ip link set tap0 up
 echo "===Проверка tap0==="
 ip addr show tap0
 
-
-
+#------------------Сборка статической бибилиотеки для CISC----------------#
+cd net-prog/paho.mqtt.c/
+./make-build.sh cisc
+cd ../..
+make
 
 #------------------Запуск приложения---------------#
 ./main
