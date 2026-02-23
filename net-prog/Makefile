@@ -1,18 +1,14 @@
-CC = riscv64-linux-gnu-gcc
+CC = gcc
+CFLAGS = -Wall -static
+LIBS = -I"paho.mqtt.c/src" -L"paho.mqtt.c/src" -l:libpaho-mqtt3c.a
 
-DOOR_DIR = door
-STEMP_DIR = stemp
+all: serv client
 
-DOOR_SRCS = $(DOOR_DIR)/door.c net.c
-DOOR_OBJS = $(DOOR_DIR)/door.o net.o
+serv: src/serv.c
+	$(CC) $(CFLAGS) -o serv src/serv.c $(LIBS)
 
-all: door/door
-
-door/door: $(DOOR_OBJS)
-	$(CC) $^ -o $@
-
-net.o: net.c
-	$(CC) -c $< -o $@
+client: src/client.c
+	$(CC) $(CFLAGS) -o client src/client.c $(LIBS)
 
 clean:
-	rm -f door/*.o *.o door/door
+	rm -f client serv

@@ -6,3 +6,4 @@ temu
 splitimg
 build_filelist
 net-prog/test_mqtt/paho.mqtt.c/
+net-prog/paho.mqtt.c/

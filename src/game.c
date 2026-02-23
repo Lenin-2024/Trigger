@@ -9,6 +9,7 @@
 
 #include "game.h"
 #include "menu.h"
+#include "MQTTClient.h"
 
 const int width = 800;
 const int height = 600;
