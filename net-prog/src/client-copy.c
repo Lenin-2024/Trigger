@@ -9,17 +9,13 @@
 #define TOPIC       "door"
 #define QOS         0
 
-int main(int argc, char **argv) {
-    if (argc != 2) {
-        fprintf(stderr, "[ INFO ] useage %s %s", argv[0], "1 or 0");
-        return 1;
-    }
-
+int main() {
     MQTTClient client;
     MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
     MQTTClient_message pubmsg = MQTTClient_message_initializer;
     MQTTClient_deliveryToken token;
     int rc;
+    int value = 0;
 
     MQTTClient_create(&client, ADDRESS, CLIENTID,
                       MQTTCLIENT_PERSISTENCE_NONE, NULL);
@@ -32,13 +28,25 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    pubmsg.payload = argv[1];   // само сообщение
-    pubmsg.payloadlen = 1;      // длинна
-    pubmsg.qos = 0;             // qos 0 - без подтверждения
-    pubmsg.retained = 0;        // не сохранять на брокере
+    printf("Подключен! Отправляю 1 и 0...\n");
 
-    MQTTClient_publishMessage(client, TOPIC, &pubmsg, &token); // отправка
-    printf("Send: %d\n", argv[1]);
+    for(int i = 0; i < 10; i++) {
+        value = i % 2;
+
+        char payload[2];
+        payload[0] = value + '0';
+        payload[1] = '\0';
+
+        pubmsg.payload = payload;   // само сообщение
+        pubmsg.payloadlen = 1;      // длинна
+        pubmsg.qos = 0;             // qos 0 - без подтверждения
+        pubmsg.retained = 0;        // не сохранять на брокере
+
+        MQTTClient_publishMessage(client, TOPIC, &pubmsg, &token); // отправка
+        printf("Отправлено: %d\n", value);
+
+        sleep(1);
+    }
 
     MQTTClient_disconnect(client, 1000);
     MQTTClient_destroy(&client);

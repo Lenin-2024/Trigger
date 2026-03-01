@@ -9,6 +9,7 @@
 
 #include "game.h"
 #include "menu.h"
+#include "door.h"
 #include "MQTTAsync.h"
 
 #define ADDRESS     "tcp://192.168.3.1:1883"
@@ -26,6 +27,8 @@ char *topic = NULL;
 int topicLen;
 int rc;
 
+door_t *cdoor;
+
 // Функция обработки полученных сообщений
 int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *message) {
     game_state_t *game = (game_state_t*)context;
@@ -35,6 +38,7 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *me
         printf("Получено: %c\n", value);
         
         if (value == '1') {
+            cdoor->is_open = 1;
             printf("Door is open!\n");
         }
     }
@@ -133,6 +137,10 @@ void init(game_state_t *game) {
     }
 
     menu_init(width, height);
+
+    cdoor = (door_t *)malloc(sizeof(door_t));
+    init_door(cdoor, (Vector2){400, 150, 32, 32});
+
     game->game_run = 0;
 }
 
@@ -168,6 +176,7 @@ void update(game_state_t *game) {
                     game->temu_run = 1;
                 }
                 update_player(&game->player);
+                update_door(cdoor);
 
                 /* Меню паузы */
                 if (IsKeyPressed(KEY_Q)) {
@@ -196,6 +205,7 @@ void draw(game_state_t *game) {
                     draw_console(&game->console);
                 } else {
                     draw_player(game->player);   
+                    draw_door(cdoor);
                 }
                 break;
             case 2:
@@ -203,7 +213,9 @@ void draw(game_state_t *game) {
                 break;
             default:
                 break;
-        }        
+        }
+
+
     EndDrawing();
 }
 
@@ -228,9 +240,10 @@ void cleanup(game_state_t *game) {
     }
     MQTTAsync_destroy(&client);
     
-
     /* Выгрузка меню (текстур) */
     unload_menu();
+
+    free_door(cdoor);
 
     int status;
     if (waitpid(game->temu_pid, &status, 0)) {
