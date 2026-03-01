@@ -9,7 +9,7 @@
 
 #include "game.h"
 #include "menu.h"
-#include "MQTTClient.h"
+#include "MQTTAsync.h"
 
 #define ADDRESS     "tcp://192.168.3.1:1883"
 #define CLIENTID    "SimplePoll"
@@ -19,12 +19,61 @@
 const int width = 800;
 const int height = 600;
 
-MQTTClient client;
-MQTTClient_connectOptions conn_opts;
-MQTTClient_message *message = NULL;
+MQTTAsync client;
+MQTTAsync_connectOptions conn_opts = MQTTAsync_connectOptions_initializer;
+
 char *topic = NULL;
 int topicLen;
 int rc;
+
+// Функция обработки полученных сообщений
+int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *message) {
+    game_state_t *game = (game_state_t*)context;
+    
+    if (message->payloadlen == 1) {
+        char value = ((char*)message->payload)[0];
+        printf("Получено: %c\n", value);
+        
+        if (value == '1') {
+            printf("Door is open!\n");
+        }
+    }
+    
+    MQTTAsync_freeMessage(&message);
+    MQTTAsync_free(topicName);
+    return 1;
+}
+
+void connlost(void *context, char *cause, game_state_t *game) {
+        MQTTAsync client = (MQTTAsync)context;
+        MQTTAsync_connectOptions conn_opts = MQTTAsync_connectOptions_initializer;
+        int rc;
+        conn_opts.keepAliveInterval = 20;
+        conn_opts.cleansession = 1;
+        if ((rc = MQTTAsync_connect(client, &conn_opts)) != MQTTASYNC_SUCCESS) {
+            printf("Failed to start connect, return code %d\n", rc);
+            game->game_run = 0;
+        }
+}
+
+void onConnectSuccess(void* context, MQTTAsync_successData* response) {
+    game_state_t *game = (game_state_t*)context;
+    printf("Connected to MQTT broker\n");
+    
+    // Подписка после успешного подключения
+    MQTTAsync_responseOptions sub_opts = MQTTAsync_responseOptions_initializer;
+    sub_opts.context = game;
+    
+    if (MQTTAsync_subscribe(client, TOPIC, QOS, &sub_opts) != MQTTASYNC_SUCCESS) {
+        printf("Failed to subscribe\n");
+    }
+}
+
+void onConnectFailure(void* context, MQTTAsync_failureData* response) {
+    game_state_t *game = (game_state_t*)context;
+    printf("Connect failed, rc %d\n", response ? response->code : 0);
+    game->game_run = 0;
+}
 
 void init(game_state_t *game) {
     InitWindow(width, height, "IPC");
@@ -69,20 +118,19 @@ void init(game_state_t *game) {
     }
 
     /* Инициализация mqtt */
-    MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
-
-    MQTTClient_create(&client, ADDRESS, CLIENTID,
-                      MQTTCLIENT_PERSISTENCE_NONE, NULL);
+    MQTTAsync_create(&client, ADDRESS, CLIENTID, MQTTCLIENT_PERSISTENCE_NONE, NULL);    
+    MQTTAsync_setCallbacks(client, game, connlost, msgarrvd, NULL);
 
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
+    conn_opts.onSuccess = onConnectSuccess;
+    conn_opts.onFailure = onConnectFailure;
+    conn_opts.context = game;
     
-    if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS) {
-        printf("Ошибка подключения: %d\n", rc);
-        return -1;
+    if (MQTTAsync_connect(client, &conn_opts) != MQTTASYNC_SUCCESS) {
+        printf("Ошибка подключения\n");
+        game->game_run = 0;
     }
-
-    MQTTClient_subscribe(client, TOPIC, QOS); // подписка на топик
 
     menu_init(width, height);
     game->game_run = 0;
@@ -90,17 +138,6 @@ void init(game_state_t *game) {
 
 void update(game_state_t *game) {
     while (!WindowShouldClose()) {
-        rc = MQTTClient_receive(client, &topic, &topicLen, &message, 1); // ожидаем сообщение
-        if (rc == MQTTCLIENT_SUCCESS && message != NULL) {
-            if (message->payloadlen == 1) {
-                char value = ((char*)message->payload)[0];
-                printf("Получено: %c\n", value);
-            }
-            
-            MQTTClient_freeMessage(&message);
-            MQTTClient_free(topic);
-        }
-
         if (game->game_run == 1) { 
             if (game->temu_run) {
                 /* обработка чтения */
@@ -132,7 +169,7 @@ void update(game_state_t *game) {
                 }
                 update_player(&game->player);
 
-                /* Сеню паузы */
+                /* Меню паузы */
                 if (IsKeyPressed(KEY_Q)) {
                     game->game_run = 2;
                 }
@@ -171,12 +208,28 @@ void draw(game_state_t *game) {
 }
 
 void cleanup(game_state_t *game) {
-    close(game->stdin_pipe[1]);
-    close(game->stdout_pipe[0]);
+    /* Закрытие труб */
+    if (game->stdin_pipe[1] > 0) {
+        close(game->stdin_pipe[1]);
+    }
 
-    MQTTClient_disconnect(client, 1000);
-    MQTTClient_destroy(&client);
+    if (game->stdin_pipe[0] > 0) {
+        close(game->stdout_pipe[0]);
+    }
 
+    /* Отключение mqtt */
+    MQTTAsync_disconnectOptions disc_opts = MQTTAsync_disconnectOptions_initializer;
+    disc_opts.onSuccess = MQTTASYNC_DISCONNECTED;
+    disc_opts.timeout = 1000;
+    
+    rc = MQTTAsync_disconnect(client, &disc_opts);
+    if (rc != MQTTASYNC_SUCCESS) {
+        printf("Failed to disconnect MQTT, return code %d\n", rc);
+    }
+    MQTTAsync_destroy(&client);
+    
+
+    /* Выгрузка меню (текстур) */
     unload_menu();
 
     int status;
