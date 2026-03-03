@@ -29,10 +29,11 @@ int topicLen;
 int rc;
 
 door_t *cdoor;
+map_t *map;
 
 // Функция обработки полученных сообщений
 int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *message) {
-    game_state_t *game = (game_state_t*)context;
+    // game_state_t *game = (game_state_t*)context;
     
     if (message->payloadlen == 1) {
         char value = ((char*)message->payload)[0];
@@ -140,9 +141,9 @@ void init(game_state_t *game) {
     menu_init(width, height);
 
     cdoor = (door_t *)malloc(sizeof(door_t));
-    init_door(cdoor, (Vector2){400, 150, 32, 32});
+    init_door(cdoor, (Vector2){400, 150});
 
-    map_t *map = get_map("maps/map1-1.lvl");
+    map = get_map("maps/map1-1.lvl");
     printf("%d %d\n", map->rows, map->cols);
 
     game->game_run = 0;
@@ -235,7 +236,7 @@ void cleanup(game_state_t *game) {
 
     /* Отключение mqtt */
     MQTTAsync_disconnectOptions disc_opts = MQTTAsync_disconnectOptions_initializer;
-    disc_opts.onSuccess = MQTTASYNC_DISCONNECTED;
+    disc_opts.onSuccess = NULL;
     disc_opts.timeout = 1000;
     
     rc = MQTTAsync_disconnect(client, &disc_opts);
@@ -248,6 +249,7 @@ void cleanup(game_state_t *game) {
     unload_menu();
 
     free_door(cdoor);
+    free_map(map);
 
     int status;
     if (waitpid(game->temu_pid, &status, 0)) {

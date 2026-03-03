@@ -9,8 +9,8 @@ struct map {
 };
 typedef struct map map_t;
 
-
 map_t *get_map(char *file_name);
-void draw_map(player_t player, int **map);
+void draw_map(player_t player, map_t *map);
+void free_map(map_t *map);
 
 #endif /* __MAP_H__ */
