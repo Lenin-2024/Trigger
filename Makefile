@@ -5,7 +5,7 @@ CFLAGS := -Wall -g -I"./raylib"
 LDFLAGS := -L"./raylib" -lraylib -lm -lpthread -ldl -lrt -lX11 -I"net-prog/paho.mqtt.c/src" -L"net-prog/paho.mqtt.c/src" -l:libpaho-mqtt3a.a
 
 TARGET := main
-SRCS := src/main.c src/console.c src/player.c src/game.c src/menu.c src/door.c
+SRCS := src/main.c src/console.c src/player.c src/game.c src/menu.c src/door.c src/map.c
 
 OBJS := $(SRCS:.c=.o)
 

@@ -10,6 +10,7 @@
 #include "game.h"
 #include "menu.h"
 #include "door.h"
+#include "map.h"
 #include "MQTTAsync.h"
 
 #define ADDRESS     "tcp://192.168.3.1:1883"
@@ -140,6 +141,8 @@ void init(game_state_t *game) {
 
     cdoor = (door_t *)malloc(sizeof(door_t));
     init_door(cdoor, (Vector2){400, 150, 32, 32});
+
+    get_map("maps/map1-1.lvl");
 
     game->game_run = 0;
 }
