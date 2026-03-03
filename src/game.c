@@ -199,7 +199,6 @@ void update(game_state_t *game) {
 void draw(game_state_t *game) {
     BeginDrawing();
         ClearBackground(BLACK);
-        DrawFPS(0, 0);
         
         switch (game->game_run) {
             case 0:
@@ -209,8 +208,9 @@ void draw(game_state_t *game) {
                 if (game->temu_run) {
                     draw_console(&game->console);
                 } else {
-                    draw_player(game->player);   
                     draw_door(cdoor);
+                    draw_map(map);
+                    draw_player(game->player);   
                 }
                 break;
             case 2:
@@ -220,6 +220,7 @@ void draw(game_state_t *game) {
                 break;
         }
 
+    DrawFPS(0, 0);
 
     EndDrawing();
 }
