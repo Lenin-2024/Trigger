@@ -142,7 +142,8 @@ void init(game_state_t *game) {
     cdoor = (door_t *)malloc(sizeof(door_t));
     init_door(cdoor, (Vector2){400, 150, 32, 32});
 
-    get_map("maps/map1-1.lvl");
+    map_t *map = get_map("maps/map1-1.lvl");
+    printf("%d %d\n", map->rows, map->cols);
 
     game->game_run = 0;
 }

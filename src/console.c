@@ -47,7 +47,7 @@ char* clear_str(char *output_start) {
         *tilde_pos = '\0';
     }    
 
-    char *invite = strstr(output_start, "/ #");
+    char *invite = strstr(output_start, "#");
     if (invite != NULL) {
         *invite = '\0';
     } 
