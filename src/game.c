@@ -87,7 +87,7 @@ void init(game_state_t *game) {
 
     memset(game, 0, sizeof(game_state_t));
     game->temu_run = 0;
-    init_player(&game->player, (Vector2){32, 32});
+    init_player(&game->player, (Vector2){128, 128});
 
     if (pipe(game->stdin_pipe) == -1 || pipe(game->stdout_pipe) == -1) {
         perror("pipe");
@@ -180,7 +180,7 @@ void update(game_state_t *game) {
                 if (IsKeyPressed(KEY_P)) {
                     game->temu_run = 1;
                 }
-                update_player(&game->player);
+                update_player(&game->player, map);
                 update_door(cdoor);
 
                 /* Меню паузы */

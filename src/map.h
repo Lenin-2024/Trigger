@@ -1,8 +1,6 @@
 #ifndef __MAP_H__
 #define __MAP_H__
 
-#include "player.h"
-
 struct map {
     int **arr;
     int rows, cols;

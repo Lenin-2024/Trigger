@@ -4,8 +4,10 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "player.h"
+#include "map.h"
 
 #define DEBUG_PLAYER_MODE 1
+#define TILE_SIZE 32
 
 Texture2D player_texture;
 int frame = 0;
@@ -28,7 +30,7 @@ void init_player(player_t *player, Vector2 pos) {
     player->state = IDLE;
 }
 
-void update_player(player_t *player) {
+void update_player(player_t *player, map_t *map) {
     player->velocity = Vector2Zero();
     if (IsKeyDown(KEY_D)) {
         if (IsKeyDown(KEY_LEFT_SHIFT)) {
@@ -49,6 +51,12 @@ void update_player(player_t *player) {
             player->state = GO;
         }
         player->flip = -1;
+    } 
+    if (IsKeyDown(KEY_W)) {
+        player->pos.y-=speed;
+    }
+    if (IsKeyDown(KEY_S)) {
+        player->pos.y+=speed;
     }
 
     if (player->velocity.x == 0) {
@@ -61,7 +69,31 @@ void update_player(player_t *player) {
         frame = 0;
     }
 
+    check_collision_pl(map, player, 0);
     player->pos = Vector2Add(player->pos, player->velocity);
+}
+
+void check_collision_pl(map_t *map, player_t *player, int dir) {
+    int start_x = (int)(player->pos.x / TILE_SIZE);
+    int start_y = (int)(player->pos.y / TILE_SIZE);
+    int end_x   = (int)((player->pos.x + 64) / TILE_SIZE);
+    int end_y   = (int)((player->pos.y + 64) / TILE_SIZE);
+
+    for (int i = start_y; i < end_y; i++) {
+        for (int j = start_x; j < end_x; j++) {
+            if (map->arr[i][j] > 0) {
+                if (player->velocity.x > 0 && dir == 0) {
+                    player->pos.x = j * TILE_SIZE - 32 - player->velocity.x;
+                }
+                
+                if (player->velocity.x < 0 && dir == 0) {
+                    player->pos.x = j * TILE_SIZE + 32 - player->velocity.x;
+                }
+                player->velocity.x = 0;
+                
+            }
+        }
+    }
 }
 
 void draw_player(player_t player) {
