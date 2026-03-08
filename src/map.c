@@ -61,9 +61,9 @@ map_t *get_map(char *file_name) {
 
 void draw_map(map_t *map) {
     for (int i = 0; i < map->rows; i++) {
-        for (int j = 0; j < map->rows; j++) {
+        for (int j = 0; j < map->cols; j++) {
             if (map->arr[i][j] == 1) {
-                DrawRectangle(i * 32, j * 32, 32, 32, BLUE);
+                DrawRectangle(j * 32, i * 32, 32, 32, BLUE);
             }
         }
     }

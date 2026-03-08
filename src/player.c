@@ -14,7 +14,7 @@ int frame = 0;
 int max_frames = 10;
 int scale = 2;
 const int speed = 1;
-int on_ground = 1;
+int on_ground = 0;
 
 void init_player(player_t *player, Vector2 pos) {
     player_texture = LoadTexture("resources/male_hero_template.png");
@@ -25,7 +25,7 @@ void init_player(player_t *player, Vector2 pos) {
 
     player->current_frame = 0;
     player->pos = pos;
-    player->velocity = (Vector2){0, 0};
+    player->velocity = Vector2Zero();
     player->flip = 1;
     player->tile_size = player_texture.width / 10;
     player->state = IDLE;
@@ -51,9 +51,15 @@ void update_player(player_t *player, map_t *map) {
             player->state = GO;
         }
         player->flip = -1;
-    } 
+    }
+    if (IsKeyPressed(KEY_SPACE) && on_ground) {
+        printf("AAAAA\n");
+        player->velocity.y -= 4;
+        on_ground = 0;
+    }
+
     
-    player->velocity.y = fmaxf(player->velocity.y, 3) < 3 ? 1.0f : 3.0f;
+    player->velocity.y += fminf(player->velocity.y, 0.5f) < 0.5f ? 0.1f : 0.5f;
     if (player->velocity.y > 0) {
         on_ground = 0;
     }
@@ -70,9 +76,10 @@ void update_player(player_t *player, map_t *map) {
 
     player->pos.x += player->velocity.x;
     check_collision_pl(map, player, 0);
-    player->pos.y += player->velocity.y;
+    player->pos.y += player->velocity.y + 1;
     check_collision_pl(map, player, 1);
-    player->velocity = Vector2Zero();
+    
+    player->velocity.x = 0;
 }
 
 void check_collision_pl(map_t *map, player_t *player, int dir) {
@@ -111,13 +118,12 @@ void check_collision_pl(map_t *map, player_t *player, int dir) {
 void draw_player(player_t player) {
 #if DEBUG_PLAYER_MODE == 1
     char debug_txt[255];
-    sprintf(debug_txt, "Player(x = %.2f  | y = %.2f and x1 = %.2f  | y2 = %.2f) speed = %.2f\n \
-        onGround = %d", player.pos.x, player.pos.y, 
+    sprintf(debug_txt, "Player(x = %.2f  | y = %.2f and x1 = %.2f  | y2 = %.2f) \nonGround = %d vel.x = %.2f  vel.y = %.2f", 
+                        player.pos.x, player.pos.y, 
                         player.pos.x + 32, player.pos.y + 64, 
-                        player.velocity.x, on_ground);
+                        on_ground,
+                        player.velocity.x, player.velocity.y);
     DrawText(debug_txt, 0, 20, 20, GREEN);
-
-    
     DrawRectangle(player.pos.x, player.pos.y, 32, 64, RED);
 #endif
     // Кадр в персонажа
