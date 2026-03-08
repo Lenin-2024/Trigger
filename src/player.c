@@ -14,6 +14,7 @@ int frame = 0;
 int max_frames = 10;
 int scale = 2;
 const int speed = 1;
+int on_ground = 1;
 
 void init_player(player_t *player, Vector2 pos) {
     player_texture = LoadTexture("resources/male_hero_template.png");
@@ -31,7 +32,6 @@ void init_player(player_t *player, Vector2 pos) {
 }
 
 void update_player(player_t *player, map_t *map) {
-    player->velocity = Vector2Zero();
     if (IsKeyDown(KEY_D)) {
         if (IsKeyDown(KEY_LEFT_SHIFT)) {
             player->velocity.x += speed * 3;
@@ -52,14 +52,13 @@ void update_player(player_t *player, map_t *map) {
         }
         player->flip = -1;
     } 
-    if (IsKeyDown(KEY_W)) {
-        player->pos.y-=speed;
-    }
-    if (IsKeyDown(KEY_S)) {
-        player->pos.y+=speed;
+    
+    player->velocity.y = fmaxf(player->velocity.y, 3) < 3 ? 1.0f : 3.0f;
+    if (player->velocity.y > 0) {
+        on_ground = 0;
     }
 
-    if (player->velocity.x == 0) {
+    if (player->velocity.x == 0 || player->velocity.y == 0) {
         player->state = IDLE;   
     }
 
@@ -69,28 +68,41 @@ void update_player(player_t *player, map_t *map) {
         frame = 0;
     }
 
+    player->pos.x += player->velocity.x;
     check_collision_pl(map, player, 0);
-    player->pos = Vector2Add(player->pos, player->velocity);
+    player->pos.y += player->velocity.y;
+    check_collision_pl(map, player, 1);
+    player->velocity = Vector2Zero();
 }
 
 void check_collision_pl(map_t *map, player_t *player, int dir) {
     int start_x = (int)(player->pos.x / TILE_SIZE);
     int start_y = (int)(player->pos.y / TILE_SIZE);
-    int end_x   = (int)((player->pos.x + 64) / TILE_SIZE);
+    int end_x   = (int)((player->pos.x + 32) / TILE_SIZE);
     int end_y   = (int)((player->pos.y + 64) / TILE_SIZE);
 
-    for (int i = start_y; i < end_y; i++) {
-        for (int j = start_x; j < end_x; j++) {
+    for (int i = start_y; i <= end_y; i++) {
+        for (int j = start_x; j <= end_x; j++) {
+            if (i < 0 || i >= map->rows || j < 0 || j >= map->cols) {
+                continue;
+            }
+
             if (map->arr[i][j] > 0) {
-                if (player->velocity.x > 0 && dir == 0) {
-                    player->pos.x = j * TILE_SIZE - 32 - player->velocity.x;
+                if ((player->velocity.x > 0) && (dir == 0)) {
+                    player->pos.x = (j * TILE_SIZE) - 32 - 1;
+                    player->velocity.x = 0;
                 }
-                
-                if (player->velocity.x < 0 && dir == 0) {
-                    player->pos.x = j * TILE_SIZE + 32 - player->velocity.x;
+
+                if ((player->velocity.x < 0) && (dir == 0)) {
+                    player->pos.x = (j * TILE_SIZE) + 32 + 1;
+                    player->velocity.x = 0;
                 }
-                player->velocity.x = 0;
-                
+
+                if ((player->velocity.y > 0) && (dir == 1)) {
+                    player->pos.y = (i * TILE_SIZE) - 64 - 1;
+                    on_ground = 1;
+                    player->velocity.y = 0;
+                }
             }
         }
     }
@@ -99,8 +111,13 @@ void check_collision_pl(map_t *map, player_t *player, int dir) {
 void draw_player(player_t player) {
 #if DEBUG_PLAYER_MODE == 1
     char debug_txt[255];
-    sprintf(debug_txt, "Player(x = %.2f  | y = %.2f) speed = %.2f", player.pos.x, player.pos.y, player.velocity.x);
+    sprintf(debug_txt, "Player(x = %.2f  | y = %.2f and x1 = %.2f  | y2 = %.2f) speed = %.2f\n \
+        onGround = %d", player.pos.x, player.pos.y, 
+                        player.pos.x + 32, player.pos.y + 64, 
+                        player.velocity.x, on_ground);
     DrawText(debug_txt, 0, 20, 20, GREEN);
+
+    
     DrawRectangle(player.pos.x, player.pos.y, 32, 64, RED);
 #endif
     // Кадр в персонажа
