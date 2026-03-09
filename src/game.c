@@ -47,15 +47,15 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *me
 }
 
 void connlost(void *context, char *cause, game_state_t *game) {
-        MQTTAsync client = (MQTTAsync)context;
-        MQTTAsync_connectOptions conn_opts = MQTTAsync_connectOptions_initializer;
-        int rc;
-        conn_opts.keepAliveInterval = 20;
-        conn_opts.cleansession = 1;
-        if ((rc = MQTTAsync_connect(client, &conn_opts)) != MQTTASYNC_SUCCESS) {
-            printf("Failed to start connect, return code %d\n", rc);
-            game->game_run = 0;
-        }
+    MQTTAsync client = (MQTTAsync)context;
+    MQTTAsync_connectOptions conn_opts = MQTTAsync_connectOptions_initializer;
+    int rc;
+    conn_opts.keepAliveInterval = 20;
+    conn_opts.cleansession = 1;
+    if ((rc = MQTTAsync_connect(client, &conn_opts)) != MQTTASYNC_SUCCESS) {
+        printf("Failed to start connect, return code %d\n", rc);
+        game->game_run = 0;
+    }
 }
 
 void onConnectSuccess(void* context, MQTTAsync_successData* response) {
@@ -78,7 +78,7 @@ void onConnectFailure(void* context, MQTTAsync_failureData* response) {
 }
 
 void init(game_state_t *game) {
-    InitWindow(width, height, "IPC");
+    InitWindow(width, height, "Завод? Снова завон?! Не хочу на звод!");
     SetTargetFPS(60);
 
     memset(game, 0, sizeof(game_state_t));

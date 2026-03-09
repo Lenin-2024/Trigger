@@ -3,10 +3,11 @@
 
 #include "door.h"
 
-void init_door(door_t *cdoor, Vector2 pos) {
-    cdoor->pos = pos;
-    cdoor->is_open = 0;
-    cdoor->max_height = pos.y - 32;
+void init_door(door_t *cdoor, Vector2 pos, int num) {
+    cdoor[num].pos = pos;
+    cdoor[num].is_open = 0;
+    cdoor[num].max_height = pos.y - 32;
+    sprintf(cdoor[num].num, "%d", num);
 }
 
 void update_door(door_t *cdoor) {
@@ -18,6 +19,7 @@ void update_door(door_t *cdoor) {
 
 void draw_door(door_t *cdoor) {
     DrawRectangle(cdoor->pos.x, cdoor->pos.y, 32, 32, RED);
+    DrawText(cdoor->num, cdoor->pos.x + 8, cdoor->pos.y, 32, BLACK);
 }
 
 void free_door(door_t *cdoor) {

@@ -71,7 +71,8 @@ map_t *get_map(char *file_name, game_state_t* game) {
                     fclose(file);
                     return NULL;
                 }
-                init_door(&game->doors[game->count_doors - 1], (Vector2){j * 32, i * 32});
+
+                init_door(game->doors, (Vector2){j * 32, i * 32}, game->count_doors - 1);
                 num = 0;
             }
 
