@@ -3,6 +3,8 @@
 
 #include "raylib.h"
 
+struct game_state;
+
 struct door {
     int is_open;
     char num[2];
@@ -12,7 +14,7 @@ struct door {
 typedef struct door door_t;
 
 void init_door(door_t *cdoor, Vector2 pos, int num);
-void update_door(door_t *cdoor);
+void update_door(struct game_state *game, int num);
 void draw_door(door_t *cdoor);
 void free_door(door_t *cdoor);
 

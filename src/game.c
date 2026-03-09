@@ -177,7 +177,7 @@ void update(game_state_t *game) {
                 update_player(&game->player, map);
                 
                 for (int i = 0; i < game->count_doors; i++) {
-                    update_door(game->doors + i);
+                    update_door(game, i);
                 }
 
                 /* Меню паузы */

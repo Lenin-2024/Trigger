@@ -18,6 +18,7 @@ struct player {
     int current_frame;
     int tile_size;
     int flip;
+    int on_ground;
     enum state state;
 };
 typedef struct player player_t;

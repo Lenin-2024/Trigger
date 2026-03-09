@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "door.h"
+#include "game.h"
 
 void init_door(door_t *cdoor, Vector2 pos, int num) {
     cdoor[num].pos = pos;
@@ -10,10 +11,28 @@ void init_door(door_t *cdoor, Vector2 pos, int num) {
     sprintf(cdoor[num].num, "%d", num);
 }
 
-void update_door(door_t *cdoor) {
-    printf("door.y = %f | door->max_heifht = %f\n", cdoor->pos.y, cdoor->max_height);
-    if (cdoor->is_open && (cdoor->pos.y > cdoor->max_height)) {
-        cdoor->pos.y -= 0.25f;
+void update_door(game_state_t *game, int num) {
+    printf("door.y = %f | door->max_heifht = %f\n", game->doors[num].pos.y, game->doors[num].max_height);
+    if (game->doors[num].is_open && (game->doors[num].pos.y > game->doors[num].max_height)) {
+        game->doors[num].pos.y -= 0.25f;
+    }
+
+    Rectangle player_rect = {
+        game->player.pos.x, game->player.pos.y, 32, 64
+    };
+        
+    Rectangle door_rect = {
+        game->doors[num].pos.x, game->doors[num].pos.y,
+        32, 32
+    };
+
+    if (CheckCollisionRecs(player_rect, door_rect) && 
+        game->player.pos.y + 64 <= door_rect.y + door_rect.height + 5 &&
+        game->player.velocity.y >= 0) {
+            
+            game->player.pos.y = door_rect.y - 64;
+            game->player.on_ground = 1;
+            game->player.velocity.y = 0;
     }
 }
 

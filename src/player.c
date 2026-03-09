@@ -14,7 +14,6 @@ int frame = 0;
 int max_frames = 10;
 int scale = 2;
 const int speed = 1;
-int on_ground = 0;
 
 void init_player(player_t *player, Vector2 pos) {
     player_texture = LoadTexture("resources/male_hero_template.png");
@@ -28,6 +27,7 @@ void init_player(player_t *player, Vector2 pos) {
     player->velocity = Vector2Zero();
     player->flip = 1;
     player->tile_size = player_texture.width / 10;
+    player->on_ground = 0;
     player->state = IDLE;
 }
 
@@ -52,15 +52,15 @@ void update_player(player_t *player, map_t *map) {
         }
         player->flip = -1;
     }
-    if (IsKeyPressed(KEY_SPACE) && on_ground) {
+    if (IsKeyPressed(KEY_SPACE) && player->on_ground) {
         player->velocity.y -= 6.0f;
-        on_ground = 0;
+        player->on_ground = 0;
     }
 
     
     player->velocity.y += fminf(player->velocity.y, 2.f) < 2.f ? 0.2f : 0.0f;
     if (player->velocity.y > 0) {
-        on_ground = 0;
+        player->on_ground = 0;
     }
 
     if (player->velocity.x == 0 || player->velocity.y == 0) {
@@ -106,7 +106,7 @@ void check_collision_pl(map_t *map, player_t *player, int dir) {
 
                 if ((player->velocity.y > 0) && (dir == 1)) {
                     player->pos.y = (i * TILE_SIZE) - 64 - 1;
-                    on_ground = 1;
+                    player->on_ground = 1;
                     player->velocity.y = 0;
                 }
             }
@@ -120,7 +120,7 @@ void draw_player(player_t player) {
     sprintf(debug_txt, "Player(x = %.2f  | y = %.2f and x1 = %.2f  | y2 = %.2f) \nonGround = %d vel.x = %.2f  vel.y = %.2f", 
                         player.pos.x, player.pos.y, 
                         player.pos.x + 32, player.pos.y + 64, 
-                        on_ground,
+                        player.on_ground,
                         player.velocity.x, player.velocity.y);
     DrawText(debug_txt, 0, 20, 20, GREEN);
     DrawRectangle(player.pos.x, player.pos.y, 32, 64, RED);
