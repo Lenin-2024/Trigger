@@ -2,9 +2,11 @@
 #define __GAME_H__
 
 #include <unistd.h>
+#include <wait.h>
 
 #include "console.h"
 #include "player.h"
+#include "door.h"
 
 struct game_state {
     console_t console;
@@ -17,6 +19,10 @@ struct game_state {
     int level;
 
     player_t player;
+
+    door_t *doors;
+    int count_doors;
+
     int show_console;
 };
 typedef struct game_state game_state_t;
@@ -27,4 +33,4 @@ void init(game_state_t *game);
 void cleanup(game_state_t *game);
 
 
-#endif // __GAME_H__
+#endif /* __GAME_H__ */

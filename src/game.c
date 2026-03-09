@@ -28,20 +28,17 @@ char *topic = NULL;
 int topicLen;
 int rc;
 
-door_t *cdoor;
 map_t *map;
 
 // Функция обработки полученных сообщений
 int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *message) {
-    // game_state_t *game = (game_state_t*)context;
+    game_state_t *game = (game_state_t*)context;
     
     if (message->payloadlen == 1) {
-        char value = ((char*)message->payload)[0];
-        printf("Получено: %c\n", value);
-        
-        if (value == '1') {
-            cdoor->is_open = 1;
-            printf("Door is open!\n");
+        int door_n, state;
+        scanf((char*)message->payload, "%d %d", &door_n, &state);
+        if (game->count_doors >= door_n) {
+            game->doors[door_n].is_open = state;
         }
     }
     
@@ -87,7 +84,8 @@ void init(game_state_t *game) {
 
     memset(game, 0, sizeof(game_state_t));
     game->temu_run = 0;
-    init_player(&game->player, (Vector2){128, 128});
+    game->doors = NULL;
+    game->count_doors = 0;
 
     if (pipe(game->stdin_pipe) == -1 || pipe(game->stdout_pipe) == -1) {
         perror("pipe");
@@ -140,10 +138,7 @@ void init(game_state_t *game) {
 
     menu_init(width, height);
 
-    cdoor = (door_t *)malloc(sizeof(door_t));
-    init_door(cdoor, (Vector2){400, 150});
-
-    map = get_map("maps/map1-1.lvl");
+    map = get_map("maps/map1-1.lvl", game);
     printf("%d %d\n", map->rows, map->cols);
 
     game->game_run = 0;
@@ -181,7 +176,10 @@ void update(game_state_t *game) {
                     game->temu_run = 1;
                 }
                 update_player(&game->player, map);
-                update_door(cdoor);
+                
+                for (int i = 0; i < game->count_doors; i++) {
+                    update_door(game->doors + i);
+                }
 
                 /* Меню паузы */
                 if (IsKeyPressed(KEY_Q)) {
@@ -208,9 +206,11 @@ void draw(game_state_t *game) {
                 if (game->temu_run) {
                     draw_console(&game->console);
                 } else {
-                    draw_door(cdoor);
+                    for (int i = 0; i < game->count_doors; i++) {
+                        draw_door(game->doors + i);
+                    }
                     draw_map(map);
-                    draw_player(game->player);   
+                    draw_player(game->player);
                 }
                 break;
             case 2:
@@ -249,7 +249,11 @@ void cleanup(game_state_t *game) {
     /* Выгрузка меню (текстур) */
     unload_menu();
 
-    free_door(cdoor);
+    /* Отчистка дверей */
+    free(game->doors);
+    game->doors = NULL;
+    game->count_doors = 0;
+
     free_map(map);
 
     int status;

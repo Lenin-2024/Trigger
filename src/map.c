@@ -2,9 +2,10 @@
 #include <stdlib.h>
 
 #include "map.h"
+#include "game.h"
 #include "raylib.h"
 
-map_t *get_map(char *file_name) {
+map_t *get_map(char *file_name, game_state_t* game) {
     FILE *file = NULL;
     if ((file = fopen(file_name, "r")) == NULL) {
         fprintf(stderr, "[ ERROR ] file \'%s\' don't open\n", file_name);
@@ -52,6 +53,28 @@ map_t *get_map(char *file_name) {
     for (int i = 0; i < map->rows; i++) {
         for (int j = 0; j < map->cols; j++) {
             fscanf(file, "%d", &num);
+            if (num == 2) {
+                init_player(&game->player, (Vector2){j * 32, i * 32});
+                num = 0;
+            }
+
+            if (num == 3) {
+                game->count_doors++;
+                game->doors = (door_t *)realloc(game->doors, game->count_doors * sizeof(door_t));
+                if (game->doors == NULL) {
+                    fprintf(stderr, "[ ERROR ] Failed to reallocate memory for doors\n");
+                    for (int k = 0; k < map->rows; k++) {
+                        free(map->arr[k]);
+                    }
+                    free(map->arr);
+                    free(map);
+                    fclose(file);
+                    return NULL;
+                }
+                init_door(&game->doors[game->count_doors - 1], (Vector2){j * 32, i * 32});
+                num = 0;
+            }
+
             map->arr[i][j] = num;
         }
     }

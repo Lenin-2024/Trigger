@@ -10,7 +10,7 @@ void init_door(door_t *cdoor, Vector2 pos) {
 }
 
 void update_door(door_t *cdoor) {
-    printf("door.x = %f | door->max_heifht = %f\n", cdoor->pos.y, cdoor->max_height);
+    printf("door.y = %f | door->max_heifht = %f\n", cdoor->pos.y, cdoor->max_height);
     if (cdoor->is_open && (cdoor->pos.y > cdoor->max_height)) {
         cdoor->pos.y -= 0.25f;
     }

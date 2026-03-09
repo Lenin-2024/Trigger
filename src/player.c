@@ -53,13 +53,12 @@ void update_player(player_t *player, map_t *map) {
         player->flip = -1;
     }
     if (IsKeyPressed(KEY_SPACE) && on_ground) {
-        printf("AAAAA\n");
-        player->velocity.y -= 4;
+        player->velocity.y -= 6.0f;
         on_ground = 0;
     }
 
     
-    player->velocity.y += fminf(player->velocity.y, 0.5f) < 0.5f ? 0.1f : 0.5f;
+    player->velocity.y += fminf(player->velocity.y, 2.f) < 2.f ? 0.2f : 0.0f;
     if (player->velocity.y > 0) {
         on_ground = 0;
     }
