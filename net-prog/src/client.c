@@ -10,8 +10,8 @@
 #define QOS         0
 
 int main(int argc, char **argv) {
-    if (argc != 2) {
-        fprintf(stderr, "[ INFO ] useage %s %s", argv[0], "1 or 0");
+    if (argc != 3) {
+        fprintf(stderr, "[ INFO ] Useage %s door number %s status %s\n", argv[0], "1..n", "1 or 0");
         return 1;
     }
 
@@ -28,17 +28,19 @@ int main(int argc, char **argv) {
     conn_opts.cleansession = 1;
 
     if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS) {
-        printf("Ошибка подключения: %d\n", rc);
+        printf("[ ERROR ] Filed to connect: %d\n", rc);
         return -1;
     }
 
-    pubmsg.payload = argv[1];   // само сообщение
-    pubmsg.payloadlen = 1;      // длинна
+    char buf[255];
+    sprintf(buf, "%s %s", argv[1], argv[2]);
+    pubmsg.payload = buf;   // само сообщение
+    pubmsg.payloadlen = strlen(buf);      // длинна
     pubmsg.qos = 0;             // qos 0 - без подтверждения
     pubmsg.retained = 0;        // не сохранять на брокере
 
     MQTTClient_publishMessage(client, TOPIC, &pubmsg, &token); // отправка
-    printf("Send: %d\n", argv[1]);
+    printf("[ INFO ] Send %s to door %s\n", argv[1], argv[2]);
 
     MQTTClient_disconnect(client, 1000);
     MQTTClient_destroy(&client);

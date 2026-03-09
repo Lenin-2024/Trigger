@@ -33,13 +33,12 @@ map_t *map;
 // Функция обработки полученных сообщений
 int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *message) {
     game_state_t *game = (game_state_t*)context;
-    
-    if (message->payloadlen == 1) {
-        int door_n, state;
-        scanf((char*)message->payload, "%d %d", &door_n, &state);
-        if (game->count_doors >= door_n) {
-            game->doors[door_n].is_open = state;
-        }
+
+    int door_n, state;
+    sscanf((char*)message->payload, "%d %d", &door_n, &state);
+    printf("%d %d\n", door_n, state);
+    if (door_n >= 0 && door_n < game->count_doors) {
+        game->doors[door_n].is_open = state;
     }
     
     MQTTAsync_freeMessage(&message);
