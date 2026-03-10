@@ -58,6 +58,7 @@ void update_player(player_t *player, map_t *map) {
     if (IsKeyPressed(KEY_SPACE) && player->on_ground) {
         player->velocity.y -= 6.0f;
         player->on_ground = 0;
+        player->current_frame = 0;
     }
 
     player->velocity.y += fminf(player->velocity.y, 2.f) < 2.f ? 0.2f : 0.0f;
