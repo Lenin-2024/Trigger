@@ -36,7 +36,6 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *me
 
     int door_n, state;
     sscanf((char*)message->payload, "%d %d", &door_n, &state);
-    printf("%d %d\n", door_n, state);
     if (door_n >= 0 && door_n < game->count_doors) {
         game->doors[door_n].is_open = state;
     }
@@ -116,7 +115,7 @@ void init(game_state_t *game) {
 
         printf("[INFO] Temu запущен (PID: %d)\n", game->temu_pid);
     } else {
-        fprintf(stderr, "Не удалось запустить эмулятор.\n");
+        fprintf(stderr, "[ ERROR ] Не удалось запустить эмулятор.\n");
         exit(1);
     }
 
@@ -131,14 +130,13 @@ void init(game_state_t *game) {
     conn_opts.context = game;
     
     if (MQTTAsync_connect(client, &conn_opts) != MQTTASYNC_SUCCESS) {
-        printf("Ошибка подключения\n");
+        fprintf(stderr, "[ ERROR ]Ошибка подключения\n");
         game->game_run = 0;
     }
 
     menu_init(width, height);
 
     map = get_map("maps/map1-1.lvl", game);
-    printf("%d %d\n", map->rows, map->cols);
 
     game->game_run = 0;
 }

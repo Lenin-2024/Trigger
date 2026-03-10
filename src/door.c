@@ -12,7 +12,6 @@ void init_door(door_t *cdoor, Vector2 pos, int num) {
 }
 
 void update_door(game_state_t *game, int num) {
-    printf("door.y = %f | door->max_heifht = %f\n", game->doors[num].pos.y, game->doors[num].max_height);
     if (game->doors[num].is_open && (game->doors[num].pos.y > game->doors[num].max_height)) {
         game->doors[num].pos.y -= 0.25f;
     }
@@ -26,13 +25,31 @@ void update_door(game_state_t *game, int num) {
         32, 32
     };
 
-    if (CheckCollisionRecs(player_rect, door_rect) && 
-        game->player.pos.y + 64 <= door_rect.y + door_rect.height + 5 &&
-        game->player.velocity.y >= 0) {
-            
-            game->player.pos.y = door_rect.y - 64;
-            game->player.on_ground = 1;
-            game->player.velocity.y = 0;
+    if (CheckCollisionRecs(player_rect, door_rect)) {
+        float dx_left = (player_rect.x + player_rect.width) - door_rect.x;
+        float dx_right = (door_rect.x + door_rect.width) - player_rect.x;
+        float dy_top = (player_rect.y + player_rect.height) - door_rect.y;
+        float dy_bottom = (door_rect.y + door_rect.height) - player_rect.y;
+
+        float min_x = (dx_left < dx_right) ? dx_left : dx_right;
+        float min_y = (dy_top < dy_bottom) ? dy_top : dy_bottom;
+
+        if (min_x < min_y) {
+            if (dx_left < dx_right) {
+                game->player.pos.x = door_rect.x - player_rect.width;
+            } else {
+                game->player.pos.x = door_rect.x + door_rect.width;
+            }
+        } else {
+            if (dy_top < dy_bottom) {
+                game->player.pos.y = door_rect.y - player_rect.height;
+                game->player.on_ground = 1;
+                game->player.velocity.y = 0;
+            } else {
+                game->player.pos.y = door_rect.y + door_rect.height;
+                game->player.velocity.y = 0;
+            }
+        }
     }
 }
 
