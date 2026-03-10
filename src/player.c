@@ -12,6 +12,9 @@
 Texture2D player_texture;
 int frame = 0;
 int max_frames = 10;
+
+int count_jump_frame = 6;
+
 int scale = 2;
 const int speed = 1;
 
@@ -32,52 +35,70 @@ void init_player(player_t *player, Vector2 pos) {
 }
 
 void update_player(player_t *player, map_t *map) {
+    int moving_horizontally = 0;
+
     if (IsKeyDown(KEY_D)) {
         if (IsKeyDown(KEY_LEFT_SHIFT)) {
             player->velocity.x += speed * 3;
-            player->state = RUN;
         } else {
             player->velocity.x += speed;
-            player->state = GO;
         }
         player->flip = 1;
+        moving_horizontally = 1;
     }
     if (IsKeyDown(KEY_A)) {
         if (IsKeyDown(KEY_LEFT_SHIFT)) {
             player->velocity.x -= speed * 3;
-            player->state = RUN;
         } else {
             player->velocity.x -= speed;
-            player->state = GO;
         }
         player->flip = -1;
+        moving_horizontally = 1;
     }
     if (IsKeyPressed(KEY_SPACE) && player->on_ground) {
         player->velocity.y -= 6.0f;
         player->on_ground = 0;
     }
 
-    
     player->velocity.y += fminf(player->velocity.y, 2.f) < 2.f ? 0.2f : 0.0f;
     if (player->velocity.y > 0) {
         player->on_ground = 0;
     }
 
-    if (player->velocity.x == 0 || player->velocity.y == 0) {
-        player->state = IDLE;   
+    
+
+    player->pos.x += player->velocity.x;
+    check_collision_pl(map, player, 0);
+
+    player->pos.y += player->velocity.y + 1;
+    check_collision_pl(map, player, 1);
+
+    if (!player->on_ground) {
+        player->state = JUMP;
+    } else if (moving_horizontally) {
+        if (IsKeyDown(KEY_LEFT_SHIFT)) {
+            player->state = RUN;
+        } else {
+            player->state = GO;
+        }
+    } else {
+        player->state = IDLE;
     }
 
     frame++;
     if (frame % 6 == 0) {
-        player->current_frame = (player->current_frame + 1) % 10;
-        frame = 0;
+        if (player->state == JUMP) {
+            if ((player->current_frame + 1) % 6 == 0) {
+                // TODO
+            } else {
+                player->current_frame = (player->current_frame + 1) % 6;
+            }
+        } else {
+            player->current_frame = (player->current_frame + 1) % 10;
+            frame = 0;
+        }
     }
 
-    player->pos.x += player->velocity.x;
-    check_collision_pl(map, player, 0);
-    player->pos.y += player->velocity.y + 1;
-    check_collision_pl(map, player, 1);
-    
     player->velocity.x = 0;
 }
 

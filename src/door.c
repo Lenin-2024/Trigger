@@ -44,6 +44,7 @@ void update_door(game_state_t *game, int num) {
             if (dy_top < dy_bottom) {
                 game->player.pos.y = door_rect.y - player_rect.height;
                 game->player.on_ground = 1;
+                game->player.state = IDLE;
                 game->player.velocity.y = 0;
             } else {
                 game->player.pos.y = door_rect.y + door_rect.height;

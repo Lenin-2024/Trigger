@@ -8,6 +8,7 @@ enum state {
     IDLE = 1,
     GO = 2,
     RUN = 3,
+    JUMP = 4
 };
 
 extern Texture2D player_texture;
