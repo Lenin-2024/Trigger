@@ -18,6 +18,23 @@
 #define TOPIC       "door"
 #define QOS         0
 
+typedef enum {
+    MSG_UNKNOWN = 0,
+    MSG_DOOR,
+    MSG_BOX
+} engine_msg_t;
+
+typedef struct {
+    engine_msg_t id;
+    const char *topic;
+} topic_map_t;
+
+static const topic_map_t TOPIC_REGISTRY[] = {
+    { MSG_DOOR,     "door"   },
+    { MSG_BOX,      "box"  },
+    { MSG_UNKNOWN,  "unknow" }
+};
+
 const int width = 800;
 const int height = 600;
 
@@ -30,14 +47,33 @@ int rc;
 
 map_t *map;
 
+// Функция переводящая сроковое имя топика в число (id) из enum engine_msg_t
+engine_msg_t get_msg_id(const char* topicName) {
+    for (int i = 0; i < (int)(sizeof(TOPIC_REGISTRY) / sizeof(TOPIC_REGISTRY[0])); i++) {
+        if (strcmp(topicName, TOPIC_REGISTRY[i].topic) == 0) {
+            return TOPIC_REGISTRY[i].id;
+        }
+    }
+    return MSG_UNKNOWN;
+}
+
 // Функция обработки полученных сообщений
 int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *message) {
     game_state_t *game = (game_state_t*)context;
-
-    int door_n, state;
-    sscanf((char*)message->payload, "%d %d", &door_n, &state);
-    if (door_n >= 0 && door_n < game->count_doors) {
-        game->doors[door_n].is_open = state;
+    switch (get_msg_id(topicName)) {
+        case MSG_DOOR:
+            int door_n, state;
+            printf("[ INFO ] door get msg = %s\n", (char *)message->payload);
+            sscanf((char*)message->payload, "%d %d", &door_n, &state);
+            if (door_n >= 0 && door_n < game->count_doors) {
+                game->doors[door_n].is_open = state;
+            }
+            break;
+        case MSG_BOX:
+            printf("[ INFO ] box get msg = %s\n", (char *)message->payload);
+            break;    
+        default:
+            break;
     }
     
     MQTTAsync_freeMessage(&message);
@@ -45,6 +81,7 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *me
     return 1;
 }
 
+// Функция обработки разрыва соединения
 void connlost(void *context, char *cause, game_state_t *game) {
     MQTTAsync client = (MQTTAsync)context;
     MQTTAsync_connectOptions conn_opts = MQTTAsync_connectOptions_initializer;
@@ -52,27 +89,36 @@ void connlost(void *context, char *cause, game_state_t *game) {
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
     if ((rc = MQTTAsync_connect(client, &conn_opts)) != MQTTASYNC_SUCCESS) {
-        printf("Failed to start connect, return code %d\n", rc);
+        printf("[ ERROR ] Failed to start connect, return code %d\n", rc);
         game->game_run = 0;
     }
 }
 
+// Подключение к брокеру
 void onConnectSuccess(void* context, MQTTAsync_successData* response) {
     game_state_t *game = (game_state_t*)context;
-    printf("Connected to MQTT broker\n");
+    printf("[ INFO ] Try to connected to MQTT broker\n");
     
-    // Подписка после успешного подключения
     MQTTAsync_responseOptions sub_opts = MQTTAsync_responseOptions_initializer;
     sub_opts.context = game;
     
-    if (MQTTAsync_subscribe(client, TOPIC, QOS, &sub_opts) != MQTTASYNC_SUCCESS) {
-        printf("Failed to subscribe\n");
+    int num_topic = sizeof(TOPIC_REGISTRY) / sizeof(TOPIC_REGISTRY[0]);
+    for (int i = 0; i < num_topic; i++) {
+        if (TOPIC_REGISTRY[i].id == MSG_UNKNOWN) {
+            continue;
+        }
+        
+        if (MQTTAsync_subscribe(client, TOPIC_REGISTRY[i].topic, QOS, &sub_opts) != MQTTASYNC_SUCCESS) {
+            printf("[ ERROR ] Failed to subscribe to %s\n", TOPIC_REGISTRY[i].topic);
+        } else {
+            printf("[ INFO ] Subscribe to %s\n", TOPIC_REGISTRY[i].topic);
+        }
     }
 }
 
 void onConnectFailure(void* context, MQTTAsync_failureData* response) {
     game_state_t *game = (game_state_t*)context;
-    printf("Connect failed, rc %d\n", response ? response->code : 0);
+    printf("[ ERROR ] Connect failed, rc %d\n", response ? response->code : 0);
     game->game_run = 0;
 }
 
@@ -113,7 +159,7 @@ void init(game_state_t *game) {
         close(game->stdin_pipe[0]);
         close(game->stdout_pipe[1]);
 
-        printf("[INFO] Temu запущен (PID: %d)\n", game->temu_pid);
+        printf("[ INFO ] Temu запущен (PID: %d)\n", game->temu_pid);
     } else {
         fprintf(stderr, "[ ERROR ] Не удалось запустить эмулятор.\n");
         exit(1);
