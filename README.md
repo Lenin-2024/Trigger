@@ -44,6 +44,7 @@ Trigger/
 **Обязательные зависимости:**
 * sudo apt update
 * sudo apt install build-essential git make
+* sudo apt install libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev libwayland-dev libxkbcommon-dev
 
 # Сборка проекта
 1. Для сборки проекта скчайте его использовав команду git clone https://github.com/Lenin-2024/Trigger или же Скачайте его как архив и расспакуйте.
