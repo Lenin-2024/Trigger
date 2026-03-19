@@ -7,6 +7,7 @@
 #include "console.h"
 #include "player.h"
 #include "door.h"
+#include "engien/engien.h"
 
 struct game_state {
     console_t console;
@@ -18,6 +19,7 @@ struct game_state {
     int game_run;
     int level;
 
+    entity_manager_t *entity_manager;
     player_t player;
 
     door_t *doors;

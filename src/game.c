@@ -11,11 +11,11 @@
 #include "menu.h"
 #include "door.h"
 #include "map.h"
+#include "engien/engien.h"
 #include "MQTTAsync.h"
 
 #define ADDRESS     "tcp://192.168.3.1:1883"
 #define CLIENTID    "SimplePoll"
-#define TOPIC       "door"
 #define QOS         0
 
 typedef enum {
@@ -182,6 +182,7 @@ void init(game_state_t *game) {
 
     menu_init(width, height);
 
+    game->entity_manager = craete_entity_manager(5);
     map = get_map("maps/map1-1.lvl", game);
 
     game->game_run = 0;
@@ -218,7 +219,8 @@ void update(game_state_t *game) {
                 if (IsKeyPressed(KEY_P)) {
                     game->temu_run = 1;
                 }
-                update_player(&game->player, map);
+                
+                update_all_entities(game->entity_manager);
                 
                 for (int i = 0; i < game->count_doors; i++) {
                     update_door(game, i);
@@ -253,7 +255,7 @@ void draw(game_state_t *game) {
                         draw_door(game->doors + i);
                     }
                     draw_map(map);
-                    draw_player(game->player);
+                    draw_all_entities(game->entity_manager);
                 }
                 break;
             case 2:

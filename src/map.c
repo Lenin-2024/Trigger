@@ -54,7 +54,10 @@ map_t *get_map(char *file_name, game_state_t* game) {
         for (int j = 0; j < map->cols; j++) {
             fscanf(file, "%d", &num);
             if (num == 2) {
-                init_player(&game->player, (Vector2){j * 32, i * 32});
+                player_t *player = create_player((Vector2){j * 32, i * 32});
+                if (player) {
+                    create_entity(game->entity_manager, player, &player_vtable);
+                }
                 num = 0;
             }
 
