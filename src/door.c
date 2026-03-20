@@ -26,8 +26,9 @@ door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int num)
     door->pos = pos;
     door->is_open = 0;
     door->max_height = pos.y - 32;
+    door->id = num;
     sprintf(door->num, "%d", num);
-    
+
     door_entity->door = door;
     door_entity->manager = manager;
 
@@ -43,7 +44,7 @@ void update_door(door_t *door, entity_t *player_entity) {
     Rectangle player_rect = {
         player->pos.x, player->pos.y, 32, 64
     };
-        
+
     Rectangle door_rect = {
         door->pos.x, door->pos.y,
         32, 32
@@ -78,6 +79,20 @@ void update_door(door_t *door, entity_t *player_entity) {
     }
 }
 
+door_t* find_door_by_id(entity_manager_t *manager, int door_id) {
+    for (int i = 0; i < manager->count; i++) {
+        entity_t *entity = manager->entities[i];
+        // Проверяем, что это дверь (сравниваем vtable)
+        if (entity->vtable == &door_vtable) {
+            door_entity_data_t *door_data = (door_entity_data_t *)entity->data;
+            if (door_data->door->id == door_id) {
+                return door_data->door;
+            }
+        }
+    }
+    return NULL;
+}
+
 void draw_door(door_t *cdoor) {
     DrawRectangle(cdoor->pos.x, cdoor->pos.y, 32, 32, RED);
     DrawText(cdoor->num, cdoor->pos.x + 8, cdoor->pos.y, 32, BLACK);
@@ -92,7 +107,6 @@ void free_door(door_t *cdoor) {
 void door_entity_update(void *data) {
     door_entity_data_t *door_data = (door_entity_data_t *)data;
     update_door(door_data->door, door_data->manager->entities[door_data->manager->player_idx]);
-    // TODO
 }
 
 void door_entity_draw(void *data) {
@@ -101,6 +115,6 @@ void door_entity_draw(void *data) {
 }
 
 void door_entity_destroy(void *data) {
-    door_t *door = (door_t*)data;
-    free_door(door);
+    door_entity_data_t *door_data = (door_entity_data_t *)data;
+    free_door(door_data->door);
 }

@@ -65,11 +65,10 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *me
             int door_n, state;
             printf("[ INFO ] door get msg = %s\n", (char *)message->payload);
             sscanf((char*)message->payload, "%d %d", &door_n, &state);
-            /*
-            if (door_n >= 0 && door_n < game->count_doors) {
-                game->doors[door_n].is_open = state;
+            door_t *door = find_door_by_id(game->entity_manager, door_n);
+            if (door) {
+                door->is_open = state;
             }
-            */
             break;
         case MSG_BOX:
             printf("[ INFO ] box get msg = %s\n", (char *)message->payload);
