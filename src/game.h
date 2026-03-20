@@ -20,11 +20,7 @@ struct game_state {
     int level;
 
     entity_manager_t *entity_manager;
-    player_t player;
-
-    door_t *doors;
-    int count_doors;
-
+    
     int show_console;
 };
 typedef struct game_state game_state_t;

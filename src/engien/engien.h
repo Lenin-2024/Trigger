@@ -11,7 +11,7 @@ struct object_v_table {
 typedef struct object_v_table object_v_table_t;
 
 struct entity {
-    void *data;  
+    void *data;
     const object_v_table_t *vtable;
     int active;
 };
@@ -21,6 +21,7 @@ typedef struct {
     entity_t **entities;
     int count;
     int capacity;
+    int player_idx;
 } entity_manager_t;
 
 entity_manager_t *craete_entity_manager(int capacity);

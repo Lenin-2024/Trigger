@@ -65,9 +65,11 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *me
             int door_n, state;
             printf("[ INFO ] door get msg = %s\n", (char *)message->payload);
             sscanf((char*)message->payload, "%d %d", &door_n, &state);
+            /*
             if (door_n >= 0 && door_n < game->count_doors) {
                 game->doors[door_n].is_open = state;
             }
+            */
             break;
         case MSG_BOX:
             printf("[ INFO ] box get msg = %s\n", (char *)message->payload);
@@ -128,8 +130,6 @@ void init(game_state_t *game) {
 
     memset(game, 0, sizeof(game_state_t));
     game->temu_run = 0;
-    game->doors = NULL;
-    game->count_doors = 0;
 
     if (pipe(game->stdin_pipe) == -1 || pipe(game->stdout_pipe) == -1) {
         perror("pipe");
@@ -221,10 +221,6 @@ void update(game_state_t *game) {
                 }
                 
                 update_all_entities(game->entity_manager);
-                
-                for (int i = 0; i < game->count_doors; i++) {
-                    update_door(game, i);
-                }
 
                 /* Меню паузы */
                 if (IsKeyPressed(KEY_Q)) {
@@ -251,9 +247,6 @@ void draw(game_state_t *game) {
                 if (game->temu_run) {
                     draw_console(&game->console);
                 } else {
-                    for (int i = 0; i < game->count_doors; i++) {
-                        draw_door(game->doors + i);
-                    }
                     draw_map(map);
                     draw_all_entities(game->entity_manager);
                 }
@@ -295,9 +288,9 @@ void cleanup(game_state_t *game) {
     unload_menu();
 
     /* Отчистка дверей */
-    free(game->doors);
-    game->doors = NULL;
-    game->count_doors = 0;
+    // free(game->doors);
+    // game->doors = NULL;
+    // game->count_doors = 0;
 
     free_map(map);
 
