@@ -1,0 +1,1 @@
+/usr/bin/cc "CMakeFiles/test11-static.dir/test11.c.o" -o test11-static  ../src/libpaho-mqtt3a.a -lc -ldl -lpthread -lrt -lanl 

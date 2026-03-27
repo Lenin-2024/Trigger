@@ -1,0 +1,1 @@
+/usr/bin/cc "CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o" -o test_sync_session_present-static  ../src/libpaho-mqtt3c.a -lc -ldl -lpthread -lrt -lanl 

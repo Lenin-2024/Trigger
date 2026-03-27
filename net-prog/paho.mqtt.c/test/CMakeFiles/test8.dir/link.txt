@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/test8.dir/test8.c.o -o test8  -Wl,-rpath,"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" ../src/libpaho-mqtt3a.so.1.3.15 -lc -ldl -lpthread -lrt -lanl 
