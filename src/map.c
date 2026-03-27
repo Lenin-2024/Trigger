@@ -50,15 +50,26 @@ map_t *get_map(char *file_name, game_state_t* game) {
     }
 
     int num = 0;
+    
+    int count_door = 0;
     for (int i = 0; i < map->rows; i++) {
         for (int j = 0; j < map->cols; j++) {
             fscanf(file, "%d", &num);
             if (num == 2) {
-                init_player(&game->player, (Vector2){j * 32, i * 32});
+                player_t *player = create_player((Vector2){j * 32, i * 32});
+                if (player) {
+                    game->entity_manager->player_idx = game->entity_manager->count;
+                    create_entity(game->entity_manager, player, &player_vtable);
+                }
                 num = 0;
             }
 
             if (num == 3) {
+                count_door++;
+                door_entity_data_t *door = create_door(game->entity_manager, (Vector2){j * 32, i * 32}, count_door);
+                create_entity(game->entity_manager, door, &door_vtable);
+                
+                /*
                 game->count_doors++;
                 game->doors = (door_t *)realloc(game->doors, game->count_doors * sizeof(door_t));
                 if (game->doors == NULL) {
@@ -73,6 +84,8 @@ map_t *get_map(char *file_name, game_state_t* game) {
                 }
 
                 init_door(game->doors, (Vector2){j * 32, i * 32}, game->count_doors - 1);
+                */
+
                 num = 0;
             }
 

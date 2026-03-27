@@ -11,11 +11,11 @@
 #include "menu.h"
 #include "door.h"
 #include "map.h"
+#include "engien/engien.h"
 #include "MQTTAsync.h"
 
 #define ADDRESS     "tcp://192.168.3.1:1883"
 #define CLIENTID    "SimplePoll"
-#define TOPIC       "door"
 #define QOS         0
 
 typedef enum {
@@ -65,8 +65,9 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTAsync_message *me
             int door_n, state;
             printf("[ INFO ] door get msg = %s\n", (char *)message->payload);
             sscanf((char*)message->payload, "%d %d", &door_n, &state);
-            if (door_n >= 0 && door_n < game->count_doors) {
-                game->doors[door_n].is_open = state;
+            door_t *door = find_door_by_id(game->entity_manager, door_n);
+            if (door) {
+                door->is_open = state;
             }
             break;
         case MSG_BOX:
@@ -128,8 +129,6 @@ void init(game_state_t *game) {
 
     memset(game, 0, sizeof(game_state_t));
     game->temu_run = 0;
-    game->doors = NULL;
-    game->count_doors = 0;
 
     if (pipe(game->stdin_pipe) == -1 || pipe(game->stdout_pipe) == -1) {
         perror("pipe");
@@ -182,6 +181,7 @@ void init(game_state_t *game) {
 
     menu_init(width, height);
 
+    game->entity_manager = craete_entity_manager(5);
     map = get_map("maps/map1-1.lvl", game);
 
     game->game_run = 0;
@@ -218,11 +218,8 @@ void update(game_state_t *game) {
                 if (IsKeyPressed(KEY_P)) {
                     game->temu_run = 1;
                 }
-                update_player(&game->player, map);
                 
-                for (int i = 0; i < game->count_doors; i++) {
-                    update_door(game, i);
-                }
+                update_all_entities(game->entity_manager);
 
                 /* Меню паузы */
                 if (IsKeyPressed(KEY_Q)) {
@@ -249,11 +246,8 @@ void draw(game_state_t *game) {
                 if (game->temu_run) {
                     draw_console(&game->console);
                 } else {
-                    for (int i = 0; i < game->count_doors; i++) {
-                        draw_door(game->doors + i);
-                    }
                     draw_map(map);
-                    draw_player(game->player);
+                    draw_all_entities(game->entity_manager);
                 }
                 break;
             case 2:
@@ -293,9 +287,9 @@ void cleanup(game_state_t *game) {
     unload_menu();
 
     /* Отчистка дверей */
-    free(game->doors);
-    game->doors = NULL;
-    game->count_doors = 0;
+    // free(game->doors);
+    // game->doors = NULL;
+    // game->count_doors = 0;
 
     free_map(map);
 

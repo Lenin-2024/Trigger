@@ -5,9 +5,12 @@
 #include "raymath.h"
 #include "player.h"
 #include "map.h"
+#include "engien/engien.h"
 
 #define DEBUG_PLAYER_MODE 1
 #define TILE_SIZE 32
+
+extern map_t *map;
 
 Texture2D player_texture;
 int frame = 0;
@@ -18,7 +21,18 @@ int count_jump_frame = 6;
 int scale = 2;
 const int speed = 1;
 
-void init_player(player_t *player, Vector2 pos) {
+const object_v_table_t player_vtable = {
+    .update = player_entity_update,
+    .draw = player_entity_draw,
+    .destroy = player_entity_destroy
+};
+
+player_t *create_player(Vector2 pos) {
+    player_t *player = (player_t *)malloc(sizeof(player_t));
+    if (!player) {
+        return NULL;
+    }
+
     player_texture = LoadTexture("resources/male_hero_template.png");
     if ((player_texture.height == 0) || (player_texture.width == 0)) {
         fprintf(stderr, "Не удалось загрузить текстуру %s!\n", "resources/male_hero_template.png");
@@ -32,9 +46,11 @@ void init_player(player_t *player, Vector2 pos) {
     player->tile_size = player_texture.width / 10;
     player->on_ground = 0;
     player->state = IDLE;
+
+    return player;
 }
 
-void update_player(player_t *player, map_t *map) {
+void update_player(player_t *player) {
     int moving_horizontally = 0;
 
     if (IsKeyDown(KEY_D)) {
@@ -158,4 +174,19 @@ void draw_player(player_t player) {
     };
 
     DrawTexturePro(player_texture, source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);
+}
+
+void player_entity_update(void *data) {
+    player_t *player = (player_t*)data;
+    update_player(player);
+}
+
+void player_entity_draw(void *data) {
+    player_t *player = (player_t*)data;
+    draw_player(*player);
+}
+
+void player_entity_destroy(void *data) {
+    player_t *player = (player_t*)data;
+    // TODO
 }
