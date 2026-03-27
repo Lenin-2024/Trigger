@@ -1,6 +1,5 @@
 CC = gcc
 TINYEMU_DIR = ./tinyemu-2019-12-21
-
 CFLAGS := -Wall -g -I"./raylib"
 LDFLAGS := -L"./raylib" -lraylib -lm -lpthread -ldl -lrt -lX11 -I"net-prog/paho.mqtt.c/src" -L"net-prog/paho.mqtt.c/src" -l:libpaho-mqtt3a.a
 
