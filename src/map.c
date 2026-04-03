@@ -13,10 +13,13 @@ level_config_t *get_map(char *file_name, game_state_t* game) {
         return NULL;
     }
 
-
     for (int i = 0; i < map->layout->rows; i++) {
         for (int j = 0; j < map->layout->cols; j++) {
             int tile_id = map->layout->data[i][j];
+            if (tile_id == 0) {
+                continue;
+            }
+            
             for (int k = 0; k < map->count_objects; k++) {
                 if (map->objects[k].id == tile_id) {
                     if (strcmp(map->objects[k].name, "player") == 0) {
@@ -37,7 +40,7 @@ level_config_t *get_map(char *file_name, game_state_t* game) {
             }
         }
     }
-    
+
     return map;
 }
 

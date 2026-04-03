@@ -10,7 +10,7 @@
 #define DEBUG_PLAYER_MODE 1
 #define TILE_SIZE 32
 
-extern map_t *map;
+extern level_config_t *map;
 
 Texture2D player_texture;
 int frame = 0;
@@ -119,7 +119,7 @@ void update_player(player_t *player) {
     player->velocity.x = 0;
 }
 
-void check_collision_pl(map_t *map, player_t *player, int dir) {
+void check_collision_pl(level_config_t *map, player_t *player, int dir) {
     int start_x = (int)(player->pos.x / TILE_SIZE);
     int start_y = (int)(player->pos.y / TILE_SIZE);
     int end_x   = (int)((player->pos.x + 32) / TILE_SIZE);
@@ -127,11 +127,11 @@ void check_collision_pl(map_t *map, player_t *player, int dir) {
 
     for (int i = start_y; i <= end_y; i++) {
         for (int j = start_x; j <= end_x; j++) {
-            if (i < 0 || i >= map->rows || j < 0 || j >= map->cols) {
+            if (i < 0 || i >= map->layout->rows || j < 0 || j >= map->layout->cols) {
                 continue;
             }
 
-            if (map->arr[i][j] > 0) {
+            if (map->layout->data[i][j] > 0) {
                 if ((player->velocity.x > 0) && (dir == 0)) {
                     player->pos.x = (j * TILE_SIZE) - 32 - 1;
                     player->velocity.x = 0;

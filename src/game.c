@@ -45,7 +45,7 @@ char *topic = NULL;
 int topicLen;
 int rc;
 
-map_t *map;
+level_config_t *map;
 
 // Функция переводящая сроковое имя топика в число (id) из enum engine_msg_t
 engine_msg_t get_msg_id(const char* topicName) {
@@ -182,8 +182,7 @@ void init(game_state_t *game) {
     menu_init(width, height);
 
     game->entity_manager = craete_entity_manager(5);
-    map = get_map("maps/map1-1.lvl", game);
-
+    map = get_map("maps/file.json", game);
     game->game_run = 0;
 }
 

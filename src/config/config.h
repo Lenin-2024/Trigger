@@ -1,3 +1,6 @@
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -29,3 +32,5 @@ typedef struct level_config level_config_t;
 
 level_config_t *load_level_config(const char *filename);
 void free_level_config(level_config_t *config);
+
+#endif /* __CONFIG_H__ */
