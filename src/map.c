@@ -1,111 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "map.h"
 #include "config/config.h"
 #include "game.h"
 #include "raylib.h"
 
-map_t *get_map(char *file_name, game_state_t* game) {
-    level_config_t *config = load_level_config(file_name);
-    if (!config) {
+level_config_t *get_map(char *file_name, game_state_t* game) {
+    level_config_t *map = load_level_config(file_name);
+    if (!map) {
         return NULL;
     }
 
-    map_t *map = (map_t *)malloc(sizeof(map_t));
-    if (map == NULL) {
-        fprintf(stderr, "[ ERROR ] memory not allocate for map\n");
-        free_level_config(config);
-        return NULL;
-    }
 
-    map->arr = (int **)malloc(map->rows * sizeof(int *));
-    if (map->arr == NULL) {
-        fprintf(stderr, "[ ERROR ] memory for rows not allocate\n");
-        free(map);
-        free_level_config(config);
-        return NULL;
-    }
-
-    for (int i = 0; i < map->rows; i++) {
-        map->arr[i] = (int *)malloc(map->cols * sizeof(int));
-        if (map->arr[i] == NULL) {
-            fprintf(stderr, "[ ERROR ] memory for cols not allocate\n");
-            for (int j = 0; j < i; j++) {
-                free(map->arr[j]);
-            }
-            free(map->arr);
-            free(map);
-            free_level_config(config);
-            return NULL;
-        }
-    }
-
-    int num = 0;
-    
-    int count_door = 0;
-    for (int i = 0; i < map->rows; i++) {
-        for (int j = 0; j < map->cols; j++) {
-            fscanf(file, "%d", &num);
-            if (num == 2) {
-                player_t *player = create_player((Vector2){j * 32, i * 32});
-                if (player) {
-                    game->entity_manager->player_idx = game->entity_manager->count;
-                    create_entity(game->entity_manager, player, &player_vtable);
-                }
-                num = 0;
-            }
-
-            if (num == 3) {
-                count_door++;
-                door_entity_data_t *door = create_door(game->entity_manager, (Vector2){j * 32, i * 32}, count_door);
-                create_entity(game->entity_manager, door, &door_vtable);
-                
-                /*
-                game->count_doors++;
-                game->doors = (door_t *)realloc(game->doors, game->count_doors * sizeof(door_t));
-                if (game->doors == NULL) {
-                    fprintf(stderr, "[ ERROR ] Failed to reallocate memory for doors\n");
-                    for (int k = 0; k < map->rows; k++) {
-                        free(map->arr[k]);
+    for (int i = 0; i < map->layout->rows; i++) {
+        for (int j = 0; j < map->layout->cols; j++) {
+            int tile_id = map->layout->data[i][j];
+            for (int k = 0; k < map->count_objects; k++) {
+                if (map->objects[k].id == tile_id) {
+                    if (strcmp(map->objects[k].name, "player") == 0) {
+                        player_t *player = create_player((Vector2){j * 32, i * 32});
+                        if (player) {
+                            game->entity_manager->player_idx = game->entity_manager->count;
+                            create_entity(game->entity_manager, player, &player_vtable);
+                        }
+                        map->layout->data[i][j] = 0;
+                    } else if (strcmp(map->objects[k].name, "door") == 0) {
+                        door_entity_data_t *door = create_door(game->entity_manager, 
+                            (Vector2){j * 32, i * 32}, tile_id);
+                        create_entity(game->entity_manager, door, &door_vtable);
+                        map->layout->data[i][j] = 0;
                     }
-                    free(map->arr);
-                    free(map);
-                    fclose(file);
-                    return NULL;
+                    break;
                 }
-
-                init_door(game->doors, (Vector2){j * 32, i * 32}, game->count_doors - 1);
-                */
-
-                num = 0;
             }
-
-            map->arr[i][j] = num;
         }
     }
-
+    
     return map;
 }
 
-void draw_map(map_t *map) {
-    for (int i = 0; i < map->rows; i++) {
-        for (int j = 0; j < map->cols; j++) {
-            if (map->arr[i][j] == 1) {
+void draw_map(level_config_t *map) {
+    for (int i = 0; i < map->layout->rows; i++) {
+        for (int j = 0; j < map->layout->cols; j++) {
+            if (map->layout->data[i][j] == 1) {
                 DrawRectangle(j * 32, i * 32, 32, 32, BLUE);
             }
         }
     }
 }
 
-void free_map(map_t *map) {
-    if (map == NULL) {
-        return;
-    }
-
-    for (int i = 0; i < map->rows; i++) {
-        free(map->arr[i]);
-    }
-    free(map->arr);
-    free(map);
+void free_map(level_config_t *map) {
+    free_level_config(map);
 }
