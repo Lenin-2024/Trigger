@@ -28,3 +28,4 @@ typedef struct level_config level_config_t;
 
 
 level_config_t *load_level_config(const char *filename);
+void free_level_config(level_config_t *config);

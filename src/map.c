@@ -2,36 +2,28 @@
 #include <stdlib.h>
 
 #include "map.h"
+#include "config/config.h"
 #include "game.h"
 #include "raylib.h"
 
 map_t *get_map(char *file_name, game_state_t* game) {
-    FILE *file = NULL;
-    if ((file = fopen(file_name, "r")) == NULL) {
-        fprintf(stderr, "[ ERROR ] file \'%s\' don't open\n", file_name);
+    level_config_t *config = load_level_config(file_name);
+    if (!config) {
         return NULL;
     }
 
     map_t *map = (map_t *)malloc(sizeof(map_t));
     if (map == NULL) {
         fprintf(stderr, "[ ERROR ] memory not allocate for map\n");
-        fclose(file);
+        free_level_config(config);
         return NULL;
     }
 
-    fscanf(file, "%d %d", &map->rows, &map->cols);
-    if ((map->rows <= 0) || (map->rows <= 0)) {
-        free(map);
-        fclose(file);
-        return NULL;
-    }
-    printf("[ INFO ] map size ( x = %d y = %d)\n", map->rows, map->cols);
-    
     map->arr = (int **)malloc(map->rows * sizeof(int *));
     if (map->arr == NULL) {
         fprintf(stderr, "[ ERROR ] memory for rows not allocate\n");
         free(map);
-        fclose(file);
+        free_level_config(config);
         return NULL;
     }
 
@@ -44,7 +36,7 @@ map_t *get_map(char *file_name, game_state_t* game) {
             }
             free(map->arr);
             free(map);
-            fclose(file);
+            free_level_config(config);
             return NULL;
         }
     }

@@ -162,3 +162,15 @@ level_config_t *load_level_config(const char *filename) {
     cJSON_Delete(json);
     return config;
 }
+
+void free_level_config(level_config_t *config) {
+    free(config->objects);
+    if (config->layout->data) {
+        for (int i = 0; i < config->layout->rows; i++) {
+            free(config->layout->data[i]);
+        }
+        free(config->layout->data);
+    }
+    free(config->layout);
+    free(config);
+}
