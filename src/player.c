@@ -82,8 +82,6 @@ void update_player(player_t *player) {
         player->on_ground = 0;
     }
 
-    
-
     player->pos.x += player->velocity.x;
     check_collision_pl(map, player, 0);
 
@@ -145,6 +143,12 @@ void check_collision_pl(level_config_t *map, player_t *player, int dir) {
                 if ((player->velocity.y > 0) && (dir == 1)) {
                     player->pos.y = (i * TILE_SIZE) - 64 - 1;
                     player->on_ground = 1;
+                    player->velocity.y = 0;
+                }
+
+                if ((player->velocity.y < 0) && (dir == 1)) {
+                    player->pos.y = (i * TILE_SIZE) + TILE_SIZE;
+                    player->on_ground = 0;
                     player->velocity.y = 0;
                 }
             }
