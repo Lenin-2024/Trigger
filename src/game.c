@@ -257,7 +257,6 @@ void draw(game_state_t *game) {
         }
 
     DrawFPS(0, 0);
-
     EndDrawing();
 }
 
@@ -283,6 +282,7 @@ void cleanup(game_state_t *game) {
     MQTTAsync_destroy(&client);
     
     destroy_entity(game->entity_manager);
+
     /* Выгрузка меню (текстур) */
     unload_menu();
     free_map(map);

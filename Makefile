@@ -13,7 +13,8 @@ SRCS := src/main.c \
 	src/door.c \
 	src/engien/engien.c \
 	src/config/cJSON.c \
-	src/config/config.c
+	src/config/config.c \
+	src/engien/texture_manager.c
 
 OBJS := $(SRCS:.c=.o)
 

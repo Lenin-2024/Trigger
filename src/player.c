@@ -176,7 +176,6 @@ void draw_player(player_t player) {
     Rectangle dest_rec = {
         player.pos.x - 128 + 16, player.pos.y - 128 + 32, player.tile_size * scale, player.tile_size * scale
     };
-
     DrawTexturePro(player_texture, source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);
 }
 
@@ -192,5 +191,7 @@ void player_entity_draw(void *data) {
 
 void player_entity_destroy(void *data) {
     player_t *player = (player_t*)data;
-    // TODO
+    if (player) {
+        free(player);
+    }
 }

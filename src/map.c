@@ -4,6 +4,7 @@
 
 #include "map.h"
 #include "config/config.h"
+#include "engien/texture_manager.h"
 #include "game.h"
 #include "raylib.h"
 
@@ -42,6 +43,7 @@ level_config_t *get_map(char *file_name, game_state_t* game) {
         }
     }
 
+    init_texture_manager(map);
     return map;
 }
 
@@ -56,5 +58,6 @@ void draw_map(level_config_t *map) {
 }
 
 void free_map(level_config_t *map) {
+    free_texture_manager();
     free_level_config(map);
 }
