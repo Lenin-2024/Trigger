@@ -9,6 +9,7 @@ struct game_state;
 struct door {
     int is_open;
     int id;
+    int fi_num;
     char num[2];
     Vector2 pos;
     float max_height;
@@ -21,7 +22,7 @@ struct door_entity_data {
 };
 typedef struct door_entity_data door_entity_data_t;
 
-door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int num);
+door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int id, int num);
 void update_door(door_t *door, entity_t *player_entity);
 void draw_door(door_t *cdoor);
 void free_door(door_t *cdoor);

@@ -11,7 +11,7 @@ const object_v_table_t door_vtable = {
     .destroy = door_entity_destroy
 };
 
-door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int num) {
+door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int id, int num) {
     door_entity_data_t *door_entity = (door_entity_data_t *)malloc(sizeof(door_entity_data_t));
     if (!door_entity) {
         return NULL;
@@ -26,7 +26,8 @@ door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int num)
     door->pos = pos;
     door->is_open = 0;
     door->max_height = pos.y - 32;
-    door->id = num;
+    door->id = id;
+    door->fi_num = num;
     sprintf(door->num, "%d", num);
 
     door_entity->door = door;
@@ -94,7 +95,7 @@ door_t* find_door_by_id(entity_manager_t *manager, int door_id) {
 }
 
 void draw_door(door_t *cdoor) {
-    DrawRectangle(cdoor->pos.x, cdoor->pos.y, 32, 32, RED);
+    DrawTexture(g_texture_manager.texture[cdoor->id], cdoor->pos.x, cdoor->pos.y, WHITE);
     DrawText(cdoor->num, cdoor->pos.x + 8, cdoor->pos.y, 32, BLACK);
 }
 

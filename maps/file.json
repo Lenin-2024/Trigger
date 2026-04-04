@@ -7,7 +7,7 @@
     "objects": [
         { "id": 0, "name": "empty", "texture": "", "entity": "" },
         { "id": 1, "name": "wall", "texture": "resources/wall.png", "entity": "" },
-        { "id": 2, "name": "player", "texture": "resources/player.png", "entity": "player" },
+        { "id": 2, "name": "player", "texture": "resources/male_hero_template.png", "entity": "player" },
         { "id": 3, "name": "door", "texture": "resources/tiles/door.png", "entity": "door" }
     ],
     "map": {

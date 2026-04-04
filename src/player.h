@@ -12,9 +12,8 @@ enum state {
     JUMP = 4
 };
 
-extern Texture2D player_texture;
-
 struct player {
+    int id;
     Vector2 velocity;
     Vector2 pos;
     int current_frame;
@@ -25,7 +24,7 @@ struct player {
 };
 typedef struct player player_t;
 
-player_t *create_player(Vector2 pos);
+player_t *create_player(Vector2 pos, int id);
 void update_player(player_t *player);
 void draw_player(player_t player);
 void check_collision_pl(level_config_t *map, player_t *player, int dir);

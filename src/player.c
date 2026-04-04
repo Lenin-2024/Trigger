@@ -12,7 +12,6 @@
 
 extern level_config_t *map;
 
-Texture2D player_texture;
 int frame = 0;
 int max_frames = 10;
 
@@ -27,23 +26,18 @@ const object_v_table_t player_vtable = {
     .destroy = player_entity_destroy
 };
 
-player_t *create_player(Vector2 pos) {
+player_t *create_player(Vector2 pos, int id) {
     player_t *player = (player_t *)malloc(sizeof(player_t));
     if (!player) {
         return NULL;
     }
 
-    player_texture = LoadTexture("resources/male_hero_template.png");
-    if ((player_texture.height == 0) || (player_texture.width == 0)) {
-        fprintf(stderr, "Не удалось загрузить текстуру %s!\n", "resources/male_hero_template.png");
-        exit(1);
-    }
-
+    player->id = id;
     player->current_frame = 0;
     player->pos = pos;
     player->velocity = Vector2Zero();
     player->flip = 1;
-    player->tile_size = player_texture.width / 10;
+    player->tile_size = 1280 / 10;
     player->on_ground = 0;
     player->state = IDLE;
 
@@ -176,7 +170,7 @@ void draw_player(player_t player) {
     Rectangle dest_rec = {
         player.pos.x - 128 + 16, player.pos.y - 128 + 32, player.tile_size * scale, player.tile_size * scale
     };
-    DrawTexturePro(player_texture, source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);
+    DrawTexturePro(g_texture_manager.texture[player.id], source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);
 }
 
 void player_entity_update(void *data) {
