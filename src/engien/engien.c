@@ -47,8 +47,13 @@ entity_t *create_entity(entity_manager_t *manager, void *data, const object_v_ta
     return entity;
 };
 
-void destroy_entity(entity_manager_t *manager, entity_t *entity) {
-    // TODO
+void destroy_entity(entity_manager_t *manager) {
+    for (int i = 0; i < manager->count; i++) {
+        entity_t *entity = manager->entities[i];
+        if (entity->vtable->destroy) {
+            entity->vtable->destroy(entity->data);
+        }
+    }
 }
 
 void update_all_entities(entity_manager_t *manager) {

@@ -282,14 +282,9 @@ void cleanup(game_state_t *game) {
     }
     MQTTAsync_destroy(&client);
     
+    destroy_entity(game->entity_manager);
     /* Выгрузка меню (текстур) */
     unload_menu();
-
-    /* Отчистка дверей */
-    // free(game->doors);
-    // game->doors = NULL;
-    // game->count_doors = 0;
-
     free_map(map);
 
     int status;
