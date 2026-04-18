@@ -33,7 +33,7 @@ level_config_t *get_map(char *file_name, game_state_t* game) {
                         map->layout->data[i][j] = 0;
                     } else if (strcmp(map->objects[k].name, "door") == 0) {
                         door_entity_data_t *door = create_door(game->entity_manager, 
-                            (Vector2){j * 32, i * 32}, tile_id, door_id++);
+                            (Vector2){j * 32, i * 32}, door_id++, tile_id);
                         create_entity(game->entity_manager, door, &door_vtable);
                         map->layout->data[i][j] = 0;
                     }
@@ -50,8 +50,6 @@ level_config_t *get_map(char *file_name, game_state_t* game) {
 void draw_map(level_config_t *map) {
     for (int i = 0; i < map->layout->rows; i++) {
         for (int j = 0; j < map->layout->cols; j++) {
-            
-
             if (map->layout->data[i][j] == 1) {
                 DrawRectangle(j * 32, i * 32, 32, 32, BLUE);
             }

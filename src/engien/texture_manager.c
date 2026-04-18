@@ -35,7 +35,7 @@ void free_texture_manager() {
     for (int i = 0; i <  g_texture_manager.max_id; i++) {
         if (g_texture_manager.loaded[i]) {
             UnloadTexture(g_texture_manager.texture[i]);
-            g_texture_manager.loaded[i];
+            g_texture_manager.loaded[i] = 0;
         }
     }
 }

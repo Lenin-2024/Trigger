@@ -11,7 +11,7 @@ const object_v_table_t door_vtable = {
     .destroy = door_entity_destroy
 };
 
-door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int id, int num) {
+door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int id, int texture_id) {
     door_entity_data_t *door_entity = (door_entity_data_t *)malloc(sizeof(door_entity_data_t));
     if (!door_entity) {
         return NULL;
@@ -27,8 +27,8 @@ door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int id, 
     door->is_open = 0;
     door->max_height = pos.y - 32;
     door->id = id;
-    door->fi_num = num;
-    sprintf(door->num, "%d", num);
+    door->texture_id = texture_id;
+    sprintf(door->num, "%d", id);
 
     door_entity->door = door;
     door_entity->manager = manager;
@@ -83,10 +83,11 @@ void update_door(door_t *door, entity_t *player_entity) {
 door_t* find_door_by_id(entity_manager_t *manager, int door_id) {
     for (int i = 0; i < manager->count; i++) {
         entity_t *entity = manager->entities[i];
-        // Проверяем, что это дверь (сравниваем vtable)
         if (entity->vtable == &door_vtable) {
             door_entity_data_t *door_data = (door_entity_data_t *)entity->data;
+            
             if (door_data->door->id == door_id) {
+                printf("%d\n", door_data->door->id);
                 return door_data->door;
             }
         }
@@ -95,7 +96,7 @@ door_t* find_door_by_id(entity_manager_t *manager, int door_id) {
 }
 
 void draw_door(door_t *cdoor) {
-    DrawTexture(g_texture_manager.texture[cdoor->id], cdoor->pos.x, cdoor->pos.y, WHITE);
+    DrawTexture(g_texture_manager.texture[cdoor->texture_id], cdoor->pos.x, cdoor->pos.y, WHITE);
     DrawText(cdoor->num, cdoor->pos.x + 8, cdoor->pos.y, 32, BLACK);
 }
 
