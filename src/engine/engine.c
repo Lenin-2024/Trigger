@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "engien.h"
+#include "engine.h"
 
 entity_manager_t *craete_entity_manager(int capacity) {
     entity_manager_t *entity_manager = (entity_manager_t *)malloc(sizeof(entity_manager_t));
@@ -52,30 +52,6 @@ void destroy_entity(entity_manager_t *manager) {
         entity_t *entity = manager->entities[i];
         if (entity->vtable->destroy) {
             entity->vtable->destroy(entity->data);
-        }
-    }
-}
-
-void update_all_entities(entity_manager_t *manager) {
-    if (!manager) {
-        return;
-    }
-
-    for (int i = 0; i < manager->count; i++) {
-        entity_t *entity = manager->entities[i];
-        if (entity->vtable->update && entity->active) {
-            entity->vtable->update(entity->data);
-        }
-    }
-}
-
-void draw_all_entities(entity_manager_t *manager) {
-    if (!manager) return;
-    
-    for (int i = 0; i < manager->count; i++) {
-        entity_t *entity = manager->entities[i];
-        if (entity->active && entity->vtable->draw) {
-            entity->vtable->draw(entity->data);
         }
     }
 }

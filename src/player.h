@@ -3,7 +3,9 @@
 
 #include "raylib.h"
 #include "map.h"
-#include "engien/engien.h"
+#include "engine/engine.h"
+
+struct engine_context;
 
 enum state {
     IDLE = 1,
@@ -25,13 +27,13 @@ struct player {
 typedef struct player player_t;
 
 player_t *create_player(Vector2 pos, int id);
-void update_player(player_t *player);
-void draw_player(player_t player);
+void update_player(player_t *player, struct engine_context *engine);
+void draw_player(player_t player, struct engine_context *engine);
 void check_collision_pl(level_config_t *map, player_t *player, int dir);
 
-void player_entity_update(void *data);
-void player_entity_draw(void *data);
-void player_entity_destroy(void *data);
+void player_entity_update(void *self, engine_context_t *engine);
+void player_entity_draw(void *self, engine_context_t *engine);
+void player_entity_destroy(void *self);
 
 extern const object_v_table_t player_vtable;
 

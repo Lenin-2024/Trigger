@@ -5,12 +5,10 @@
 #include "raymath.h"
 #include "player.h"
 #include "map.h"
-#include "engien/engien.h"
+#include "engine/engine.h"
 
 #define DEBUG_PLAYER_MODE 1
 #define TILE_SIZE 32
-
-extern level_config_t *map;
 
 int frame = 0;
 int max_frames = 10;
@@ -44,7 +42,7 @@ player_t *create_player(Vector2 pos, int id) {
     return player;
 }
 
-void update_player(player_t *player) {
+void update_player(player_t *player, engine_context_t *engine) {
     int moving_horizontally = 0;
 
     if (IsKeyDown(KEY_D)) {
@@ -77,10 +75,10 @@ void update_player(player_t *player) {
     }
 
     player->pos.x += player->velocity.x;
-    check_collision_pl(map, player, 0);
+    check_collision_pl(engine->current_map, player, 0);
 
     player->pos.y += player->velocity.y + 1;
-    check_collision_pl(map, player, 1);
+    check_collision_pl(engine->current_map, player, 1);
 
     if (!player->on_ground) {
         player->state = JUMP;
@@ -150,7 +148,7 @@ void check_collision_pl(level_config_t *map, player_t *player, int dir) {
     }
 }
 
-void draw_player(player_t player) {
+void draw_player(player_t player, engine_context_t *engine) {
 #if DEBUG_PLAYER_MODE == 1
     char debug_txt[255];
     sprintf(debug_txt, "Player(x = %.2f  | y = %.2f and x1 = %.2f  | y2 = %.2f) \nonGround = %d vel.x = %.2f  vel.y = %.2f", 
@@ -170,22 +168,17 @@ void draw_player(player_t player) {
     Rectangle dest_rec = {
         player.pos.x - 128 + 16, player.pos.y - 128 + 32, player.tile_size * scale, player.tile_size * scale
     };
-    DrawTexturePro(g_texture_manager.texture[player.id], source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);
+    DrawTexturePro(engine->texture_manager.texture[player.id], source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);
 }
 
-void player_entity_update(void *data) {
-    player_t *player = (player_t*)data;
-    update_player(player);
+void player_entity_update(void *self, engine_context_t *engine) {
+    update_player((player_t*)self, engine);
 }
 
-void player_entity_draw(void *data) {
-    player_t *player = (player_t*)data;
-    draw_player(*player);
+void player_entity_draw(void *self, engine_context_t *engine) {
+    draw_player(*(player_t*)self, engine);
 }
 
-void player_entity_destroy(void *data) {
-    player_t *player = (player_t*)data;
-    if (player) {
-        free(player);
-    }
+void player_entity_destroy(void *self) {
+    free(self);
 }

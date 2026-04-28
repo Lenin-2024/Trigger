@@ -3,7 +3,7 @@
 
 #include "door.h"
 #include "player.h"
-#include "engien/engien.h"
+#include "engine/engine_context.h"
 
 const object_v_table_t door_vtable = {
     .update = door_entity_update,
@@ -11,15 +11,9 @@ const object_v_table_t door_vtable = {
     .destroy = door_entity_destroy
 };
 
-door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int id, int texture_id) {
-    door_entity_data_t *door_entity = (door_entity_data_t *)malloc(sizeof(door_entity_data_t));
-    if (!door_entity) {
-        return NULL;
-    }
-    
+door_t *create_door(Vector2 pos, int id, int texture_id) {
     door_t *door = (door_t *)malloc(sizeof(door_t));
     if (!door) {
-        free(door_entity);
         return NULL;
     }
 
@@ -30,16 +24,26 @@ door_entity_data_t *create_door(entity_manager_t *manager, Vector2 pos, int id, 
     door->texture_id = texture_id;
     sprintf(door->num, "%d", id);
 
-    door_entity->door = door;
-    door_entity->manager = manager;
-
-    return door_entity;
+    return door;
 }
 
-void update_door(door_t *door, entity_t *player_entity) {
-    player_t *player = (player_t *)player_entity->data;
-    if (door->is_open && (door->pos.y > door->max_height)) {
-        door->pos.y -= 0.25f;
+void update_door(door_t *cdoor, engine_context_t *engine) {
+    if (!cdoor || !engine || !engine->entity_manager) {
+        return;
+    }
+
+    entity_manager_t *manager = engine->entity_manager;
+    if (manager->player_idx < 0) {
+        return;
+    }
+
+    player_t *player = (player_t*)manager->entities[manager->player_idx]->data;
+    if (!player) {
+        return;
+    }
+
+    if (cdoor->is_open && cdoor->pos.y > cdoor->max_height) {
+        cdoor->pos.y -= 0.25f;
     }
 
     Rectangle player_rect = {
@@ -47,7 +51,7 @@ void update_door(door_t *door, entity_t *player_entity) {
     };
 
     Rectangle door_rect = {
-        door->pos.x, door->pos.y,
+        cdoor->pos.x, cdoor->pos.y,
         32, 32
     };
 
@@ -80,43 +84,40 @@ void update_door(door_t *door, entity_t *player_entity) {
     }
 }
 
-door_t* find_door_by_id(entity_manager_t *manager, int door_id) {
+door_t* find_door_by_id(engine_context_t *engine, int door_id) {
+    if (!engine || !engine->entity_manager) return NULL;
+    entity_manager_t *manager = engine->entity_manager;
     for (int i = 0; i < manager->count; i++) {
-        entity_t *entity = manager->entities[i];
-        if (entity->vtable == &door_vtable) {
-            door_entity_data_t *door_data = (door_entity_data_t *)entity->data;
-            
-            if (door_data->door->id == door_id) {
-                printf("%d\n", door_data->door->id);
-                return door_data->door;
-            }
+        entity_t *e = manager->entities[i];
+        if (e->vtable == &door_vtable) {
+            door_t *d = (door_t*)e->data;
+            if (d->id == door_id) return d;
         }
     }
     return NULL;
 }
 
-void draw_door(door_t *cdoor) {
-    DrawTexture(g_texture_manager.texture[cdoor->texture_id], cdoor->pos.x, cdoor->pos.y, WHITE);
+void draw_door(door_t *cdoor, engine_context_t *engine) {
+    if (!cdoor || !engine) {
+        return;
+    }
+
+    DrawTexture(engine->texture_manager.texture[cdoor->texture_id], cdoor->pos.x, cdoor->pos.y, WHITE);
     DrawText(cdoor->num, cdoor->pos.x + 8, cdoor->pos.y, 32, BLACK);
 }
 
 void free_door(door_t *cdoor) {
-    if (cdoor) {
-        free(cdoor);
-    }
+    free(cdoor);
 }
 
-void door_entity_update(void *data) {
-    door_entity_data_t *door_data = (door_entity_data_t *)data;
-    update_door(door_data->door, door_data->manager->entities[door_data->manager->player_idx]);
+void door_entity_update(void *self, engine_context_t *engine) {
+    update_door((door_t*)self, engine);
 }
 
-void door_entity_draw(void *data) {
-    door_entity_data_t *door_data = (door_entity_data_t *)data;
-    draw_door(door_data->door);
+void door_entity_draw(void *self, engine_context_t *engine) {
+    draw_door((door_t*)self, engine);
 }
 
-void door_entity_destroy(void *data) {
-    door_entity_data_t *door_data = (door_entity_data_t *)data;
-    free_door(door_data->door);
+void door_entity_destroy(void *self) {
+    free_door((door_t*)self);
 }

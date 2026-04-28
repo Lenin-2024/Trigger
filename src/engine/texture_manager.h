@@ -13,9 +13,7 @@ struct texture_manager {
 };
 typedef struct texture_manager texture_manager_t;
 
-extern texture_manager_t g_texture_manager;
-
-void init_texture_manager(level_config_t *config);
-void free_texture_manager();
+void init_texture_manager(texture_manager_t *texture_manager, level_config_t *config);
+void free_texture_manager(texture_manager_t *texture_manager);
 
 #endif /* __TEXTURE_MANAGER_H__ */

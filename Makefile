@@ -5,16 +5,16 @@ LDFLAGS := -L"./raylib" -lraylib -lm -lpthread -ldl -lrt -lX11 -I"net-prog/paho.
 
 TARGET := main
 SRCS := src/main.c \
-	src/console.c \
-	src/map.c \
-	src/player.c \
-	src/game.c \
-	src/menu.c \
-	src/door.c \
-	src/engien/engien.c \
-	src/config/cJSON.c \
-	src/config/config.c \
-	src/engien/texture_manager.c
+		src/engine/console.c \
+		src/map.c \
+		src/player.c \
+		src/door.c \
+		src/menu.c \
+		src/engine/engine.c \
+		src/engine/engine_context.c \
+		src/engine/texture_manager.c \
+		src/config/cJSON.c \
+		src/config/config.c
 
 OBJS := $(SRCS:.c=.o)
 
