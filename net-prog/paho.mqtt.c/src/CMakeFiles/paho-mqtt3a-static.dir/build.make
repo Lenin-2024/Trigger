@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c"
+CMAKE_SOURCE_DIR = /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c"
+CMAKE_BINARY_DIR = /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c
 
 # Include any dependencies generated for this target.
 include src/CMakeFiles/paho-mqtt3a-static.dir/depend.make
@@ -72,30 +72,30 @@ include src/CMakeFiles/paho-mqtt3a-static.dir/flags.make
 src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o: src/CMakeFiles/paho-mqtt3a-static.dir/flags.make
 src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o: src/MQTTAsync.c
 src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o: src/CMakeFiles/paho-mqtt3a-static.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o -MF CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o.d -o CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o -c "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTAsync.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o"
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o -MF CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o.d -o CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o -c /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTAsync.c
 
 src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.i"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTAsync.c" > CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTAsync.c > CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.i
 
 src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.s"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTAsync.c" -o CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTAsync.c -o CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.s
 
 src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o: src/CMakeFiles/paho-mqtt3a-static.dir/flags.make
 src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o: src/MQTTAsyncUtils.c
 src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o: src/CMakeFiles/paho-mqtt3a-static.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o -MF CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o.d -o CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o -c "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTAsyncUtils.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o"
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o -MF CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o.d -o CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o -c /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTAsyncUtils.c
 
 src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.i"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTAsyncUtils.c" > CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTAsyncUtils.c > CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.i
 
 src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.s"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTAsyncUtils.c" -o CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTAsyncUtils.c -o CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.s
 
 # Object files for target paho-mqtt3a-static
 paho__mqtt3a__static_OBJECTS = \
@@ -104,30 +104,30 @@ paho__mqtt3a__static_OBJECTS = \
 
 # External object files for target paho-mqtt3a-static
 paho__mqtt3a__static_EXTERNAL_OBJECTS = \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTTime.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTProtocolClient.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Clients.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/utf-8.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTPacket.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTPacketOut.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Messages.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Tree.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Socket.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Log.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTPersistence.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Thread.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTProtocolOut.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTPersistenceDefault.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/SocketBuffer.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/LinkedList.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTProperties.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTReasonCodes.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Base64.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/SHA1.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/WebSocket.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Proxy.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/StackTrace.c.o" \
-"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Heap.c.o"
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTTime.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTProtocolClient.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Clients.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/utf-8.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTPacket.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTPacketOut.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Messages.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Tree.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Socket.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Log.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTPersistence.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Thread.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTProtocolOut.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTPersistenceDefault.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/SocketBuffer.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/LinkedList.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTProperties.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/MQTTReasonCodes.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Base64.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/SHA1.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/WebSocket.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Proxy.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/StackTrace.c.o" \
+"/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/common_obj_static.dir/Heap.c.o"
 
 src/libpaho-mqtt3a.a: src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsync.c.o
 src/libpaho-mqtt3a.a: src/CMakeFiles/paho-mqtt3a-static.dir/MQTTAsyncUtils.c.o
@@ -157,19 +157,19 @@ src/libpaho-mqtt3a.a: src/CMakeFiles/common_obj_static.dir/StackTrace.c.o
 src/libpaho-mqtt3a.a: src/CMakeFiles/common_obj_static.dir/Heap.c.o
 src/libpaho-mqtt3a.a: src/CMakeFiles/paho-mqtt3a-static.dir/build.make
 src/libpaho-mqtt3a.a: src/CMakeFiles/paho-mqtt3a-static.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking C static library libpaho-mqtt3a.a"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" && $(CMAKE_COMMAND) -P CMakeFiles/paho-mqtt3a-static.dir/cmake_clean_target.cmake
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/paho-mqtt3a-static.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C static library libpaho-mqtt3a.a"
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src && $(CMAKE_COMMAND) -P CMakeFiles/paho-mqtt3a-static.dir/cmake_clean_target.cmake
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/paho-mqtt3a-static.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 src/CMakeFiles/paho-mqtt3a-static.dir/build: src/libpaho-mqtt3a.a
 .PHONY : src/CMakeFiles/paho-mqtt3a-static.dir/build
 
 src/CMakeFiles/paho-mqtt3a-static.dir/clean:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" && $(CMAKE_COMMAND) -P CMakeFiles/paho-mqtt3a-static.dir/cmake_clean.cmake
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src && $(CMAKE_COMMAND) -P CMakeFiles/paho-mqtt3a-static.dir/cmake_clean.cmake
 .PHONY : src/CMakeFiles/paho-mqtt3a-static.dir/clean
 
 src/CMakeFiles/paho-mqtt3a-static.dir/depend:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/paho-mqtt3a-static.dir/DependInfo.cmake" "--color=$(COLOR)"
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/paho-mqtt3a-static.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : src/CMakeFiles/paho-mqtt3a-static.dir/depend
 

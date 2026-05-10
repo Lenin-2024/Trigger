@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/Thread.c" "test/CMakeFiles/thread.dir/__/src/Thread.c.o" "gcc" "test/CMakeFiles/thread.dir/__/src/Thread.c.o.d"
-  "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test/thread.c" "test/CMakeFiles/thread.dir/thread.c.o" "gcc" "test/CMakeFiles/thread.dir/thread.c.o.d"
+  "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/Thread.c" "test/CMakeFiles/thread.dir/__/src/Thread.c.o" "gcc" "test/CMakeFiles/thread.dir/__/src/Thread.c.o.d"
+  "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test/thread.c" "test/CMakeFiles/thread.dir/thread.c.o" "gcc" "test/CMakeFiles/thread.dir/thread.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

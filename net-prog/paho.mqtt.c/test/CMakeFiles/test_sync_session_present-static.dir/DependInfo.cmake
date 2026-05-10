@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test/test_sync_session_present.c" "test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o" "gcc" "test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o.d"
+  "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test/test_sync_session_present.c" "test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o" "gcc" "test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

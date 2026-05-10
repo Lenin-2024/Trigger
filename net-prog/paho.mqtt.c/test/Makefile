@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c"
+CMAKE_SOURCE_DIR = /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c"
+CMAKE_BINARY_DIR = /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = "/home/misha/Рабочий стол/Trigger/net-prog/paho.mq
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool..."
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && /usr/bin/cpack --config ./CPackConfig.cmake
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && /usr/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -78,7 +78,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool for source..."
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/misha/Рабочий\ стол/Trigger/net-prog/paho.mqtt.c/CPackSourceConfig.cmake
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -162,14 +162,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(CMAKE_COMMAND) -E cmake_progress_start "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/CMakeFiles" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test//CMakeFiles/progress.marks"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/CMakeFiles" 0
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(CMAKE_COMMAND) -E cmake_progress_start /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/CMakeFiles /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test//CMakeFiles/progress.marks
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/clean
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/clean
 .PHONY : clean
 
 # The main clean target
@@ -178,22 +178,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/preinstall
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/preinstall
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 test/CMakeFiles/thread.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/thread.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/thread.dir/rule
 .PHONY : test/CMakeFiles/thread.dir/rule
 
 # Convenience name for target.
@@ -202,12 +202,12 @@ thread: test/CMakeFiles/thread.dir/rule
 
 # fast build rule for target.
 thread/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/build
 .PHONY : thread/fast
 
 # Convenience name for target.
 test/CMakeFiles/test1-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test1-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test1-static.dir/rule
 .PHONY : test/CMakeFiles/test1-static.dir/rule
 
 # Convenience name for target.
@@ -216,12 +216,12 @@ test1-static: test/CMakeFiles/test1-static.dir/rule
 
 # fast build rule for target.
 test1-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test1-static.dir/build.make test/CMakeFiles/test1-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test1-static.dir/build.make test/CMakeFiles/test1-static.dir/build
 .PHONY : test1-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test15-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test15-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test15-static.dir/rule
 .PHONY : test/CMakeFiles/test15-static.dir/rule
 
 # Convenience name for target.
@@ -230,12 +230,12 @@ test15-static: test/CMakeFiles/test15-static.dir/rule
 
 # fast build rule for target.
 test15-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test15-static.dir/build.make test/CMakeFiles/test15-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test15-static.dir/build.make test/CMakeFiles/test15-static.dir/build
 .PHONY : test15-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test2-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test2-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test2-static.dir/rule
 .PHONY : test/CMakeFiles/test2-static.dir/rule
 
 # Convenience name for target.
@@ -244,12 +244,12 @@ test2-static: test/CMakeFiles/test2-static.dir/rule
 
 # fast build rule for target.
 test2-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test2-static.dir/build.make test/CMakeFiles/test2-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test2-static.dir/build.make test/CMakeFiles/test2-static.dir/build
 .PHONY : test2-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test4-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test4-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test4-static.dir/rule
 .PHONY : test/CMakeFiles/test4-static.dir/rule
 
 # Convenience name for target.
@@ -258,12 +258,12 @@ test4-static: test/CMakeFiles/test4-static.dir/rule
 
 # fast build rule for target.
 test4-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test4-static.dir/build.make test/CMakeFiles/test4-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test4-static.dir/build.make test/CMakeFiles/test4-static.dir/build
 .PHONY : test4-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test45-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test45-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test45-static.dir/rule
 .PHONY : test/CMakeFiles/test45-static.dir/rule
 
 # Convenience name for target.
@@ -272,12 +272,12 @@ test45-static: test/CMakeFiles/test45-static.dir/rule
 
 # fast build rule for target.
 test45-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test45-static.dir/build.make test/CMakeFiles/test45-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test45-static.dir/build.make test/CMakeFiles/test45-static.dir/build
 .PHONY : test45-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test6-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test6-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test6-static.dir/rule
 .PHONY : test/CMakeFiles/test6-static.dir/rule
 
 # Convenience name for target.
@@ -286,12 +286,12 @@ test6-static: test/CMakeFiles/test6-static.dir/rule
 
 # fast build rule for target.
 test6-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test6-static.dir/build.make test/CMakeFiles/test6-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test6-static.dir/build.make test/CMakeFiles/test6-static.dir/build
 .PHONY : test6-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test8-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test8-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test8-static.dir/rule
 .PHONY : test/CMakeFiles/test8-static.dir/rule
 
 # Convenience name for target.
@@ -300,12 +300,12 @@ test8-static: test/CMakeFiles/test8-static.dir/rule
 
 # fast build rule for target.
 test8-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test8-static.dir/build.make test/CMakeFiles/test8-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test8-static.dir/build.make test/CMakeFiles/test8-static.dir/build
 .PHONY : test8-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test9-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test9-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test9-static.dir/rule
 .PHONY : test/CMakeFiles/test9-static.dir/rule
 
 # Convenience name for target.
@@ -314,12 +314,12 @@ test9-static: test/CMakeFiles/test9-static.dir/rule
 
 # fast build rule for target.
 test9-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test9-static.dir/build.make test/CMakeFiles/test9-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test9-static.dir/build.make test/CMakeFiles/test9-static.dir/build
 .PHONY : test9-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test95-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test95-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test95-static.dir/rule
 .PHONY : test/CMakeFiles/test95-static.dir/rule
 
 # Convenience name for target.
@@ -328,12 +328,12 @@ test95-static: test/CMakeFiles/test95-static.dir/rule
 
 # fast build rule for target.
 test95-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test95-static.dir/build.make test/CMakeFiles/test95-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test95-static.dir/build.make test/CMakeFiles/test95-static.dir/build
 .PHONY : test95-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test10-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test10-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test10-static.dir/rule
 .PHONY : test/CMakeFiles/test10-static.dir/rule
 
 # Convenience name for target.
@@ -342,12 +342,12 @@ test10-static: test/CMakeFiles/test10-static.dir/rule
 
 # fast build rule for target.
 test10-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test10-static.dir/build.make test/CMakeFiles/test10-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test10-static.dir/build.make test/CMakeFiles/test10-static.dir/build
 .PHONY : test10-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test11-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test11-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test11-static.dir/rule
 .PHONY : test/CMakeFiles/test11-static.dir/rule
 
 # Convenience name for target.
@@ -356,12 +356,12 @@ test11-static: test/CMakeFiles/test11-static.dir/rule
 
 # fast build rule for target.
 test11-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test11-static.dir/build.make test/CMakeFiles/test11-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test11-static.dir/build.make test/CMakeFiles/test11-static.dir/build
 .PHONY : test11-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test_issue373-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_issue373-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_issue373-static.dir/rule
 .PHONY : test/CMakeFiles/test_issue373-static.dir/rule
 
 # Convenience name for target.
@@ -370,12 +370,12 @@ test_issue373-static: test/CMakeFiles/test_issue373-static.dir/rule
 
 # fast build rule for target.
 test_issue373-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_issue373-static.dir/build.make test/CMakeFiles/test_issue373-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_issue373-static.dir/build.make test/CMakeFiles/test_issue373-static.dir/build
 .PHONY : test_issue373-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test_sync_session_present-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_sync_session_present-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_sync_session_present-static.dir/rule
 .PHONY : test/CMakeFiles/test_sync_session_present-static.dir/rule
 
 # Convenience name for target.
@@ -384,12 +384,12 @@ test_sync_session_present-static: test/CMakeFiles/test_sync_session_present-stat
 
 # fast build rule for target.
 test_sync_session_present-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sync_session_present-static.dir/build.make test/CMakeFiles/test_sync_session_present-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sync_session_present-static.dir/build.make test/CMakeFiles/test_sync_session_present-static.dir/build
 .PHONY : test_sync_session_present-static/fast
 
 # Convenience name for target.
 test/CMakeFiles/test_connect_destroy-static.dir/rule:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_connect_destroy-static.dir/rule
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_connect_destroy-static.dir/rule
 .PHONY : test/CMakeFiles/test_connect_destroy-static.dir/rule
 
 # Convenience name for target.
@@ -398,7 +398,7 @@ test_connect_destroy-static: test/CMakeFiles/test_connect_destroy-static.dir/rul
 
 # fast build rule for target.
 test_connect_destroy-static/fast:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_connect_destroy-static.dir/build.make test/CMakeFiles/test_connect_destroy-static.dir/build
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_connect_destroy-static.dir/build.make test/CMakeFiles/test_connect_destroy-static.dir/build
 .PHONY : test_connect_destroy-static/fast
 
 __/src/Thread.o: __/src/Thread.c.o
@@ -406,7 +406,7 @@ __/src/Thread.o: __/src/Thread.c.o
 
 # target to build an object file
 __/src/Thread.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/__/src/Thread.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/__/src/Thread.c.o
 .PHONY : __/src/Thread.c.o
 
 __/src/Thread.i: __/src/Thread.c.i
@@ -414,7 +414,7 @@ __/src/Thread.i: __/src/Thread.c.i
 
 # target to preprocess a source file
 __/src/Thread.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/__/src/Thread.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/__/src/Thread.c.i
 .PHONY : __/src/Thread.c.i
 
 __/src/Thread.s: __/src/Thread.c.s
@@ -422,7 +422,7 @@ __/src/Thread.s: __/src/Thread.c.s
 
 # target to generate assembly for a file
 __/src/Thread.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/__/src/Thread.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/__/src/Thread.c.s
 .PHONY : __/src/Thread.c.s
 
 test1.o: test1.c.o
@@ -430,7 +430,7 @@ test1.o: test1.c.o
 
 # target to build an object file
 test1.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test1-static.dir/build.make test/CMakeFiles/test1-static.dir/test1.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test1-static.dir/build.make test/CMakeFiles/test1-static.dir/test1.c.o
 .PHONY : test1.c.o
 
 test1.i: test1.c.i
@@ -438,7 +438,7 @@ test1.i: test1.c.i
 
 # target to preprocess a source file
 test1.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test1-static.dir/build.make test/CMakeFiles/test1-static.dir/test1.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test1-static.dir/build.make test/CMakeFiles/test1-static.dir/test1.c.i
 .PHONY : test1.c.i
 
 test1.s: test1.c.s
@@ -446,7 +446,7 @@ test1.s: test1.c.s
 
 # target to generate assembly for a file
 test1.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test1-static.dir/build.make test/CMakeFiles/test1-static.dir/test1.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test1-static.dir/build.make test/CMakeFiles/test1-static.dir/test1.c.s
 .PHONY : test1.c.s
 
 test10.o: test10.c.o
@@ -454,7 +454,7 @@ test10.o: test10.c.o
 
 # target to build an object file
 test10.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test10-static.dir/build.make test/CMakeFiles/test10-static.dir/test10.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test10-static.dir/build.make test/CMakeFiles/test10-static.dir/test10.c.o
 .PHONY : test10.c.o
 
 test10.i: test10.c.i
@@ -462,7 +462,7 @@ test10.i: test10.c.i
 
 # target to preprocess a source file
 test10.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test10-static.dir/build.make test/CMakeFiles/test10-static.dir/test10.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test10-static.dir/build.make test/CMakeFiles/test10-static.dir/test10.c.i
 .PHONY : test10.c.i
 
 test10.s: test10.c.s
@@ -470,7 +470,7 @@ test10.s: test10.c.s
 
 # target to generate assembly for a file
 test10.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test10-static.dir/build.make test/CMakeFiles/test10-static.dir/test10.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test10-static.dir/build.make test/CMakeFiles/test10-static.dir/test10.c.s
 .PHONY : test10.c.s
 
 test11.o: test11.c.o
@@ -478,7 +478,7 @@ test11.o: test11.c.o
 
 # target to build an object file
 test11.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test11-static.dir/build.make test/CMakeFiles/test11-static.dir/test11.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test11-static.dir/build.make test/CMakeFiles/test11-static.dir/test11.c.o
 .PHONY : test11.c.o
 
 test11.i: test11.c.i
@@ -486,7 +486,7 @@ test11.i: test11.c.i
 
 # target to preprocess a source file
 test11.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test11-static.dir/build.make test/CMakeFiles/test11-static.dir/test11.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test11-static.dir/build.make test/CMakeFiles/test11-static.dir/test11.c.i
 .PHONY : test11.c.i
 
 test11.s: test11.c.s
@@ -494,7 +494,7 @@ test11.s: test11.c.s
 
 # target to generate assembly for a file
 test11.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test11-static.dir/build.make test/CMakeFiles/test11-static.dir/test11.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test11-static.dir/build.make test/CMakeFiles/test11-static.dir/test11.c.s
 .PHONY : test11.c.s
 
 test15.o: test15.c.o
@@ -502,7 +502,7 @@ test15.o: test15.c.o
 
 # target to build an object file
 test15.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test15-static.dir/build.make test/CMakeFiles/test15-static.dir/test15.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test15-static.dir/build.make test/CMakeFiles/test15-static.dir/test15.c.o
 .PHONY : test15.c.o
 
 test15.i: test15.c.i
@@ -510,7 +510,7 @@ test15.i: test15.c.i
 
 # target to preprocess a source file
 test15.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test15-static.dir/build.make test/CMakeFiles/test15-static.dir/test15.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test15-static.dir/build.make test/CMakeFiles/test15-static.dir/test15.c.i
 .PHONY : test15.c.i
 
 test15.s: test15.c.s
@@ -518,7 +518,7 @@ test15.s: test15.c.s
 
 # target to generate assembly for a file
 test15.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test15-static.dir/build.make test/CMakeFiles/test15-static.dir/test15.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test15-static.dir/build.make test/CMakeFiles/test15-static.dir/test15.c.s
 .PHONY : test15.c.s
 
 test2.o: test2.c.o
@@ -526,7 +526,7 @@ test2.o: test2.c.o
 
 # target to build an object file
 test2.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test2-static.dir/build.make test/CMakeFiles/test2-static.dir/test2.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test2-static.dir/build.make test/CMakeFiles/test2-static.dir/test2.c.o
 .PHONY : test2.c.o
 
 test2.i: test2.c.i
@@ -534,7 +534,7 @@ test2.i: test2.c.i
 
 # target to preprocess a source file
 test2.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test2-static.dir/build.make test/CMakeFiles/test2-static.dir/test2.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test2-static.dir/build.make test/CMakeFiles/test2-static.dir/test2.c.i
 .PHONY : test2.c.i
 
 test2.s: test2.c.s
@@ -542,7 +542,7 @@ test2.s: test2.c.s
 
 # target to generate assembly for a file
 test2.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test2-static.dir/build.make test/CMakeFiles/test2-static.dir/test2.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test2-static.dir/build.make test/CMakeFiles/test2-static.dir/test2.c.s
 .PHONY : test2.c.s
 
 test4.o: test4.c.o
@@ -550,7 +550,7 @@ test4.o: test4.c.o
 
 # target to build an object file
 test4.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test4-static.dir/build.make test/CMakeFiles/test4-static.dir/test4.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test4-static.dir/build.make test/CMakeFiles/test4-static.dir/test4.c.o
 .PHONY : test4.c.o
 
 test4.i: test4.c.i
@@ -558,7 +558,7 @@ test4.i: test4.c.i
 
 # target to preprocess a source file
 test4.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test4-static.dir/build.make test/CMakeFiles/test4-static.dir/test4.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test4-static.dir/build.make test/CMakeFiles/test4-static.dir/test4.c.i
 .PHONY : test4.c.i
 
 test4.s: test4.c.s
@@ -566,7 +566,7 @@ test4.s: test4.c.s
 
 # target to generate assembly for a file
 test4.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test4-static.dir/build.make test/CMakeFiles/test4-static.dir/test4.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test4-static.dir/build.make test/CMakeFiles/test4-static.dir/test4.c.s
 .PHONY : test4.c.s
 
 test45.o: test45.c.o
@@ -574,7 +574,7 @@ test45.o: test45.c.o
 
 # target to build an object file
 test45.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test45-static.dir/build.make test/CMakeFiles/test45-static.dir/test45.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test45-static.dir/build.make test/CMakeFiles/test45-static.dir/test45.c.o
 .PHONY : test45.c.o
 
 test45.i: test45.c.i
@@ -582,7 +582,7 @@ test45.i: test45.c.i
 
 # target to preprocess a source file
 test45.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test45-static.dir/build.make test/CMakeFiles/test45-static.dir/test45.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test45-static.dir/build.make test/CMakeFiles/test45-static.dir/test45.c.i
 .PHONY : test45.c.i
 
 test45.s: test45.c.s
@@ -590,7 +590,7 @@ test45.s: test45.c.s
 
 # target to generate assembly for a file
 test45.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test45-static.dir/build.make test/CMakeFiles/test45-static.dir/test45.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test45-static.dir/build.make test/CMakeFiles/test45-static.dir/test45.c.s
 .PHONY : test45.c.s
 
 test6.o: test6.c.o
@@ -598,7 +598,7 @@ test6.o: test6.c.o
 
 # target to build an object file
 test6.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test6-static.dir/build.make test/CMakeFiles/test6-static.dir/test6.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test6-static.dir/build.make test/CMakeFiles/test6-static.dir/test6.c.o
 .PHONY : test6.c.o
 
 test6.i: test6.c.i
@@ -606,7 +606,7 @@ test6.i: test6.c.i
 
 # target to preprocess a source file
 test6.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test6-static.dir/build.make test/CMakeFiles/test6-static.dir/test6.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test6-static.dir/build.make test/CMakeFiles/test6-static.dir/test6.c.i
 .PHONY : test6.c.i
 
 test6.s: test6.c.s
@@ -614,7 +614,7 @@ test6.s: test6.c.s
 
 # target to generate assembly for a file
 test6.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test6-static.dir/build.make test/CMakeFiles/test6-static.dir/test6.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test6-static.dir/build.make test/CMakeFiles/test6-static.dir/test6.c.s
 .PHONY : test6.c.s
 
 test8.o: test8.c.o
@@ -622,7 +622,7 @@ test8.o: test8.c.o
 
 # target to build an object file
 test8.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test8-static.dir/build.make test/CMakeFiles/test8-static.dir/test8.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test8-static.dir/build.make test/CMakeFiles/test8-static.dir/test8.c.o
 .PHONY : test8.c.o
 
 test8.i: test8.c.i
@@ -630,7 +630,7 @@ test8.i: test8.c.i
 
 # target to preprocess a source file
 test8.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test8-static.dir/build.make test/CMakeFiles/test8-static.dir/test8.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test8-static.dir/build.make test/CMakeFiles/test8-static.dir/test8.c.i
 .PHONY : test8.c.i
 
 test8.s: test8.c.s
@@ -638,7 +638,7 @@ test8.s: test8.c.s
 
 # target to generate assembly for a file
 test8.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test8-static.dir/build.make test/CMakeFiles/test8-static.dir/test8.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test8-static.dir/build.make test/CMakeFiles/test8-static.dir/test8.c.s
 .PHONY : test8.c.s
 
 test9.o: test9.c.o
@@ -646,7 +646,7 @@ test9.o: test9.c.o
 
 # target to build an object file
 test9.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test9-static.dir/build.make test/CMakeFiles/test9-static.dir/test9.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test9-static.dir/build.make test/CMakeFiles/test9-static.dir/test9.c.o
 .PHONY : test9.c.o
 
 test9.i: test9.c.i
@@ -654,7 +654,7 @@ test9.i: test9.c.i
 
 # target to preprocess a source file
 test9.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test9-static.dir/build.make test/CMakeFiles/test9-static.dir/test9.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test9-static.dir/build.make test/CMakeFiles/test9-static.dir/test9.c.i
 .PHONY : test9.c.i
 
 test9.s: test9.c.s
@@ -662,7 +662,7 @@ test9.s: test9.c.s
 
 # target to generate assembly for a file
 test9.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test9-static.dir/build.make test/CMakeFiles/test9-static.dir/test9.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test9-static.dir/build.make test/CMakeFiles/test9-static.dir/test9.c.s
 .PHONY : test9.c.s
 
 test95.o: test95.c.o
@@ -670,7 +670,7 @@ test95.o: test95.c.o
 
 # target to build an object file
 test95.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test95-static.dir/build.make test/CMakeFiles/test95-static.dir/test95.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test95-static.dir/build.make test/CMakeFiles/test95-static.dir/test95.c.o
 .PHONY : test95.c.o
 
 test95.i: test95.c.i
@@ -678,7 +678,7 @@ test95.i: test95.c.i
 
 # target to preprocess a source file
 test95.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test95-static.dir/build.make test/CMakeFiles/test95-static.dir/test95.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test95-static.dir/build.make test/CMakeFiles/test95-static.dir/test95.c.i
 .PHONY : test95.c.i
 
 test95.s: test95.c.s
@@ -686,7 +686,7 @@ test95.s: test95.c.s
 
 # target to generate assembly for a file
 test95.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test95-static.dir/build.make test/CMakeFiles/test95-static.dir/test95.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test95-static.dir/build.make test/CMakeFiles/test95-static.dir/test95.c.s
 .PHONY : test95.c.s
 
 test_connect_destroy.o: test_connect_destroy.c.o
@@ -694,7 +694,7 @@ test_connect_destroy.o: test_connect_destroy.c.o
 
 # target to build an object file
 test_connect_destroy.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_connect_destroy-static.dir/build.make test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_connect_destroy-static.dir/build.make test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o
 .PHONY : test_connect_destroy.c.o
 
 test_connect_destroy.i: test_connect_destroy.c.i
@@ -702,7 +702,7 @@ test_connect_destroy.i: test_connect_destroy.c.i
 
 # target to preprocess a source file
 test_connect_destroy.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_connect_destroy-static.dir/build.make test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_connect_destroy-static.dir/build.make test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.i
 .PHONY : test_connect_destroy.c.i
 
 test_connect_destroy.s: test_connect_destroy.c.s
@@ -710,7 +710,7 @@ test_connect_destroy.s: test_connect_destroy.c.s
 
 # target to generate assembly for a file
 test_connect_destroy.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_connect_destroy-static.dir/build.make test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_connect_destroy-static.dir/build.make test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.s
 .PHONY : test_connect_destroy.c.s
 
 test_issue373.o: test_issue373.c.o
@@ -718,7 +718,7 @@ test_issue373.o: test_issue373.c.o
 
 # target to build an object file
 test_issue373.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_issue373-static.dir/build.make test/CMakeFiles/test_issue373-static.dir/test_issue373.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_issue373-static.dir/build.make test/CMakeFiles/test_issue373-static.dir/test_issue373.c.o
 .PHONY : test_issue373.c.o
 
 test_issue373.i: test_issue373.c.i
@@ -726,7 +726,7 @@ test_issue373.i: test_issue373.c.i
 
 # target to preprocess a source file
 test_issue373.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_issue373-static.dir/build.make test/CMakeFiles/test_issue373-static.dir/test_issue373.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_issue373-static.dir/build.make test/CMakeFiles/test_issue373-static.dir/test_issue373.c.i
 .PHONY : test_issue373.c.i
 
 test_issue373.s: test_issue373.c.s
@@ -734,7 +734,7 @@ test_issue373.s: test_issue373.c.s
 
 # target to generate assembly for a file
 test_issue373.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_issue373-static.dir/build.make test/CMakeFiles/test_issue373-static.dir/test_issue373.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_issue373-static.dir/build.make test/CMakeFiles/test_issue373-static.dir/test_issue373.c.s
 .PHONY : test_issue373.c.s
 
 test_sync_session_present.o: test_sync_session_present.c.o
@@ -742,7 +742,7 @@ test_sync_session_present.o: test_sync_session_present.c.o
 
 # target to build an object file
 test_sync_session_present.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sync_session_present-static.dir/build.make test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sync_session_present-static.dir/build.make test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o
 .PHONY : test_sync_session_present.c.o
 
 test_sync_session_present.i: test_sync_session_present.c.i
@@ -750,7 +750,7 @@ test_sync_session_present.i: test_sync_session_present.c.i
 
 # target to preprocess a source file
 test_sync_session_present.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sync_session_present-static.dir/build.make test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sync_session_present-static.dir/build.make test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.i
 .PHONY : test_sync_session_present.c.i
 
 test_sync_session_present.s: test_sync_session_present.c.s
@@ -758,7 +758,7 @@ test_sync_session_present.s: test_sync_session_present.c.s
 
 # target to generate assembly for a file
 test_sync_session_present.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sync_session_present-static.dir/build.make test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_sync_session_present-static.dir/build.make test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.s
 .PHONY : test_sync_session_present.c.s
 
 thread.o: thread.c.o
@@ -766,7 +766,7 @@ thread.o: thread.c.o
 
 # target to build an object file
 thread.c.o:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/thread.c.o
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/thread.c.o
 .PHONY : thread.c.o
 
 thread.i: thread.c.i
@@ -774,7 +774,7 @@ thread.i: thread.c.i
 
 # target to preprocess a source file
 thread.c.i:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/thread.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/thread.c.i
 .PHONY : thread.c.i
 
 thread.s: thread.c.s
@@ -782,7 +782,7 @@ thread.s: thread.c.s
 
 # target to generate assembly for a file
 thread.c.s:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/thread.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/thread.dir/build.make test/CMakeFiles/thread.dir/thread.c.s
 .PHONY : thread.c.s
 
 # Help Target
@@ -874,6 +874,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

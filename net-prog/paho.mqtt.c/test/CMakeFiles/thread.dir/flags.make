@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = -DNOLOG_MESSAGES -DNOSTACKTRACE
 
-C_INCLUDES = -I"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" -I"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src"
+C_INCLUDES = -I/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test -I/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src
 
 C_FLAGS = 
 

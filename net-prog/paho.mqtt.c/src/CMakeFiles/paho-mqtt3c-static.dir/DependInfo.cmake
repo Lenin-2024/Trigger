@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTClient.c" "src/CMakeFiles/paho-mqtt3c-static.dir/MQTTClient.c.o" "gcc" "src/CMakeFiles/paho-mqtt3c-static.dir/MQTTClient.c.o.d"
+  "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTClient.c" "src/CMakeFiles/paho-mqtt3c-static.dir/MQTTClient.c.o" "gcc" "src/CMakeFiles/paho-mqtt3c-static.dir/MQTTClient.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = -DPAHO_MQTT_STATIC=1 -D_GNU_SOURCE
 
-C_INCLUDES = -I"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src" -I"/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c"
+C_INCLUDES = -I/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src -I/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c
 
 C_FLAGS =   -fvisibility=hidden
 

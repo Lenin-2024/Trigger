@@ -1,4 +1,4 @@
-# Install script for directory: /home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test
+# Install script for directory: /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

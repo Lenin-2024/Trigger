@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c"
+CMAKE_SOURCE_DIR = /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c"
+CMAKE_BINARY_DIR = /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c
 
 # Include any dependencies generated for this target.
 include test/CMakeFiles/test_sync_session_present-static.dir/depend.make
@@ -72,16 +72,16 @@ include test/CMakeFiles/test_sync_session_present-static.dir/flags.make
 test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o: test/CMakeFiles/test_sync_session_present-static.dir/flags.make
 test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o: test/test_sync_session_present.c
 test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o: test/CMakeFiles/test_sync_session_present-static.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o -MF CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o.d -o CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o -c "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test/test_sync_session_present.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o"
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o -MF CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o.d -o CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.o -c /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test/test_sync_session_present.c
 
 test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.i"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test/test_sync_session_present.c" > CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test/test_sync_session_present.c > CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.i
 
 test/CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.s"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test/test_sync_session_present.c" -o CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test/test_sync_session_present.c -o CMakeFiles/test_sync_session_present-static.dir/test_sync_session_present.c.s
 
 # Object files for target test_sync_session_present-static
 test_sync_session_present__static_OBJECTS = \
@@ -94,18 +94,18 @@ test/test_sync_session_present-static: test/CMakeFiles/test_sync_session_present
 test/test_sync_session_present-static: test/CMakeFiles/test_sync_session_present-static.dir/build.make
 test/test_sync_session_present-static: src/libpaho-mqtt3c.a
 test/test_sync_session_present-static: test/CMakeFiles/test_sync_session_present-static.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable test_sync_session_present-static"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_sync_session_present-static.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable test_sync_session_present-static"
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_sync_session_present-static.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 test/CMakeFiles/test_sync_session_present-static.dir/build: test/test_sync_session_present-static
 .PHONY : test/CMakeFiles/test_sync_session_present-static.dir/build
 
 test/CMakeFiles/test_sync_session_present-static.dir/clean:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" && $(CMAKE_COMMAND) -P CMakeFiles/test_sync_session_present-static.dir/cmake_clean.cmake
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test && $(CMAKE_COMMAND) -P CMakeFiles/test_sync_session_present-static.dir/cmake_clean.cmake
 .PHONY : test/CMakeFiles/test_sync_session_present-static.dir/clean
 
 test/CMakeFiles/test_sync_session_present-static.dir/depend:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test/CMakeFiles/test_sync_session_present-static.dir/DependInfo.cmake" "--color=$(COLOR)"
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test/CMakeFiles/test_sync_session_present-static.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : test/CMakeFiles/test_sync_session_present-static.dir/depend
 

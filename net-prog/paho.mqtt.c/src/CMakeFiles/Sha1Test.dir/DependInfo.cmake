@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/SHA1.c" "src/CMakeFiles/Sha1Test.dir/SHA1.c.o" "gcc" "src/CMakeFiles/Sha1Test.dir/SHA1.c.o.d"
+  "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/SHA1.c" "src/CMakeFiles/Sha1Test.dir/SHA1.c.o" "gcc" "src/CMakeFiles/Sha1Test.dir/SHA1.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

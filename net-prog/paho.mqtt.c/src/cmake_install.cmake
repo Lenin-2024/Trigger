@@ -1,4 +1,4 @@
-# Install script for directory: /home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src
+# Install script for directory: /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,22 +43,22 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/libpaho-mqtt3c.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/libpaho-mqtt3c.a")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/libpaho-mqtt3a.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/libpaho-mqtt3a.a")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE FILE FILES
-    "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTAsync.h"
-    "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTClient.h"
-    "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTClientPersistence.h"
-    "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTProperties.h"
-    "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTReasonCodes.h"
-    "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTSubscribeOpts.h"
-    "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/MQTTExportDeclarations.h"
+    "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTAsync.h"
+    "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTClient.h"
+    "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTClientPersistence.h"
+    "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTProperties.h"
+    "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTReasonCodes.h"
+    "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTSubscribeOpts.h"
+    "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/MQTTExportDeclarations.h"
     )
 endif()
 
@@ -66,7 +66,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/eclipse-paho-mqtt-c/eclipse-paho-mqtt-cConfig.cmake")
     file(DIFFERENT _cmake_export_file_changed FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/eclipse-paho-mqtt-c/eclipse-paho-mqtt-cConfig.cmake"
-         "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/Export/dd175520bdcfdcc5f75bc4f14a6d7fe8/eclipse-paho-mqtt-cConfig.cmake")
+         "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/Export/dd175520bdcfdcc5f75bc4f14a6d7fe8/eclipse-paho-mqtt-cConfig.cmake")
     if(_cmake_export_file_changed)
       file(GLOB _cmake_old_config_files "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/eclipse-paho-mqtt-c/eclipse-paho-mqtt-cConfig-*.cmake")
       if(_cmake_old_config_files)
@@ -79,13 +79,13 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     endif()
     unset(_cmake_export_file_changed)
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/eclipse-paho-mqtt-c" TYPE FILE FILES "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/Export/dd175520bdcfdcc5f75bc4f14a6d7fe8/eclipse-paho-mqtt-cConfig.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/eclipse-paho-mqtt-c" TYPE FILE FILES "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/Export/dd175520bdcfdcc5f75bc4f14a6d7fe8/eclipse-paho-mqtt-cConfig.cmake")
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/eclipse-paho-mqtt-c" TYPE FILE FILES "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/Export/dd175520bdcfdcc5f75bc4f14a6d7fe8/eclipse-paho-mqtt-cConfig-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/eclipse-paho-mqtt-c" TYPE FILE FILES "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/CMakeFiles/Export/dd175520bdcfdcc5f75bc4f14a6d7fe8/eclipse-paho-mqtt-cConfig-noconfig.cmake")
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/eclipse-paho-mqtt-c" TYPE FILE FILES "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/src/eclipse-paho-mqtt-cConfigVersion.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/eclipse-paho-mqtt-c" TYPE FILE FILES "/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/src/eclipse-paho-mqtt-cConfigVersion.cmake")
 endif()
 

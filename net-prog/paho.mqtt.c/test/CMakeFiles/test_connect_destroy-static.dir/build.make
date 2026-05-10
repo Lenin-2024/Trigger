@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c"
+CMAKE_SOURCE_DIR = /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c"
+CMAKE_BINARY_DIR = /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c
 
 # Include any dependencies generated for this target.
 include test/CMakeFiles/test_connect_destroy-static.dir/depend.make
@@ -72,16 +72,16 @@ include test/CMakeFiles/test_connect_destroy-static.dir/flags.make
 test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o: test/CMakeFiles/test_connect_destroy-static.dir/flags.make
 test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o: test/test_connect_destroy.c
 test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o: test/CMakeFiles/test_connect_destroy-static.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o -MF CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o.d -o CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o -c "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test/test_connect_destroy.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o"
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o -MF CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o.d -o CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.o -c /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test/test_connect_destroy.c
 
 test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.i"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test/test_connect_destroy.c" > CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.i
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test/test_connect_destroy.c > CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.i
 
 test/CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.s"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test/test_connect_destroy.c" -o CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.s
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test/test_connect_destroy.c -o CMakeFiles/test_connect_destroy-static.dir/test_connect_destroy.c.s
 
 # Object files for target test_connect_destroy-static
 test_connect_destroy__static_OBJECTS = \
@@ -94,18 +94,18 @@ test/test_connect_destroy-static: test/CMakeFiles/test_connect_destroy-static.di
 test/test_connect_destroy-static: test/CMakeFiles/test_connect_destroy-static.dir/build.make
 test/test_connect_destroy-static: src/libpaho-mqtt3c.a
 test/test_connect_destroy-static: test/CMakeFiles/test_connect_destroy-static.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable test_connect_destroy-static"
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_connect_destroy-static.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable test_connect_destroy-static"
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_connect_destroy-static.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 test/CMakeFiles/test_connect_destroy-static.dir/build: test/test_connect_destroy-static
 .PHONY : test/CMakeFiles/test_connect_destroy-static.dir/build
 
 test/CMakeFiles/test_connect_destroy-static.dir/clean:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" && $(CMAKE_COMMAND) -P CMakeFiles/test_connect_destroy-static.dir/cmake_clean.cmake
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test && $(CMAKE_COMMAND) -P CMakeFiles/test_connect_destroy-static.dir/cmake_clean.cmake
 .PHONY : test/CMakeFiles/test_connect_destroy-static.dir/clean
 
 test/CMakeFiles/test_connect_destroy-static.dir/depend:
-	cd "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test" "/home/misha/Рабочий стол/Trigger/net-prog/paho.mqtt.c/test/CMakeFiles/test_connect_destroy-static.dir/DependInfo.cmake" "--color=$(COLOR)"
+	cd /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test /home/beer/Desktop/Trigger/net-prog/paho.mqtt.c/test/CMakeFiles/test_connect_destroy-static.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : test/CMakeFiles/test_connect_destroy-static.dir/depend
 
