@@ -20,7 +20,6 @@ static const topic_map_t TOPIC_REGISTRY[] = {
     { MSG_UNKNOWN,  "unknow" }
 };
 
-
 /*----------------Прототипы внутренних функций---------------*/
 static int engine_start_temu(engine_context_t *engine);
 static void engine_update_console(engine_context_t *engine);
@@ -45,7 +44,6 @@ void engine_set_game_callbacks(engine_context_t *engine,
 
 
 int engine_init(engine_context_t *engine, int width, int height) {
-    memset(engine, 0, sizeof(engine_context_t));
     engine->screen_width = width;
     engine->screen_height = height;
 
@@ -69,16 +67,16 @@ int engine_init(engine_context_t *engine, int width, int height) {
     
     if (MQTTAsync_connect(engine->mqtt_client, &engine->conn_opts) != MQTTASYNC_SUCCESS) {
         fprintf(stderr, "[ ERROR ] MQTT connect failed\n");
-        engine->game_run = -1;
+        engine->game_run = 0; // Запуск главного меню
     }
 
     /* Запуск эмулятора */
     engine_start_temu(engine); 
-
-    menu_init(engine->screen_width, engine->screen_height);
-    engine->game_run = 1;
     engine->temu_run = 0;
 
+    menu_init(engine->screen_width, engine->screen_height);
+    
+    engine->game_load(engine);
     return 0;
 }
 
@@ -179,10 +177,6 @@ void engine_update(engine_context_t *engine) {
             if (engine->game_update) {
                 engine->game_update(engine);
             }
-
-            if (engine->entity_manager) {
-                update_all_entities(engine); 
-            }
         }
     }
 }
@@ -191,7 +185,7 @@ void engine_draw(engine_context_t *engine) {
     BeginDrawing();
     ClearBackground(BLACK);
     switch (engine->game_run) {
-        case 0: 
+        case 0:
             draw_start_menu(&engine->game_run); 
             break;
         case 1:
