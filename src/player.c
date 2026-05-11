@@ -7,7 +7,7 @@
 #include "map.h"
 #include "engine/engine.h"
 
-#define DEBUG_PLAYER_MODE 1
+#define DEBUG_PLAYER_MODE 0
 #define TILE_SIZE 32
 
 int frame = 0;

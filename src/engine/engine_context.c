@@ -6,6 +6,7 @@
 #include <signal.h>
 #include <errno.h>
 
+#include "../player.h"
 #include "../menu.h"
 #include "../door.h"
 
@@ -77,6 +78,17 @@ int engine_init(engine_context_t *engine, int width, int height) {
     menu_init(engine->screen_width, engine->screen_height);
     
     engine->game_load(engine);
+
+    memset(&engine->camera, 0, sizeof(Camera2D));
+    player_t *player = (player_t *)engine->entity_manager->entities[engine->entity_manager->player_idx]->data;
+    engine->camera.target = player->pos;
+    engine->camera.offset = (Vector2){
+        engine->screen_width/2.0f,
+        engine->screen_height/2.0f
+    };
+    engine->camera.rotation = 0.0f;
+    engine->camera.zoom = 1.0f;
+    
     return 0;
 }
 
@@ -177,6 +189,9 @@ void engine_update(engine_context_t *engine) {
             if (engine->game_update) {
                 engine->game_update(engine);
             }
+
+            player_t *player = (player_t *)engine->entity_manager->entities[engine->entity_manager->player_idx]->data;
+            engine->camera.target = player->pos;
         }
     }
 }
@@ -184,25 +199,25 @@ void engine_update(engine_context_t *engine) {
 void engine_draw(engine_context_t *engine) {
     BeginDrawing();
     ClearBackground(BLACK);
-    switch (engine->game_state) {
-        case GAME_STOP:
-            draw_start_menu(&engine->game_state); 
-            break;
-        case GAME_RUN:
-            if (engine->temu_run) {
-                draw_console(&engine->console);
-            } else if (engine->game_draw) {
-
-                engine->game_draw(engine);
-            }
-            break;
-        case DRAW_PAUSE:
-            draw_pause_menu(&engine->game_state);
-            break;
-        default:
-            break;
-    }
-
+        switch (engine->game_state) {
+            case GAME_STOP:
+                draw_start_menu(&engine->game_state); 
+                break;
+            case GAME_RUN:
+                if (engine->temu_run) {
+                    draw_console(&engine->console);
+                } else if (engine->game_draw) {
+                    BeginMode2D(engine->camera);
+                        engine->game_draw(engine);
+                    EndMode2D();
+                }
+                break;
+            case DRAW_PAUSE:
+                draw_pause_menu(&engine->game_state);
+                break;
+            default:
+                break;
+        }
     DrawFPS(0, 0);
     EndDrawing();
 }

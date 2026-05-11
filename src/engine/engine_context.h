@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <wait.h>
 
+#include "raylib.h"
 #include "../config/config.h"
 #include "texture_manager.h"
 #include "engine.h"
@@ -32,6 +33,7 @@ typedef enum {
 
 typedef struct engine_context {
     game_state_t game_state;
+    Camera2D camera;
     
     // Ресурсы
     level_config_t *current_map;   

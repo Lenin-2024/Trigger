@@ -13,6 +13,7 @@ static void game_load(engine_context_t *eng) {
 }
 
 static void game_update(engine_context_t *eng) {
+
     if (eng->entity_manager) {
         update_all_entities(eng); 
     }
