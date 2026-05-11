@@ -52,9 +52,17 @@ void draw_map(engine_context_t *eng, level_config_t *map) {
     (void)eng;
     for (int i = 0; i < map->layout->rows; i++) {
         for (int j = 0; j < map->layout->cols; j++) {
-            if (map->layout->data[i][j] == 1) {
-                DrawRectangle(j * 32, i * 32, 32, 32, BLUE);
-            }
+            // Кадр в персонажа
+            Rectangle source_rec = {
+                0, 0, 32, 32
+            };
+
+            // Размер и позиция
+            Rectangle dest_rec = {
+                i * 32, j * 32, 32, 32
+            };
+    
+            DrawTexturePro(eng->texture_manager.texture[map->layout->data[j][i]], source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);
         }
     }
 }

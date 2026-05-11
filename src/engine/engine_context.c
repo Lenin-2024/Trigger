@@ -83,11 +83,11 @@ int engine_init(engine_context_t *engine, int width, int height) {
     player_t *player = (player_t *)engine->entity_manager->entities[engine->entity_manager->player_idx]->data;
     engine->camera.target = player->pos;
     engine->camera.offset = (Vector2){
-        engine->screen_width/2.0f,
-        engine->screen_height/2.0f
+        engine->screen_width / 2.0f,
+        engine->screen_height / 2.0f
     };
     engine->camera.rotation = 0.0f;
-    engine->camera.zoom = 1.0f;
+    engine->camera.zoom = 1.5f;
     
     return 0;
 }

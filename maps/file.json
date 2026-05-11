@@ -8,20 +8,21 @@
         { "id": 0, "name": "empty", "texture": "", "entity": "" },
         { "id": 1, "name": "wall", "texture": "resources/wall.png", "entity": "" },
         { "id": 2, "name": "player", "texture": "resources/male_hero_template.png", "entity": "player" },
-        { "id": 3, "name": "door", "texture": "resources/tiles/door.png", "entity": "door" }
+        { "id": 3, "name": "door", "texture": "resources/tiles/door.png", "entity": "door" },
+        { "id": 4, "name": "floor", "texture": "resources/Free Industrial Zone Tileset/1 Tiles/IndustrialTile_05.png", "entity": ""}
     ],
     "map": {
         "size": { "rows": 9, "cols": 9 },
         "data": [
             [1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 1, 1, 0, 0, 0, 0, 1],
+            [1, 0, 4, 4, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 3, 1, 0, 0, 1],
             [1, 2, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 3, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1]
+            [1, 4, 4, 4, 4, 4, 4, 4, 1]
         ]
     }
 }
