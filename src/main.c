@@ -8,7 +8,7 @@ static void game_load(engine_context_t *eng) {
     eng->current_map = get_map(eng, "maps/file.json");
     if (!eng->current_map) {
         fprintf(stderr, "[ ERROR ] Failed to load map\n");
-        eng->game_run = 0;
+        eng->game_state = GAME_STOP;
     }
 }
 
@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    while (!WindowShouldClose() && engine.game_run != -1) {
+    while (!WindowShouldClose() && engine.game_state != GAME_EXIT) {
         engine_update(&engine);
         engine_draw(&engine);
     }

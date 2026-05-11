@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "menu.h"
+#include "engine/engine_context.h"
 
 #define DEBUG_MENU_MODE 0
 
@@ -82,19 +83,19 @@ int check_button_click(int button_x, int button_y, int button_width, int button_
     return 0;
 }
 
-void draw_start_menu(int *start_game) {
+void draw_start_menu(game_state_t *start_game) {
     DrawTextureEx(menu_box_texture, (Vector2){ menu_box_start_x, menu_box_start_y}, 0, 0.35, WHITE);
     DrawTextureEx(menu_start_button_texture, (Vector2){ menu_start_button_start_x, menu_start_button_start_y}, 0, 0.3, WHITE);
     DrawTextureEx(menu_exit_game_button_texture, (Vector2){ menu_exit_game_button_start_x, menu_exit_game_button_start_y}, 0, 0.3, WHITE);
 
     /* Проверка нажатия кнопки "Начать игру" */
     if (check_button_click(menu_start_button_start_x, menu_start_button_start_y, menu_start_button_width, menu_start_button_height)) {
-        *start_game = 1;
+        *start_game = GAME_RUN;
     }
 
     /* Проверка нажатия кнопки "Выйти из игры" */
     if (check_button_click(menu_exit_game_button_start_x, menu_exit_game_button_start_y, menu_exit_game_button_width, menu_exit_game_button_height)) {
-        *start_game = -1;
+        *start_game = GAME_EXIT;
     }
 
 #if DEBUG_MENU_MODE
@@ -103,19 +104,19 @@ void draw_start_menu(int *start_game) {
 #endif
 }
 
-void draw_pause_menu(int *resume_game) {
+void draw_pause_menu(game_state_t *resume_game) {
     DrawTextureEx(menu_box_texture, (Vector2){ menu_box_start_x, menu_box_start_y}, 0, 0.35, WHITE);
     DrawTextureEx(menu_resume_button_texture, (Vector2){ menu_resume_button_start_x, menu_resume_button_start_y}, 0, 0.3, WHITE);
     DrawTextureEx(menu_exit_game_button_texture, (Vector2){ menu_exit_game_button_start_x, menu_exit_game_button_start_y}, 0, 0.3, WHITE);
 
     /* Проверка нажатия кнопки "Продолжить игру" */
     if (check_button_click(menu_resume_button_start_x, menu_resume_button_start_y, menu_resume_button_width, menu_resume_button_height)) {  
-        *resume_game = 1;
+        *resume_game = GAME_RUN;
     }
 
     /* Проверка нажатия кнопки "Выйти в меню" */
     if (check_button_click(menu_exit_game_button_start_x, menu_exit_game_button_start_y, menu_exit_game_button_width, menu_exit_game_button_height)) {
-        *resume_game = 0;
+        *resume_game = GAME_STOP;
     }
 
 #if DEBUG_MENU_MODE

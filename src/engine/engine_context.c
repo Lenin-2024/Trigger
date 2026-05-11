@@ -67,7 +67,7 @@ int engine_init(engine_context_t *engine, int width, int height) {
     
     if (MQTTAsync_connect(engine->mqtt_client, &engine->conn_opts) != MQTTASYNC_SUCCESS) {
         fprintf(stderr, "[ ERROR ] MQTT connect failed\n");
-        engine->game_run = 0; // Запуск главного меню
+        engine->game_state = GAME_STOP; // Запуск главного меню
     }
 
     /* Запуск эмулятора */
@@ -165,9 +165,9 @@ void engine_update(engine_context_t *engine) {
         update_input(engine->stdin_pipe[1], &engine->console, &engine->temu_run);
         engine_update_console(engine);
     } else {
-        if (engine->game_run == 1) {
+        if (engine->game_state == GAME_RUN) {
             if (IsKeyPressed(KEY_Q)) { 
-                engine->game_run = 2;
+                engine->game_state = DRAW_PAUSE;
             }
 
             if (IsKeyPressed(KEY_P)) {
@@ -184,11 +184,11 @@ void engine_update(engine_context_t *engine) {
 void engine_draw(engine_context_t *engine) {
     BeginDrawing();
     ClearBackground(BLACK);
-    switch (engine->game_run) {
-        case 0:
-            draw_start_menu(&engine->game_run); 
+    switch (engine->game_state) {
+        case GAME_STOP:
+            draw_start_menu(&engine->game_state); 
             break;
-        case 1:
+        case GAME_RUN:
             if (engine->temu_run) {
                 draw_console(&engine->console);
             } else if (engine->game_draw) {
@@ -196,8 +196,8 @@ void engine_draw(engine_context_t *engine) {
                 engine->game_draw(engine);
             }
             break;
-        case 2:
-            draw_pause_menu(&engine->game_run);
+        case DRAW_PAUSE:
+            draw_pause_menu(&engine->game_state);
             break;
         default:
             break;
@@ -294,7 +294,7 @@ static void onConnectSuccess(void* context, MQTTAsync_successData* response) {
 static void onConnectFailure(void* context, MQTTAsync_failureData* response) {
     engine_context_t *engine = (engine_context_t*)context;
     printf("[ ERROR ] MQTT connect failed, rc %d\n", response ? response->code : 0);
-    engine->game_run = -1;
+    engine->game_state = GAME_EXIT;
 }
 
 static void connlost(void *context, char *cause) {
@@ -302,7 +302,7 @@ static void connlost(void *context, char *cause) {
     printf("[ WARNING ] MQTT connection lost: %s\n", cause);
     /* Попытка переподключения */
     if (MQTTAsync_connect(engine->mqtt_client, &engine->conn_opts) != MQTTASYNC_SUCCESS) {
-        engine->game_run = -1;
+        engine->game_state = GAME_EXIT;
     }
 }
 /*---------------------------------------------------------------------------------*/

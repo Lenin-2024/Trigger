@@ -15,13 +15,23 @@
 #define QOS         0
 
 typedef enum {
+    GAME_EXIT = -1,
+    GAME_STOP = 0,
+    GAME_RUN = 1,
+    TEMU_RUN = 2,
+    TEMU_STOP = 3,
+    DRAW_MENU = 4,
+    DRAW_PAUSE = 5
+} game_state_t;
+
+typedef enum {
     MSG_UNKNOWN = 0,
     MSG_DOOR,
     MSG_BOX
 } engine_msg_t;
 
 typedef struct engine_context {
-    int game_run;
+    game_state_t game_state;
     
     // Ресурсы
     level_config_t *current_map;   
