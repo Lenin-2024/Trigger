@@ -65,9 +65,9 @@ engine_context_t* createMinimalContext(){
 } 
 
 // создание entity_manager
-START_TEST(test_craete_entity_manager) {
+START_TEST(test_create_entity_manager) {
     engine_context_t* context = createMinimalContext();
-    context->entity_manager = craete_entity_manager(10);
+    context->entity_manager = create_entity_manager(10);
     entity_manager_t *manager = context->entity_manager;
     
     ck_assert_ptr_nonnull(manager);
@@ -83,9 +83,9 @@ START_TEST(test_craete_entity_manager) {
 END_TEST
 
 // capacity = 0
-START_TEST(test_craete_entity_manager_zero_capacity) {
+START_TEST(test_create_entity_manager_zero_capacity) {
     engine_context_t* context = createMinimalContext();
-    context->entity_manager = craete_entity_manager(0);
+    context->entity_manager = create_entity_manager(0);
     entity_manager_t *manager = context->entity_manager;
     
     ck_assert_ptr_nonnull(manager);
@@ -102,7 +102,7 @@ END_TEST
 // создание объекта
 START_TEST(test_create_entity) {
     engine_context_t* context = createMinimalContext();
-    context->entity_manager = craete_entity_manager(10);
+    context->entity_manager = create_entity_manager(10);
     entity_manager_t *manager = context->entity_manager;
     ck_assert_ptr_nonnull(manager);
     
@@ -129,7 +129,7 @@ END_TEST
 // авто-расширение
 START_TEST(test_auto_expand_capacity) {
     engine_context_t* context = createMinimalContext();
-    context->entity_manager = craete_entity_manager(2);
+    context->entity_manager = create_entity_manager(2);
     entity_manager_t *manager = context->entity_manager;
     ck_assert_ptr_nonnull(manager);
     
@@ -158,7 +158,7 @@ END_TEST
 // обновление
 START_TEST(test_update_all_entities) {
     engine_context_t* context = createMinimalContext();
-    context->entity_manager = craete_entity_manager(2);
+    context->entity_manager = create_entity_manager(2);
     entity_manager_t *manager = context->entity_manager;
     ck_assert_ptr_nonnull(manager);
     
@@ -189,7 +189,7 @@ END_TEST
 // отрисовка
 START_TEST(test_draw_all_entities) {
     engine_context_t* context = createMinimalContext();
-    context->entity_manager = craete_entity_manager(2);
+    context->entity_manager = create_entity_manager(2);
     entity_manager_t *manager = context->entity_manager;
     ck_assert_ptr_nonnull(manager);
     
@@ -216,7 +216,7 @@ END_TEST
 // неактивные объекты
 START_TEST(test_inactive_entities) {
     engine_context_t* context = createMinimalContext();
-    context->entity_manager = craete_entity_manager(2);
+    context->entity_manager = create_entity_manager(2);
     entity_manager_t *manager = context->entity_manager;
     ck_assert_ptr_nonnull(manager);
     
@@ -251,7 +251,7 @@ END_TEST
 // частичный vtable (отсутствует draw)
 START_TEST(test_partial_vtable) {
     engine_context_t* context = createMinimalContext();
-    context->entity_manager = craete_entity_manager(2);
+    context->entity_manager = create_entity_manager(2);
     entity_manager_t *manager = context->entity_manager;
     ck_assert_ptr_nonnull(manager);
     
@@ -278,7 +278,7 @@ END_TEST
 // NULL список методов
 START_TEST(test_null_parameters) {
     engine_context_t* context = createMinimalContext();
-    context->entity_manager = craete_entity_manager(2);
+    context->entity_manager = create_entity_manager(2);
     entity_manager_t *manager = context->entity_manager;
     ck_assert_ptr_nonnull(manager);
     
@@ -303,7 +303,7 @@ END_TEST
 // destroy_entity
 START_TEST(test_destroy_entity_calls_destroy) {
     engine_context_t* context = createMinimalContext();
-    context->entity_manager = craete_entity_manager(2);
+    context->entity_manager = create_entity_manager(2);
     entity_manager_t *manager = context->entity_manager;
     ck_assert_ptr_nonnull(manager);
     
@@ -327,8 +327,8 @@ Suite* entity_manager_suite(void) {
     Suite *s = suite_create("Entity Manager");
     
     TCase *tc_em = tcase_create("entity_manager");
-    tcase_add_test(tc_em, test_craete_entity_manager);
-    tcase_add_test(tc_em, test_craete_entity_manager_zero_capacity);
+    tcase_add_test(tc_em, test_create_entity_manager);
+    tcase_add_test(tc_em, test_create_entity_manager_zero_capacity);
     tcase_add_test(tc_em, test_create_entity);
     tcase_add_test(tc_em, test_auto_expand_capacity);
     suite_add_tcase(s, tc_em);

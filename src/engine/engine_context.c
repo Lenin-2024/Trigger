@@ -52,7 +52,7 @@ int engine_init(engine_context_t *engine, int width, int height) {
     SetTargetFPS(60);
 
     memset(&engine->texture_manager, 0, sizeof(texture_manager_t));
-    engine->entity_manager = craete_entity_manager(10);
+    engine->entity_manager = (10);
 
     /* Инициализация mqtt */
     MQTTAsync_create(&engine->mqtt_client, ADDRESS, CLIENTID, MQTTCLIENT_PERSISTENCE_NONE, NULL);
@@ -76,18 +76,6 @@ int engine_init(engine_context_t *engine, int width, int height) {
     engine->temu_run = 0;
 
     menu_init(engine->screen_width, engine->screen_height);
-    
-    engine->game_load(engine);
-
-    memset(&engine->camera, 0, sizeof(Camera2D));
-    player_t *player = (player_t *)engine->entity_manager->entities[engine->entity_manager->player_idx]->data;
-    engine->camera.target = player->pos;
-    engine->camera.offset = (Vector2){
-        engine->screen_width / 2.0f,
-        engine->screen_height / 2.0f
-    };
-    engine->camera.rotation = 0.0f;
-    engine->camera.zoom = 1.5f;
     
     return 0;
 }
@@ -201,7 +189,7 @@ void engine_draw(engine_context_t *engine) {
     ClearBackground(BLACK);
         switch (engine->game_state) {
             case GAME_STOP:
-                draw_start_menu(&engine->game_state); 
+                draw_start_menu(engine); 
                 break;
             case GAME_RUN:
                 if (engine->temu_run) {

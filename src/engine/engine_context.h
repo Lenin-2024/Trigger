@@ -38,6 +38,8 @@ typedef struct engine_context {
     // Ресурсы
     level_config_t *current_map;   
     texture_manager_t texture_manager;
+
+    char level_path[256];
     
     // Сущьности
     entity_manager_t *entity_manager;

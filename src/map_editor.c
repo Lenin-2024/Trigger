@@ -8,31 +8,32 @@
 #include "config/config.h"
 #include "engine/texture_manager.h"
 
-#define TILE_SIZE         128
+#define TILE_SIZE         32
 #define PALETTE_WIDTH     200
 #define GRID_LINE_COLOR   CLITERAL(Color){ 50, 50, 50, 100 }
+#define ITEMS_PER_PAGE    17   // максимум объектов, отображаемых в палитре одновременно
 
 // Прототипы
 static void SaveLevelConfig(const level_config_t *config, const char *filename);
 static void BuildObjectPalette(level_config_t *config);
-static void LoadTextures(texture_manager_t *tm, level_config_t* config);
 
 // ------------------------------------------------------------
-// Построение палитры объектов: 0-пустота, 1-стена(синяя),
-// 2-дверь(фиолетовая), затем все .png из ../resources/map
+// Построение палитры объектов:
+// 0 - пустота
+// 1 - игрок (текстура resources/map/male_hero_template.png)
+// 2+ - все .png из ../resources/map (кроме текстуры игрока)
 // ------------------------------------------------------------
 static void BuildObjectPalette(level_config_t *config) {
-    // Удаляем старые объекты, если были
     if (config->objects) {
         free(config->objects);
         config->objects = NULL;
     }
 
-    int capacity = 3;
+    int capacity = 2 + 10;
     int count = 0;
     object_config_t *new_objects = (object_config_t*)malloc(sizeof(object_config_t) * capacity);
 
-    // 0: empty (пустота)
+    // 0: empty
     memset(&new_objects[count], 0, sizeof(object_config_t));
     new_objects[count].id = 0;
     strcpy(new_objects[count].name, "empty");
@@ -40,39 +41,35 @@ static void BuildObjectPalette(level_config_t *config) {
     strcpy(new_objects[count].entity, "");
     count++;
 
-    // 1: wall_stub (синяя заливка)
+    // 1: player
     memset(&new_objects[count], 0, sizeof(object_config_t));
     new_objects[count].id = 1;
-    strcpy(new_objects[count].name, "wall");
-    strcpy(new_objects[count].texture, "");   // текстура задаётся программно
-    strcpy(new_objects[count].entity, "");
+    strcpy(new_objects[count].name, "player");
+    strcpy(new_objects[count].texture, "resources/map/male_hero_template.png");
+    strcpy(new_objects[count].entity, "player");
     count++;
 
-    // 2: door_stub (фиолетовая заливка)
-    memset(&new_objects[count], 0, sizeof(object_config_t));
-    new_objects[count].id = 2;
-    strcpy(new_objects[count].name, "door");
-    strcpy(new_objects[count].texture, "");
-    strcpy(new_objects[count].entity, "door");
-    count++;
-
-    // Сканируем папку с текстурами
+    // Сканируем папку
     const char *mapDir = "../resources/map";
+    if (DirectoryExists(mapDir)) {
         FilePathList files = LoadDirectoryFiles(mapDir);
         for (int i = 0; i < files.count; i++) {
             const char *path = files.paths[i];
-            // Только .png
             const char *ext = strrchr(path, '.');
             if (ext && strcmp(ext, ".png") == 0) {
-                // Увеличиваем массив при необходимости
+                const char *fname = strrchr(path, '/');
+                if (!fname) fname = strrchr(path, '\\');
+                if (fname) fname++; else fname = path;
+
+                // Пропускаем игрока
+                if (strcmp(fname, "male_hero_template.png") == 0)
+                    continue;
+
                 if (count >= capacity) {
                     capacity *= 2;
                     new_objects = (object_config_t*)realloc(new_objects, sizeof(object_config_t) * capacity);
                 }
-                // Имя файла без расширения
-                const char *fname = strrchr(path, '/');
-                if (!fname) fname = strrchr(path, '\\');
-                if (fname) fname++; else fname = path;
+
                 char name[256];
                 strncpy(name, fname, sizeof(name)-1);
                 name[sizeof(name)-1] = '\0';
@@ -80,7 +77,7 @@ static void BuildObjectPalette(level_config_t *config) {
                 if (dot) *dot = '\0';
 
                 memset(&new_objects[count], 0, sizeof(object_config_t));
-                new_objects[count].id = count;          // ID начинаются с 3
+                new_objects[count].id = count;
                 strcpy(new_objects[count].name, name);
                 snprintf(new_objects[count].texture, sizeof(new_objects[count].texture), "%s/%s", mapDir, fname);
                 strcpy(new_objects[count].entity, "");
@@ -88,44 +85,26 @@ static void BuildObjectPalette(level_config_t *config) {
             }
         }
         UnloadDirectoryFiles(files);
+    } else {
+        printf("[WARNING] Directory %s not found.\n", mapDir);
+    }
 
     config->objects = new_objects;
     config->count_objects = count;
 }
 
 // ------------------------------------------------------------
-// Генерация текстур-заглушек (синяя, фиолетовая) 32x32
-// ------------------------------------------------------------
-static void LoadTextures(texture_manager_t* tm, level_config_t* config) {
-    if (tm->loaded[1] == 0) {
-        Image img = GenImageColor(TILE_SIZE, TILE_SIZE, BLUE);
-        tm->texture[1] = LoadTextureFromImage(img);
-        UnloadImage(img);
-        tm->loaded[1] = 1;
-    }
-    if (tm->loaded[2] == 0) {
-        Image img = GenImageColor(TILE_SIZE, TILE_SIZE, PURPLE);
-        tm->texture[2] = LoadTextureFromImage(img);
-        UnloadImage(img);
-        tm->loaded[2] = 1;
-    }
-
-}
-
-// ------------------------------------------------------------
-// Сохранение карты в JSON
+// Сохранение
 // ------------------------------------------------------------
 static void SaveLevelConfig(const level_config_t *config, const char *filename) {
     cJSON *root = cJSON_CreateObject();
 
-    // level_info
     cJSON *levelInfo = cJSON_CreateObject();
     cJSON_AddStringToObject(levelInfo, "name", config->name);
     cJSON_AddStringToObject(levelInfo, "background", config->texture_background);
     cJSON_AddStringToObject(levelInfo, "next_level", config->next_level);
     cJSON_AddItemToObject(root, "level_info", levelInfo);
 
-    // objects (актуальная палитра)
     cJSON *objects = cJSON_CreateArray();
     for (int i = 0; i < config->count_objects; i++) {
         cJSON *obj = cJSON_CreateObject();
@@ -137,7 +116,6 @@ static void SaveLevelConfig(const level_config_t *config, const char *filename) 
     }
     cJSON_AddItemToObject(root, "objects", objects);
 
-    // map
     cJSON *map = cJSON_CreateObject();
     cJSON *size = cJSON_CreateObject();
     cJSON_AddNumberToObject(size, "rows", config->layout->rows);
@@ -170,7 +148,7 @@ static void SaveLevelConfig(const level_config_t *config, const char *filename) 
 }
 
 // ------------------------------------------------------------
-// Создание новой карты (структура без объектов, карта 10x10)
+// Новая карта
 // ------------------------------------------------------------
 static level_config_t* CreateDefaultConfig(void) {
     level_config_t *config = malloc(sizeof(level_config_t));
@@ -190,8 +168,7 @@ static level_config_t* CreateDefaultConfig(void) {
     for (int i = 0; i < config->layout->rows; i++) {
         config->layout->data[i] = malloc(sizeof(int) * config->layout->cols);
         for (int j = 0; j < config->layout->cols; j++) {
-            // Края — wall_stub (id=1), остальное — empty
-            config->layout->data[i][j] = (i==0 || i==9 || j==0 || j==9) ? 1 : 0;
+            config->layout->data[i][j] = 0;
         }
     }
     return config;
@@ -211,16 +188,13 @@ int main(int argc, char **argv) {
 
     level_config_t *config = NULL;
 
-    // 1. Загрузка существующей карты или создание новой
     if (FileExists(mapPath)) {
         config = load_level_config(mapPath);
         if (!config) {
             fprintf(stderr, "[ERROR] Failed to load map.\n");
             return 1;
         }
-        // Заменяем старую палитру на новую (из файлов + заглушки)
         BuildObjectPalette(config);
-        // Если в данных карты есть ID за пределами новой палитры, сбрасываем в 0
         for (int r = 0; r < config->layout->rows; r++) {
             for (int c = 0; c < config->layout->cols; c++) {
                 if (config->layout->data[r][c] >= config->count_objects)
@@ -231,44 +205,60 @@ int main(int argc, char **argv) {
         config = CreateDefaultConfig();
         if (!config) return 1;
         BuildObjectPalette(config);
+        int wallId = 0;
+        for (int i = 0; i < config->count_objects; i++) {
+            if (strcmp(config->objects[i].name, "wall") == 0) {
+                wallId = config->objects[i].id;
+                break;
+            }
+        }
+        if (wallId == 0 && config->count_objects > 2) wallId = 2;
+        for (int i = 0; i < config->layout->rows; i++) {
+            for (int j = 0; j < config->layout->cols; j++) {
+                if (i == 0 || i == 9 || j == 0 || j == 9)
+                    config->layout->data[i][j] = wallId;
+                else
+                    config->layout->data[i][j] = 0;
+            }
+        }
         SaveLevelConfig(config, mapPath);
         printf("[INFO] New default map created: %s\n", mapPath);
     }
 
-    // 2. Инициализация окна
     const int screenWidth = 1280;
     const int screenHeight = 720;
-    InitWindow(screenWidth, screenHeight, "Map Editor – palette from files");
+    InitWindow(screenWidth, screenHeight, "Map Editor");
     SetTargetFPS(60);
 
-    // 3. Текстуры
     texture_manager_t textureManager;
     init_texture_manager(&textureManager, config);
-    LoadTextures(&textureManager, config);   // синий и фиолетовый квадраты
 
-    // 4. Расчёт размеров сетки
     int gridAreaWidth = screenWidth - PALETTE_WIDTH;
     float cellSize = fminf((float)gridAreaWidth / config->layout->cols,
                            (float)screenHeight / config->layout->rows);
     if (cellSize < 4) cellSize = 4;
 
-    int currentTile = 1;   // активный инструмент (wall_stub)
+    int currentTile = config->objects[0].id;   // по умолчанию пустота
     bool showGrid = true;
 
-    // 5. Главный цикл
+    // Параметры страничной палитры
+    int palettePage = 0;
+    int totalPages = (config->count_objects + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE;
+
     while (!WindowShouldClose()) {
         Vector2 mouse = GetMousePosition();
 
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            // Клик по палитре справа
             if (mouse.x >= gridAreaWidth) {
-                int index = (int)((mouse.y - 40) / 40);
-                if (index >= 0 && index < config->count_objects) {
-                    currentTile = config->objects[index].id;
+                // Определяем индекс объекта с учётом текущей страницы
+                int rowInPalette = (int)((mouse.y - 40) / 40);
+                if (rowInPalette >= 0 && rowInPalette < ITEMS_PER_PAGE) {
+                    int objIndex = palettePage * ITEMS_PER_PAGE + rowInPalette;
+                    if (objIndex >= 0 && objIndex < config->count_objects) {
+                        currentTile = config->objects[objIndex].id;
+                    }
                 }
-            }
-            // Клик по карте — рисуем выбранный тайл
-            else {
+            } else {
                 int col = (int)(mouse.x / cellSize);
                 int row = (int)(mouse.y / cellSize);
                 if (row >= 0 && row < config->layout->rows &&
@@ -278,18 +268,23 @@ int main(int argc, char **argv) {
             }
         }
 
-        // Сохранение: Ctrl+S
+        // Перелистывание страниц палитры стрелками влево/вправо
+        if (IsKeyPressed(KEY_LEFT)) {
+            palettePage = (palettePage - 1 + totalPages) % totalPages;
+        }
+        if (IsKeyPressed(KEY_RIGHT)) {
+            palettePage = (palettePage + 1) % totalPages;
+        }
+
         if (IsKeyPressed(KEY_S) && (IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL))) {
             SaveLevelConfig(config, mapPath);
         }
-        // Сетка: G
         if (IsKeyPressed(KEY_G)) showGrid = !showGrid;
 
-        // Рендеринг
         BeginDrawing();
         ClearBackground(DARKGRAY);
 
-        // Карта
+        // Отрисовка карты
         for (int row = 0; row < config->layout->rows; row++) {
             for (int col = 0; col < config->layout->cols; col++) {
                 int id = config->layout->data[row][col];
@@ -297,7 +292,7 @@ int main(int argc, char **argv) {
 
                 if (id >= 0 && id < MAX_TEXTURES && textureManager.loaded[id]) {
                     DrawTexturePro(textureManager.texture[id],
-                                   (Rectangle){16, 16, TILE_SIZE /2, TILE_SIZE /2},
+                                   (Rectangle){0, 0, TILE_SIZE, TILE_SIZE},
                                    dest, (Vector2){0,0}, 0.0f, WHITE);
                 } else {
                     DrawRectangleRec(dest, (Color){40,40,40,255});
@@ -319,9 +314,16 @@ int main(int argc, char **argv) {
 
         // Палитра
         DrawRectangle(gridAreaWidth, 0, PALETTE_WIDTH, screenHeight, (Color){30,30,30,255});
-        DrawText("PALETTE", gridAreaWidth + 10, 10, 20, RAYWHITE);
-        for (int i = 0; i < config->count_objects; i++) {
-            int y = 40 + i * 40;
+        DrawText(TextFormat("PALETTE %d/%d", palettePage+1, totalPages), gridAreaWidth + 10, 10, 16, RAYWHITE);
+
+        // Отображаем только объекты текущей страницы
+        int startIdx = palettePage * ITEMS_PER_PAGE;
+        int endIdx = startIdx + ITEMS_PER_PAGE;
+        if (endIdx > config->count_objects) endIdx = config->count_objects;
+
+        for (int i = startIdx; i < endIdx; i++) {
+            int displayRow = i - startIdx;   // 0..16
+            int y = 40 + displayRow * 40;
             int id = config->objects[i].id;
             Color bg = (id == currentTile) ? SKYBLUE : DARKGRAY;
             DrawRectangle(gridAreaWidth + 5, y, PALETTE_WIDTH - 10, 35, bg);
@@ -335,11 +337,10 @@ int main(int argc, char **argv) {
             DrawText(config->objects[i].name, gridAreaWidth + 50, y + 8, 16, RAYWHITE);
         }
 
-        DrawText("Ctrl+S: Save   G: Toggle grid", 10, screenHeight - 25, 16, LIGHTGRAY);
+        DrawText("Ctrl+S: Save   G: Toggle grid   Left/Right: Palette page", 10, screenHeight - 25, 16, LIGHTGRAY);
         EndDrawing();
     }
 
-    // 6. Очистка
     free_texture_manager(&textureManager);
     free_level_config(config);
     CloseWindow();

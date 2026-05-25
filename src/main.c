@@ -5,11 +5,11 @@
 #include "door.h"
 
 static void game_load(engine_context_t *eng) {
-    eng->current_map = get_map(eng, "maps/file.json");
+    /*eng->current_map = get_map(eng, "maps/file.json");
     if (!eng->current_map) {
         fprintf(stderr, "[ ERROR ] Failed to load map\n");
         eng->game_state = GAME_STOP;
-    }
+    }*/
 }
 
 static void game_update(engine_context_t *eng) {

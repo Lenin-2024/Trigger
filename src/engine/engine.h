@@ -26,7 +26,7 @@ typedef struct {
     int player_idx;
 } entity_manager_t;
 
-entity_manager_t *craete_entity_manager(int capacity);
+entity_manager_t *create_entity_manager(int capacity);
 entity_t *create_entity(entity_manager_t *manager, void *data, const object_v_table_t *vtable);
 void destroy_entity(entity_manager_t *manager);
 void update_all_entities(struct engine_context *engine);

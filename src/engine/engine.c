@@ -3,9 +3,10 @@
 
 #include "engine.h"
 
-entity_manager_t *craete_entity_manager(int capacity) {
+entity_manager_t *create_entity_manager(int capacity) {
     entity_manager_t *entity_manager = (entity_manager_t *)malloc(sizeof(entity_manager_t));
     if (!entity_manager) {
+        printf("RIP\n");
         return NULL;
     }
 
@@ -14,6 +15,7 @@ entity_manager_t *craete_entity_manager(int capacity) {
     entity_manager->entities = (entity_t **)malloc(entity_manager->capacity * sizeof(entity_t *));
     if (!entity_manager->entities) {
         free(entity_manager);
+        printf("RIP\n");
         return NULL;
     }
 

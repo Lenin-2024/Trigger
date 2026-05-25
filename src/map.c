@@ -16,6 +16,8 @@ level_config_t *get_map(engine_context_t *engine, const char *file_name) {
         return NULL;
     }
 
+    engine->entity_manager = create_entity_manager(10);
+
     int door_id = 0;
     for (int i = 0; i < map->layout->rows; i++) {
         for (int j = 0; j < map->layout->cols; j++) {
@@ -29,6 +31,7 @@ level_config_t *get_map(engine_context_t *engine, const char *file_name) {
                     if (strcmp(map->objects[k].name, "player") == 0) {
                         player_t *player = create_player((Vector2){j * 32, i * 32}, tile_id);
                         if (player) {
+                            printf("%d/n", engine->entity_manager->count);
                             engine->entity_manager->player_idx = engine->entity_manager->count;
                             create_entity(engine->entity_manager, player, &player_vtable);
                         }
