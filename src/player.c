@@ -75,10 +75,10 @@ void update_player(player_t *player, engine_context_t *engine) {
     }
 
     player->pos.x += player->velocity.x;
-    check_collision_pl(engine->current_map, player, 0);
+    check_collision_pl(engine, engine->current_map, player, 0);
 
     player->pos.y += player->velocity.y + 1;
-    check_collision_pl(engine->current_map, player, 1);
+    check_collision_pl(engine, engine->current_map, player, 1);
 
     if (!player->on_ground) {
         player->state = JUMP;
@@ -109,7 +109,7 @@ void update_player(player_t *player, engine_context_t *engine) {
     player->velocity.x = 0;
 }
 
-void check_collision_pl(level_config_t *map, player_t *player, int dir) {
+void check_collision_pl(engine_context_t *engine, level_config_t *map, player_t *player, int dir) {
     int start_x = (int)(player->pos.x / TILE_SIZE);
     int start_y = (int)(player->pos.y / TILE_SIZE);
     int end_x   = (int)((player->pos.x + 32) / TILE_SIZE);
@@ -122,6 +122,11 @@ void check_collision_pl(level_config_t *map, player_t *player, int dir) {
             }
 
             if (map->layout->data[i][j] > 0) {
+                if (map->layout->data[i][j] == 3){
+                    engine->game_state = GAME_STOP;
+                    return;
+                }
+                
                 if ((player->velocity.x > 0) && (dir == 0)) {
                     player->pos.x = (j * TILE_SIZE) - 32 - 1;
                     player->velocity.x = 0;

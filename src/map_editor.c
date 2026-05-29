@@ -17,12 +17,6 @@
 static void SaveLevelConfig(const level_config_t *config, const char *filename);
 static void BuildObjectPalette(level_config_t *config);
 
-// ------------------------------------------------------------
-// Построение палитры объектов:
-// 0 - пустота
-// 1 - игрок (текстура resources/map/male_hero_template.png)
-// 2+ - все .png из ../resources/map (кроме текстуры игрока)
-// ------------------------------------------------------------
 static void BuildObjectPalette(level_config_t *config) {
     if (config->objects) {
         free(config->objects);
@@ -162,8 +156,8 @@ static level_config_t* CreateDefaultConfig(void) {
     config->count_objects = 0;
 
     config->layout = malloc(sizeof(map_layout_t));
-    config->layout->rows = 10;
-    config->layout->cols = 10;
+    config->layout->rows = 500;
+    config->layout->cols = 500;
     config->layout->data = malloc(sizeof(int*) * config->layout->rows);
     for (int i = 0; i < config->layout->rows; i++) {
         config->layout->data[i] = malloc(sizeof(int) * config->layout->cols);
@@ -224,9 +218,8 @@ int main(int argc, char **argv) {
         SaveLevelConfig(config, mapPath);
         printf("[INFO] New default map created: %s\n", mapPath);
     }
-
     const int screenWidth = 1280;
-    const int screenHeight = 720;
+    const int screenHeight = 800;
     InitWindow(screenWidth, screenHeight, "Map Editor");
     SetTargetFPS(60);
 
@@ -234,8 +227,8 @@ int main(int argc, char **argv) {
     init_texture_manager(&textureManager, config);
 
     int gridAreaWidth = screenWidth - PALETTE_WIDTH;
-    float cellSize = fminf((float)gridAreaWidth / config->layout->cols,
-                           (float)screenHeight / config->layout->rows);
+    float cellSize = fminf((float)gridAreaWidth / 20,
+                           (float)screenHeight / 20);
     if (cellSize < 4) cellSize = 4;
 
     int currentTile = config->objects[0].id;   // по умолчанию пустота
@@ -269,10 +262,10 @@ int main(int argc, char **argv) {
         }
 
         // Перелистывание страниц палитры стрелками влево/вправо
-        if (IsKeyPressed(KEY_LEFT)) {
+        if (IsKeyPressed(KEY_A)) {
             palettePage = (palettePage - 1 + totalPages) % totalPages;
         }
-        if (IsKeyPressed(KEY_RIGHT)) {
+        if (IsKeyPressed(KEY_D)) {
             palettePage = (palettePage + 1) % totalPages;
         }
 
@@ -337,7 +330,7 @@ int main(int argc, char **argv) {
             DrawText(config->objects[i].name, gridAreaWidth + 50, y + 8, 16, RAYWHITE);
         }
 
-        DrawText("Ctrl+S: Save   G: Toggle grid   Left/Right: Palette page", 10, screenHeight - 25, 16, LIGHTGRAY);
+        DrawText("Ctrl+S: Save   G: Toggle grid   A/D: Palette page", 10, screenHeight - 25, 16, LIGHTGRAY);
         EndDrawing();
     }
 

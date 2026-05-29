@@ -62,10 +62,10 @@ void draw_map(engine_context_t *eng, level_config_t *map) {
 
             // Размер и позиция
             Rectangle dest_rec = {
-                i * 32, j * 32, 32, 32
+                j * 32, i * 32, 32, 32
             };
     
-            DrawTexturePro(eng->texture_manager.texture[map->layout->data[j][i]], source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);
+            DrawTexturePro(eng->texture_manager.texture[map->layout->data[i][j]], source_rec, dest_rec, (Vector2){0, 0}, 0, WHITE);
         }
     }
 }

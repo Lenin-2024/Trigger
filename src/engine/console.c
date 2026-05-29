@@ -7,10 +7,23 @@
 #include "console.h"
 #include "raylib.h"
 
+int just_opened = 1;
+
 void update_input(int pipe_to, console_t* consol, int *temu_run) {
+
     int key = GetCharPressed();
-    if ((key > 0) && (consol->cmd_pos < sizeof(consol->command) - 1)) {
+
+    if ((key > 0) && (consol->cmd_pos < sizeof(consol->command) - 1 && !just_opened)) {
         consol->command[consol->cmd_pos++] = key;
+    } else if ((key > 0) && (consol->cmd_pos < sizeof(consol->command) - 1)){
+        just_opened = 0;
+    }
+    
+    if (IsKeyPressed(KEY_F4)){
+        *temu_run = 0;
+        just_opened = 1;
+        consol->command[0] = '\0';
+        return;
     }
 
     if (IsKeyPressed(KEY_ENTER)) {
@@ -18,6 +31,7 @@ void update_input(int pipe_to, console_t* consol, int *temu_run) {
                     
         if (strcmp(consol->command, "exit") == 0) {
             *temu_run = 0;
+            just_opened = 1;
         }
                     
         strcpy(consol->last_command, consol->command);

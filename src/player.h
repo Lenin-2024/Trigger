@@ -29,7 +29,7 @@ typedef struct player player_t;
 player_t *create_player(Vector2 pos, int id);
 void update_player(player_t *player, struct engine_context *engine);
 void draw_player(player_t player, struct engine_context *engine);
-void check_collision_pl(level_config_t *map, player_t *player, int dir);
+void check_collision_pl(engine_context_t *engine, level_config_t *map, player_t *player, int dir);
 
 void player_entity_update(void *self, engine_context_t *engine);
 void player_entity_draw(void *self, engine_context_t *engine);

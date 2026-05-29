@@ -10,6 +10,7 @@
 #define QOS         0
 
 int main(int argc, char **argv) {
+    printf("%d - %s, %s, %s", argc, argv[0], argv[1], argv[2]);
     if (argc != 3) {
         fprintf(stderr, "[ INFO ] Useage %s door number %s status %s\n", argv[0], "1..n", "1 or 0");
         return 1;
