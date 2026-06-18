@@ -110,10 +110,10 @@ void update_player(player_t *player, engine_context_t *engine) {
 }
 
 void check_collision_pl(engine_context_t *engine, level_config_t *map, player_t *player, int dir) {
-    int start_x = (int)(player->pos.x / TILE_SIZE);
-    int start_y = (int)(player->pos.y / TILE_SIZE);
-    int end_x   = (int)((player->pos.x + 32) / TILE_SIZE);
-    int end_y   = (int)((player->pos.y + 64) / TILE_SIZE);
+    int start_x = (int)player->pos.x / TILE_SIZE;
+    int start_y = (int)player->pos.y / TILE_SIZE;
+    int end_x   = ((int)player->pos.x + 32 - 1) / TILE_SIZE;
+    int end_y   = ((int)player->pos.y + 64 - 1) / TILE_SIZE;
 
     for (int i = start_y; i <= end_y; i++) {
         for (int j = start_x; j <= end_x; j++) {
@@ -128,17 +128,17 @@ void check_collision_pl(engine_context_t *engine, level_config_t *map, player_t 
                 }
                 
                 if ((player->velocity.x > 0) && (dir == 0)) {
-                    player->pos.x = (j * TILE_SIZE) - 32 - 1;
+                    player->pos.x = (j * TILE_SIZE) - 32;
                     player->velocity.x = 0;
                 }
 
                 if ((player->velocity.x < 0) && (dir == 0)) {
-                    player->pos.x = (j * TILE_SIZE) + 32 + 1;
+                    player->pos.x = (j * TILE_SIZE) + 32;
                     player->velocity.x = 0;
                 }
 
                 if ((player->velocity.y > 0) && (dir == 1)) {
-                    player->pos.y = (i * TILE_SIZE) - 64 - 1;
+                    player->pos.y = (i * TILE_SIZE) - 64;
                     player->on_ground = 1;
                     player->velocity.y = 0;
                 }
