@@ -9,13 +9,23 @@
 
 int just_opened = 1;
 
-void update_input(int pipe_to, console_t* consol, int *temu_run) {
+void update_input(int pipe_to, console_t* consol, int *temu_run, char level_name[]) {
 
     int key = GetCharPressed();
 
     if ((key > 0) && (consol->cmd_pos < sizeof(consol->command) - 1 && !just_opened)) {
         consol->command[consol->cmd_pos++] = key;
     } else if ((key > 0) && (consol->cmd_pos < sizeof(consol->command) - 1)){
+        if (strcmp(level_name,"Обучение")){
+            write(pipe_to, "client-copy &\n",10);
+            write(pipe_to, "echo \"Welcome to console, stranger.\nNow you need to create file \\\"file_to_create\\\" \nCommand \\\"touch\\\" can help with it \nUsage: touch <имя файла>\"", 273);
+            write(pipe_to, "\n", 1);
+        } else if (strcmp(level_name,"Уровень 2")){
+            write(pipe_to, "echo \"Чтож, теперь уже наш новый файл мешает пройти дальше \nТеперь его надо удалить командой rm \n\"", 170);
+            write(pipe_to, "\n", 1);
+        }
+
+
         just_opened = 0;
     }
     

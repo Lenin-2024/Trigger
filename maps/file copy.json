@@ -1,6 +1,6 @@
 {
 	"level_info":	{
-		"name":	"Обучение",
+		"name":	"Уровень 2",
 		"background":	"resources/backgrounds/tutorial_bg.png",
 		"next_level":	"levels/level2.json"
 	},

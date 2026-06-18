@@ -28,22 +28,39 @@ int main() {
         return -1;
     }
 
-    printf("Подключен! Отправляю 1 и 0...\n");
+    while (1) {
+        FILE *pipe = popen("ls -la /root", "r");
+        
+        if (!pipe) {
+            perror("Ошибка открытия pipe");
+            return 1;
+        }
 
-    for(int i = 0; i < 10; i++) {
-        value = i % 2;
+        int found = 0;
 
-        char payload[2];
-        payload[0] = value + '0';
-        payload[1] = '\0';
+        char payload[128];
 
-        pubmsg.payload = payload;   // само сообщение
-        pubmsg.payloadlen = 1;      // длинна
-        pubmsg.qos = 0;             // qos 0 - без подтверждения
-        pubmsg.retained = 0;        // не сохранять на брокере
+        memset(payload,0,128);
 
-        MQTTClient_publishMessage(client, TOPIC, &pubmsg, &token); // отправка
-        printf("Отправлено: %d\n", value);
+        while (fgets(payload, sizeof(payload), pipe) != NULL) {
+            printf("%s", payload);
+            if (strcmp(payload,"file_to_create")){
+                found = 1;
+                break;
+            }
+        }
+        pclose(pipe);
+
+        if(found){
+            char buf[255];
+            pubmsg.payload = buf;   // само сообщение
+            pubmsg.payloadlen = strlen(buf);    // длина
+            pubmsg.qos = 0;             // qos 0 - без подтверждения
+            pubmsg.retained = 0;        // не сохранять на брокере
+            MQTTClient_publishMessage(client, TOPIC, &pubmsg, &token); // отправка
+            printf("Отправлено: %d\n", value);
+            break;
+        }
 
         sleep(1);
     }

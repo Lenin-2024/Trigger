@@ -162,7 +162,7 @@ void engine_shutdown(engine_context_t *engine) {
 
 void engine_update(engine_context_t *engine) {
     if (engine->temu_run) {
-        update_input(engine->stdin_pipe[1], &engine->console, &engine->temu_run);
+        update_input(engine->stdin_pipe[1], &engine->console, &engine->temu_run, engine->current_map->name);
         engine_update_console(engine);
     } else {
         if (engine->game_state == GAME_RUN) {

@@ -40,7 +40,7 @@ serv: src/serv.c
 	$(CC) $(CFLAGS) -o serv src/serv.c $(LIBS)
 
 client: src/client.c
-	$(CC) $(CFLAGS) -o client src/client.c $(LIBS)
+	$(CC) $(CFLAGS) -o client src/client-copy.c $(LIBS)
 
 copy-prog: client
 	mkdir -p /tmp/rootfs
