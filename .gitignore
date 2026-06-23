@@ -7,5 +7,7 @@ splitimg
 build_filelist
 test_entity_manager
 map_editor
+test/test_entity_manager
+test/test-console
 # net-prog/test_mqtt/paho.mqtt.c/
 # net-prog/paho.mqtt.c/
