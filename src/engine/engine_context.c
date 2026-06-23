@@ -48,11 +48,11 @@ int engine_init(engine_context_t *engine, int width, int height) {
     engine->screen_width = width;
     engine->screen_height = height;
 
-    InitWindow(engine->screen_width, engine->screen_height, "Завод? Снова завон?! Не хочу на звод!");
+    InitWindow(engine->screen_width, engine->screen_height, "Trigger");
     SetTargetFPS(60);
 
     memset(&engine->texture_manager, 0, sizeof(texture_manager_t));
-    engine->entity_manager = (10);
+    engine->entity_manager = create_entity_manager(10);
 
     /* Инициализация mqtt */
     MQTTAsync_create(&engine->mqtt_client, ADDRESS, CLIENTID, MQTTCLIENT_PERSISTENCE_NONE, NULL);

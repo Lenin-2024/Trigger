@@ -9,29 +9,59 @@
 
 int just_opened = 1;
 
+int start_tick_count = 0;
+
+int max_start_ticks = 4;
+
+float waitParameter = 0;
+
 void update_input(int pipe_to, console_t* consol, int *temu_run, char level_name[]) {
 
     int key = GetCharPressed();
 
     if ((key > 0) && (consol->cmd_pos < sizeof(consol->command) - 1 && !just_opened)) {
         consol->command[consol->cmd_pos++] = key;
-    } else if ((key > 0) && (consol->cmd_pos < sizeof(consol->command) - 1)){
-        if (strcmp(level_name,"Обучение")){
-            write(pipe_to, "client-copy &\n",10);
-            write(pipe_to, "echo \"Welcome to console, stranger.\nNow you need to create file \\\"file_to_create\\\" \nCommand \\\"touch\\\" can help with it \nUsage: touch <имя файла>\"", 273);
-            write(pipe_to, "\n", 1);
-        } else if (strcmp(level_name,"Уровень 2")){
-            write(pipe_to, "echo \"Чтож, теперь уже наш новый файл мешает пройти дальше \nТеперь его надо удалить командой rm \n\"", 170);
+    } else if ((key > 0) && (consol->cmd_pos < sizeof(consol->command) - 1) || start_tick_count > 0 && start_tick_count < max_start_ticks){
+        memset(consol->output_buf,0,strlen(consol->output_buf));
+        if (strcmp(level_name,"Обучение") == 0){
+            switch(start_tick_count){
+                case 1: 
+                    if (waitParameter > 1){
+                        waitParameter = 0;
+                        write(pipe_to, "cd root\n",9);
+                        start_tick_count++;
+                    }
+                    waitParameter += GetFrameTime(); 
+                    break;
+                case 2:  
+                    if (waitParameter > 1){
+                        waitParameter = 0;
+                        write(pipe_to, "client &\n",10);
+                        start_tick_count++;
+                    }
+                    waitParameter += GetFrameTime(); 
+                    break;
+                case 3: 
+                    start_tick_count++;
+                    write(pipe_to, "echo \"Welcome to console, stranger. Now you need to create file \n\\\"file_to_create\\\" \nCommand \\\"touch\\\" can help with it. Usage: touch <filename>\"", 145);
+                    write(pipe_to, "\n", 1);
+                    start_tick_count++;
+                    just_opened = 0;
+                    break;
+                case 0: 
+                    start_tick_count++;
+                
+            }
+        } else if (strcmp(level_name,"Уровень 2") == 0){
+            write(pipe_to, "echo \"AAAA\n\"", 170);
             write(pipe_to, "\n", 1);
         }
-
-
-        just_opened = 0;
     }
     
     if (IsKeyPressed(KEY_F4)){
         *temu_run = 0;
         just_opened = 1;
+        start_tick_count = 0;
         consol->command[0] = '\0';
         return;
     }
@@ -42,6 +72,7 @@ void update_input(int pipe_to, console_t* consol, int *temu_run, char level_name
         if (strcmp(consol->command, "exit") == 0) {
             *temu_run = 0;
             just_opened = 1;
+            start_tick_count = 0;
         }
                     
         strcpy(consol->last_command, consol->command);

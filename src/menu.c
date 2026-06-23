@@ -86,9 +86,9 @@ void menu_init(int width, int height) {
     menu_box_start_x = (width / 2) - ((menu_box_width / 2));
     menu_box_start_y = (height / 2) - ((menu_box_height / 2));
 
-    menu_start_button_texture = LoadTexture("resources/menu/ButtonsText/ButtonText_Large_Orange_Round.png");
+    menu_start_button_texture = LoadTexture("resources/menu/ButtonsText/PremadeButtons_Select.png");
     if ((menu_start_button_texture.width == 0) || (menu_start_button_texture.height == 0)) {
-        fprintf(stderr, "Не удалось загрузить текстуру %s!\n", "resources/menu/ButtonsText/ButtonText_Large_Orange_Round.png");
+        fprintf(stderr, "Не удалось загрузить текстуру %s!\n", "resources/menu/ButtonsText/PremadeButtons_Select.png");
         exit(1);
     }
     menu_start_button_width = menu_start_button_texture.width * 0.3;

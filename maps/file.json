@@ -16,13 +16,13 @@
 			"entity":	"player"
 		}, {
 			"id":	2,
-			"name":	"IndustrialTile_81",
+			"name":	"door",
 			"texture":	"resources/map/IndustrialTile_81.png",
 			"entity":	"door"
 		}, {
 			"id":	3,
-			"name":	"IndustrialTile_57",
-			"texture":	"resources/map/IndustrialTile_57.png",
+			"name":	"IndustrialTile_45",
+			"texture":	"resources/map/IndustrialTile_45.png",
 			"entity":	""
 		}, {
 			"id":	4,
@@ -31,8 +31,8 @@
 			"entity":	""
 		}, {
 			"id":	5,
-			"name":	"IndustrialTile_45",
-			"texture":	"resources/map/IndustrialTile_45.png",
+			"name":	"IndustrialTile_57",
+			"texture":	"resources/map/IndustrialTile_57.png",
 			"entity":	""
 		}],
 	"map":	{
@@ -40,6 +40,6 @@
 			"rows":	10,
 			"cols":	11
 		},
-		"data":	[[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4], [4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4], [4, 0, 3, 3, 0, 0, 0, 0, 0, 4, 4], [4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4], [4, 0, 0, 0, 2, 3, 0, 0, 0, 4, 4], [4, 1, 0, 0, 0, 0, 0, 0, 0, 4, 4], [4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4], [4, 0, 0, 0, 5, 0, 0, 0, 2, 4, 4], [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4], [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]]
+		"data":	[[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4], [4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4], [4, 0, 5, 5, 0, 0, 0, 0, 0, 4, 4], [4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4], [4, 0, 0, 0, 2, 5, 0, 0, 0, 4, 4], [4, 1, 0, 0, 0, 0, 0, 0, 0, 4, 4], [4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4], [4, 0, 0, 0, 3, 0, 0, 0, 2, 4, 4], [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4], [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]]
 	}
 }

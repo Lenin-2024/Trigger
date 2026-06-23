@@ -348,7 +348,7 @@ Suite* entity_manager_suite(void) {
     return s;
 }
 
-int main(void) {
+int main() {
     int number_failed;
     Suite *s = entity_manager_suite();
     SRunner *sr = srunner_create(s);

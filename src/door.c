@@ -16,7 +16,7 @@ door_t *create_door(Vector2 pos, int id, int texture_id) {
     if (!door) {
         return NULL;
     }
-
+    printf("beer\n");
     door->pos = pos;
     door->is_open = 0;
     door->max_height = pos.y - 32;

@@ -39,12 +39,13 @@ cisc:
 serv: src/serv.c
 	$(CC) $(CFLAGS) -o serv src/serv.c $(LIBS)
 
-client: src/client.c
+client: src/client-copy.c
 	$(CC) $(CFLAGS) -o client src/client-copy.c $(LIBS)
 
 copy-prog: client
 	mkdir -p /tmp/rootfs
 	sudo mount -o loop ../conf/rootfs.ext2 /tmp/rootfs
+	sudo rm -f /tmp/rootfs/usr/bin/client
 	sudo cp client  /tmp/rootfs/usr/bin/
 
 	@echo ==Проверка копирования файлов==
