@@ -4,7 +4,8 @@
 #include "raylib.h"
 #include "../src/engine/engine_context.h"
 #include "../src/engine/engine.h"
-
+#include "../src/map.h"
+#include "../src/menu.h"
 
 // Тестовые структуры данных
 typedef struct {
