@@ -52,7 +52,7 @@ int engine_init(engine_context_t *engine, int width, int height) {
     SetTargetFPS(60);
 
     memset(&engine->texture_manager, 0, sizeof(texture_manager_t));
-    engine->entity_manager = (10);
+    engine->entity_manager = create_entity_manager(10);
 
     /* Инициализация mqtt */
     MQTTAsync_create(&engine->mqtt_client, ADDRESS, CLIENTID, MQTTCLIENT_PERSISTENCE_NONE, NULL);
